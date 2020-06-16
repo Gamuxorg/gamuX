@@ -1,6 +1,6 @@
 # gamuX
 
-linuxgame.cn下一代主题(wordpress)，使用Vuejs
+linuxgame.cn下一代主题，框架基于wordpress5.x，后端使用php 7.x，前端使用Vuejs。
 
 ## 体验
 
@@ -9,6 +9,8 @@ git clone https://github.com/Gamuxorg/gamuX.git
 ```
 
 将文件夹放在wordpress的wp-content/themes里,在wordpress的后台切换主题即可。
+
+在线体验地址为<http://next.linuxgame.cn>
 
 ## 贡献
 
