@@ -39,53 +39,55 @@
 <body id="body">
 <div id="container">
 <header id="header" ref="headerstyle" :style="{display:display}">
-  <div id="site-logo">GAMUX</div>
+  <div id="header-div">
+    <div id="site-logo">GAMUX</div>
+    
+    <el-row id="header-row">
+      <el-col id="header-col">
+        <el-menu
+          id="left-menu"
+          default-active="2"
+          class="el-menu-vertical-demo">
+          <el-menu-item index="1">
+            <i class="el-icon-menu"></i>
+            <span slot="title">游戏列表</span>
+          </el-menu-item>
+          <el-menu-item index="2">
+            <i class="el-icon-news"></i>
+            <span slot="title">新闻资讯</span>
+          </el-menu-item>
+          <el-menu-item index="3">
+            <i class="el-icon-document"></i>
+            <span slot="title">帮助文档</span>
+          </el-menu-item>
+          <el-menu-item index="4">
+            <i class="el-icon-star-on"></i>
+            <span slot="title">愿望清单</span>
+          </el-menu-item>
+          <el-menu-item index="5">
+            <i class="el-icon-chat-line-square"></i>
+            <span slot="title">交流面板</span>
+          </el-menu-item>
+          <el-menu-item index="6">
+            <i class="el-icon-milk-tea"></i>
+            <span slot="title">打赏本站</span>
+          </el-menu-item>   
+        </el-menu>
+      </el-col>
+    </el-row>
   
-  <el-row id="header-row">
-    <el-col id="header-col">
-      <el-menu
-        id="left-menu"
-        default-active="2"
-        class="el-menu-vertical-demo">
-        <el-menu-item index="1">
-          <i class="el-icon-menu"></i>
-          <span slot="title">游戏列表</span>
-        </el-menu-item>
-        <el-menu-item index="2">
-          <i class="el-icon-news"></i>
-          <span slot="title">新闻资讯</span>
-        </el-menu-item>
-        <el-menu-item index="3">
-          <i class="el-icon-document"></i>
-          <span slot="title">帮助文档</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-star-on"></i>
-          <span slot="title">愿望清单</span>
-        </el-menu-item>
-        <el-menu-item index="5">
-          <i class="el-icon-chat-line-square"></i>
-          <span slot="title">交流面板</span>
-        </el-menu-item>
-        <el-menu-item index="6">
-          <i class="el-icon-milk-tea"></i>
-          <span slot="title">打赏本站</span>
-        </el-menu-item>   
-      </el-menu>
-    </el-col>
-  </el-row>
-
-  <el-row id="avatar">
-    <el-col class="avatar" :span="14" :offset="5">
-        <div class="block avatar-inner"><el-avatar class="avatar-pic"> 点击登录 </el-avatar></div>
-    </el-col>
-  </el-row>
-
-  <div id="techfrom">
-    <div class="techfrom-inner">
-      <div class="wplogo"><img src="<?php bloginfo('template_url'); ?>/img/wplogo.png"></div>
-      <div class="vuelogo"><img src="<?php bloginfo('template_url'); ?>/img/vuelogo.png"></div>
-      <div class="elementlogo"><i class="el-icon-eleme"></i></div>
+    <el-row id="avatar">
+      <el-col class="avatar" :span="14" :offset="5">
+          <div class="block avatar-inner"><el-avatar class="avatar-pic"> 点击登录 </el-avatar></div>
+      </el-col>
+    </el-row>
+  
+    <div id="techfrom">
+      <div class="techfrom-inner">
+        <div class="wplogo"><img src="<?php bloginfo('template_url'); ?>/img/wplogo.png"></div>
+        <div class="vuelogo"><img src="<?php bloginfo('template_url'); ?>/img/vuelogo.png"></div>
+        <div class="elementlogo"><i class="el-icon-eleme"></i></div>
+      </div>
     </div>
   </div>
 </header>

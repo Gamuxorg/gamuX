@@ -34,15 +34,36 @@ html,body {
   box-shadow: 1px 0 1px 1px rgba(230,230,230,0.2);
   overflow: hidden;
 }
+#header-div {
+  height: 100vh;
+  min-height: 500px;
+  width: 200px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+#header-div>div {
+  width: 200px;
+}
 #header-row,
 #header-col {
   height: auto;
 }
-#site-logo {
+#site-logo, #header-row,
+#avatar {
+  align-self: flex-start;
+}
+#techfrom {
+  align-self: flex-end;  
+}
+#site-logo  {
   text-align: center;
   padding: 1rem 1.5rem;
   font-size: 2.5rem;
   font-weight: 700;
+  height: 3rem;
+  line-height: 3rem;
   font-family: 'Roboto', sans-serif;
 }
 #left-menu>li.el-menu-item{
