@@ -1,0 +1,19 @@
+#cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 238px);
+  grid-gap: 30px 30px;
+  justify-content: space-evenly;
+}
+#cards:after {
+  content:"";
+  width: 50%;
+  border:1px solid transparent;
+}
+.pic {
+  text-align: center;
+  padding-top:10px;
+}
+.card img {
+  width: 216px;
+  height: 100px;
+}
