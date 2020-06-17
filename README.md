@@ -24,7 +24,7 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [ ] 增加更多登录方式(wechat/QQ等)
 * [ ] 前端基于restful api实现更好的文章列表
 * [ ] 一键调取steam游戏数据
-* [ ] 独立的wiki页面
+* [ ] 独立的文档页、新闻页
 * [ ] 更好的用户系统，有人@或回复消息，前端有提示
 * [ ] 更精确的数据统计
 * [ ] 更人性化的评论系统
