@@ -76,18 +76,14 @@
       </el-col>
     </el-row>
   
-    <el-row id="avatar">
-      <el-col class="avatar" :span="14" :offset="5">
-          <div class="block avatar-inner"><el-avatar class="avatar-pic"> 点击登录 </el-avatar></div>
-      </el-col>
-    </el-row>
+    <div id="avatar">
+      <div class="block avatar-inner">点击登录</div>
+    </div>
   
     <div id="techfrom">
-      <div class="techfrom-inner">
-        <div class="wplogo"><img src="<?php bloginfo('template_url'); ?>/img/wplogo.png"></div>
-        <div class="vuelogo"><img src="<?php bloginfo('template_url'); ?>/img/vuelogo.png"></div>
-        <div class="elementlogo"><i class="el-icon-eleme"></i></div>
-      </div>
+      <span class="wplogo"><img src="<?php bloginfo('template_url'); ?>/img/wplogo.png"></span>
+      <span class="vuelogo"><img src="<?php bloginfo('template_url'); ?>/img/vuelogo.png"></span>
+      <span class="elementlogo"><i class="el-icon-eleme"></i></span>
     </div>
   </div>
 </header>
