@@ -41,7 +41,13 @@
 <header id="header" ref="headerstyle" :style="{display:display}">
   <div id="header-div">
     <div id="site-logo">GAMUX</div>
-    
+
+    <div>
+      <el-input type="text" placeholder="请输入内容" id="header-search" name="headersearch" value="" size="small" suffix-icon="el-icon-search" v-model="headersearch">
+      <submit>
+      </el-input>
+    </div>
+
     <el-row id="header-row">
       <el-col id="header-col">
         <el-menu

@@ -40,7 +40,7 @@ html,body {
   width: 200px;
   display: grid;
   grid-template-columns: none;
-  grid-template-rows: 5rem 17rem 2rem auto;
+  grid-template-rows: 5rem 2rem 18rem 2rem auto;
   justify-items: center;
   align-items: center;
 }
@@ -55,6 +55,12 @@ html,body {
   font-size: 2.5rem;
   font-weight: 700;
   font-family: 'Roboto', sans-serif;
+}
+#header-search {
+  width: 160px;
+  border-top: hidden;
+  border-left: hidden;
+  border-right: hidden;
 }
 #left-menu>li.el-menu-item{
   font-size: 1rem;

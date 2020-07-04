@@ -1,6 +1,7 @@
 var gamux = new Vue ({
   el: '#container',
   data: {
+    headersearch: '',
     display: '',
     sectionMarginLeft: ''
   },

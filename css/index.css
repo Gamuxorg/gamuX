@@ -1,8 +1,15 @@
+#news {
+  padding-top: 1.5rem;
+}
 #cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 216px);
+/*   
+ * 图片尺寸为216*100，但el-card还有1px的border，需要216+2
+*/
+  grid-template-columns: repeat(auto-fill, 261.2px);
   grid-gap: 30px 30px;
   justify-content: space-evenly;
+  justify-items: center;
 }
 #cards:after {
   content:"";
@@ -10,9 +17,22 @@
   border:1px solid transparent;
 }
 .pic {
-  text-align: center;
+  height: 120px;
 }
 .card img {
-  width: 216px;
-  height: 100px;
+  width: 259.2px;
+  height: 120px;
+}
+.game-info {
+  padding: 2px 0;
+  width: 259.2px;
+  text-align: center;
+}
+.game-name,
+.game-version {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 240px;
+  margin: 0 auto;
 }
