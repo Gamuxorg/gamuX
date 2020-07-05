@@ -1,38 +1,76 @@
+:root {
+  --imgbase: 110;
+  --imgheight: calc(var(--imgbase) * 1px);
+  --imgwidth: calc(var(--imgbase) * 324 / 151 * 1px);
+}
 #news {
   padding-top: 1.5rem;
 }
 #cards {
   display: grid;
 /*   
- * 图片尺寸为216*100，但el-card还有1px的border，需要216+2
+ * 图片尺寸为宽*高，但el-card还有1px的border，需要宽+2px
 */
-  grid-template-columns: repeat(auto-fill, 261.2px);
-  grid-gap: 30px 30px;
+  grid-template-columns: repeat(auto-fill, calc(var(--imgwidth) + 2px));
+  grid-gap: 20px 30px;
   justify-content: space-evenly;
   justify-items: center;
+  margin-top: 1.5rem;
 }
-#cards:after {
-  content:"";
-  width: 50%;
-  border:1px solid transparent;
+#cards>.card {
+  border-radius: 5px;
+  box-shadow: 5px 3px 10px 2px rgba(0,0,0,.1);
+}
+#cards>.card:hover {
+  border: 1px solid dodgerblue;
+  box-shadow: 5px 3px 5px 2px rgba(30,144,255,.2);  
 }
 .pic {
-  height: 120px;
+  height: var(--imgheight);
 }
-.card img {
-  width: 259.2px;
-  height: 120px;
+.pic img {
+  width: var(--imgwidth);
+  height: var(--imgheight);
 }
 .game-info {
   padding: 2px 0;
-  width: 259.2px;
-  text-align: center;
+  width: var(--imgwidth);
+}
+.game-name-sort,
+.game-version-date {
+  width: calc(var(--imgwidth) * 0.95);
+  height: 1.2rem;
+  line-height: 1.2rem;
+  margin: 0 auto;
+  overflow: hidden;
 }
 .game-name,
-.game-version {
+.game-version,
+.game-sort,
+.game-date {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 240px;
-  margin: 0 auto;
+  float: left;
+}
+.game-name,
+.game-version {
+  width: calc(var(--imgwidth) * 0.95 - 70px);
+}
+.game-version,
+.game-sort,
+.game-date {
+  font-size: .8rem;
+}
+.game-sort,
+.game-date {
+  width: 70px;
+  text-align: right;
+  font-size: .8rem;
+}
+.game-sort>button {
+  padding: 0;
+}
+.game-date {
+  color: darkgrey;
 }

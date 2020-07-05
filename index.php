@@ -5,17 +5,21 @@
 get_header(); ?>
 
 <section id="cards">
-  <div class="card" v-for="{o,index} in 12" :key="o">
-    <el-card :body-style="{ padding: '0px' }" class="inner-card">
+    <el-card :body-style="{ padding: '0px' }" class="card" v-for="{o,index} in 12" :key="o">
       <div class="pic">
       <img src="https://media.st.dl.pinyuncloud.com/steam/apps/570/header.jpg?t=1591047995" class="image">
       </div>
       <div class="game-info">
-        <div class="game-name">刀塔-dota2是打发士大夫撒旦法师的法师打发第三方</div>
-        <div class="bottom clearfix game-version">1.35啊实打实地方撒旦法师的法师打发斯蒂芬</div>
+        <div class="game-name-sort">
+          <div class="game-name">刀塔2之大聪明的大聪明</div>
+          <div class="game-sort"><el-button type="text">即时战略</el-button></div>
+        </div>
+        <div class="game-version-date">
+          <div class="game-version">13.6.2.8</div>
+          <div class="game-date">2016-03-25</div>          
+        </div>
       </div>
     </el-card>
-  </div>
 </section>
 
 <section id="news">
@@ -26,17 +30,17 @@ get_header(); ?>
       style="width: 100%">
       <el-table-column
         prop="date"
-        label="日期"
+        label="游戏"
         width="180">
       </el-table-column>
       <el-table-column
         prop="name"
-        label="姓名"
+        label="用户"
         width="180">
       </el-table-column>
       <el-table-column
         prop="address"
-        label="地址">
+        label="评论内容">
       </el-table-column>
     </el-table>
   </template>

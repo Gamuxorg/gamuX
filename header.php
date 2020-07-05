@@ -18,7 +18,7 @@
 		?>
 	</title>
 	<link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/logo.ico">
-	<link crossorigin="anonymous" href="https://unpkg.com/element-ui@2.13.0/lib/theme-chalk/index.css" rel="stylesheet">
+  <link crossorigin="anonymous" integrity="sha384-O56yuCW/A5HUnuYx7ap1CJOXGXqaD3BxgKS9EDLgNUpNIE2BY7KsLJ+H5yr+CXpf" href="https://lib.baomitu.com/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
   <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/style.css">
   <link href="https://fonts.font.im/css?family=Roboto:400,900" rel="stylesheet">
   <?php if(is_single()) { ?>
@@ -93,4 +93,4 @@
     </div>
   </div>
 </header>
-<div id="section" :style="{ marginLeft: sectionMarginLeft + 'px' }">
+<div id="section" :style="{ paddingLeft: sectionMarginLeft + 'px' }">
