@@ -23,7 +23,7 @@
 }
 #cards>.card:hover {
   border: 1px solid dodgerblue;
-  box-shadow: 5px 3px 5px 2px rgba(30,144,255,.2);  
+  box-shadow: 3px 2px 6px 0px rgba(30,144,255,.5);  
 }
 .pic {
   height: var(--imgheight);
