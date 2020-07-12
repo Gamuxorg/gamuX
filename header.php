@@ -20,7 +20,7 @@
 	<link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/logo.ico">
   <link crossorigin="anonymous" integrity="sha384-O56yuCW/A5HUnuYx7ap1CJOXGXqaD3BxgKS9EDLgNUpNIE2BY7KsLJ+H5yr+CXpf" href="https://lib.baomitu.com/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
   <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/style.css">
-  <link href="https://fonts.font.im/css?family=Roboto:400,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <?php if(is_single()) { ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/single.css">
     <style>

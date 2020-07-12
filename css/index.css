@@ -3,9 +3,41 @@
   --imgheight: calc(var(--imgbase) * 1px);
   --imgwidth: calc(var(--imgbase) * 324 / 151 * 1px);
 }
+
+/*
+ ***********************新闻、评论显示区域************************
+*/
 #news {
-  padding-top: 1.5rem;
 }
+.el-row {
+  margin-right: 0!important;
+}
+#news .el-col {
+  margin: .5rem 0;
+}
+.el-card__header {
+  padding: 10px;
+}
+#news .el-card__body {
+  padding: 0px 10px;
+}
+.el-collapse {
+  border: 0;
+}
+.el-collapse-item__content {
+  padding-bottom: .5rem;
+}
+.el-card__body .text {
+  height: 2rem;
+  line-height: 2rem;
+}
+.image img {
+  max-width: 100%;
+  height: auto;
+}
+/*
+ ***********************游戏卡片显示区域************************
+*/
 #cards {
   display: grid;
 /*   
@@ -15,7 +47,10 @@
   grid-gap: 20px 30px;
   justify-content: space-evenly;
   justify-items: center;
-  margin-top: 1.5rem;
+  margin: 1rem 0;
+}
+#cards .el-card__body {
+  padding: 0;
 }
 #cards>.card {
   border-radius: 5px;
