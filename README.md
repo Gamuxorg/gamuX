@@ -30,3 +30,4 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [ ] 更人性化的评论系统
 * [ ] 兼容wordpress 5.x
 * [ ] 优化后台数据库表
+* [ ] 编写网站的隐私政策
