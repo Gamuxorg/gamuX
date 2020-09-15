@@ -20,7 +20,7 @@
 	<link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/logo.ico">
   <link crossorigin="anonymous" integrity="sha384-O56yuCW/A5HUnuYx7ap1CJOXGXqaD3BxgKS9EDLgNUpNIE2BY7KsLJ+H5yr+CXpf" href="https://lib.baomitu.com/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
   <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <?php if(is_single()) { ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/single.css">
     <style>
@@ -38,12 +38,12 @@
 </head>
 <body id="body">
 <div id="container">
-<header id="header" ref="headerstyle" :style="{display:display}">
+<header id="header">
   <div id="header-div">
     <div id="site-logo">GAMUX</div>
 
     <div>
-      <el-input type="text" placeholder="请输入内容" id="header-search" name="headersearch" value="" size="small" suffix-icon="el-icon-search" v-model="headersearch">
+      <el-input type="text" placeholder="请输入内容" id="header-search" name="headersearch" value="" size="small" suffix-icon="el-icon-search">
       <submit>
       </el-input>
     </div>
@@ -93,4 +93,4 @@
     </div>
   </div>
 </header>
-<div id="section" :style="{ paddingLeft: sectionMarginLeft + 'px' }">
+<div id="section">

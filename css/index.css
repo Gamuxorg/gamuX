@@ -3,38 +3,44 @@
   --imgheight: calc(var(--imgbase) * 1px);
   --imgwidth: calc(var(--imgbase) * 324 / 151 * 1px);
 }
-
 /*
- ***********************新闻、评论显示区域************************
+ ***********************轮播/新闻显示区域************************
 */
-#news {
+.car-car>.el-carousel__container {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.17%;
 }
-.el-row {
-  margin-right: 0!important;
+.car-car img {
+  width: 100%;
+  height: 100%;
 }
-#news .el-col {
-  margin: .5rem 0;
+.car-col-2 {
+  text-align: center;
+  overflow-y: hidden;
 }
-.el-card__header {
-  padding: 10px;
+.car-col2-first,
+.car-col2-second {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-#news .el-card__body {
-  padding: 0px 10px;
-}
-.el-collapse {
-  border: 0;
-}
-.el-collapse-item__content {
-  padding-bottom: .5rem;
-}
-.el-card__body .text {
+.car-col2-first {
   height: 2rem;
   line-height: 2rem;
 }
-.image img {
-  max-width: 100%;
-  height: auto;
+.car-col2-first a {
+  color: #1989fa;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-decoration: none;
 }
+.car-col2-second a {
+  color: dimgray;
+  text-decoration: none;
+}
+
 /*
  ***********************游戏卡片显示区域************************
 */

@@ -181,7 +181,7 @@ add_action('template_redirect', 'templateRedirect');*/
  * 1.4 Rest API 修改
 */
 //1.4.1 增加posts API里的缩略图字段
-
+/*
 add_action( 'rest_api_init', 'slug_register_starship' );
 function slug_register_starship() {
     register_rest_field( 'post', 'gmeta', array(
@@ -191,6 +191,7 @@ function slug_register_starship() {
         )
     );
 }
+*/
 function list_the_tags() {
 	global $post;
 	//输出tag列表
@@ -207,7 +208,7 @@ function list_the_tags() {
 		return $c;
 	}
 }
-function rest_post_gmeta() {
+/*function rest_post_gmeta() {
 	global $post;
 	$a[0] = get_thumbnail_url($post->ID);
 	$a[1] = downlist_array();
@@ -216,7 +217,7 @@ function rest_post_gmeta() {
 	$a[4] = list_the_tags();
   $a[5] = get_the_author();
   return $a;
-}
+}*/
 
 /*
  * 第二部分，前台
