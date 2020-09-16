@@ -4,6 +4,31 @@
   --imgwidth: calc(var(--imgbase) * 324 / 151 * 1px);
 }
 /*
+ **********************区分线**********************************
+*/
+.underline {
+  width:98%;
+  height: 1.5rem;
+  margin: 0 auto;
+  border-bottom: 2px dashed #409eff;
+  color:  #409eff;
+}
+.ul-left {
+  position: relative;
+  float: left;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+.ul-right {
+  position: relative;
+  float: right;
+  font-size: 12px;
+  height: 1.5rem;
+  line-height: 1.5rem;
+}
+
+/*
  ***********************轮播/新闻显示区域************************
 */
 .car-car>.el-carousel__container {
@@ -114,4 +139,41 @@
 }
 .game-date {
   color: darkgrey;
+}
+
+/*
+ ***************************杂货铺******************************
+*/
+.comment-card>div {
+  padding: 4px 8px;
+}
+.comment-text {
+  min-height: 1.2rem;
+  padding-top: 0.3rem;
+  border-bottom: 1px dotted #333333;
+}
+.comment-text .reply-game {
+  float: left;
+  margin-right: 3px;
+  margin-top: -3px;
+}
+.comment-text .el-tag {
+  height: 1.3rem;
+  line-height: 1.3rem;
+  padding: 0 2px;
+}
+.comment-text a {
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.comment-reply {
+  font-size: 0.7rem;
+  margin-right: 0.5rem;
+}
+.comment-reply>.el-badge__content {
+  height: 10px;
+  font-size: 0.5rem;
+  padding: 1px 3px;
+  line-height: 10px;
+  background-color: #efc9ffc9;
 }

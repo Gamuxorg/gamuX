@@ -37,6 +37,11 @@ get_header(); ?>
 </el-row>
 </section>
 
+<div class="underline">
+  <div class="ul-left">游戏上新</div>
+  <div class="ul-right">更多>></div>
+</div>
+
 <section id="cards">
     <el-card class="card" v-for="{o,index} in 8" :key="o">
       <div class="pic">
@@ -53,6 +58,67 @@ get_header(); ?>
         </div>
       </div>
     </el-card>
+</section>
+
+<div class="underline">
+  <div class="ul-left">杂货铺</div>
+  <div class="ul-right"></div>
+</div>
+
+<section id="grocery">
+<el-row :gutter="10">
+
+  <el-col class="gro-col-1" ref="grocol1" :xs="24" :sm="12" :md="12" :lg="10">
+    <el-card class="comment-card box-card">
+      <div slot="header" class="commment-header clearfix">
+        <span>游戏评论</span>
+        <el-button style="float: right; padding: 3px 0" type="text">更多评论</el-button>
+      </div>
+      <div class="comment-list text item">
+      <?php
+      $comments = get_comments('status=approve&number=5&order=asc');
+      foreach($comments as $comment) :
+      ?>
+        <div class="comment-text" v-for="o in 8" :key="o">
+          <div class="reply-game"><el-tag>dota2</el-tag></div>
+          <el-badge :value="11" :max="9" class="comment-reply item">
+            <span class="reply-text">回复</span>
+          </el-badge>
+          <a href="<?php echo esc_url( get_comment_link($comment->comment_ID) ); ?>">
+            <?php echo  mb_strimwidth($comment->comment_content, 0, 50, '...'); ?>*点此开怼*
+          </a>
+        </div>
+      <?php endforeach;?>
+      </div>
+    </el-card>
+  </el-col>
+
+  <el-col class="gro-col-1" ref="grocol1" :xs="24" :sm="12" :md="12" :lg="10">
+    <el-card class="comment-card box-card">
+      <div slot="header" class="commment-header clearfix">
+        <span>愿望清单</span>
+        <el-button style="float: right; padding: 3px 0" type="text">更多评论</el-button>
+      </div>
+      <div class="comment-list text item">
+      <?php
+      $comments = get_comments('status=approve&number=5&order=asc');
+      foreach($comments as $comment) :
+      ?>
+        <div class="comment-text" v-for="o in 8" :key="o">
+          <div class="reply-game"><el-tag>dota2</el-tag></div>
+          <el-badge :value="11" :max="9" class="comment-reply item">
+            <span class="reply-text">回复</span>
+          </el-badge>
+          <a href="<?php echo esc_url( get_comment_link($comment->comment_ID) ); ?>">
+            <?php echo  mb_strimwidth($comment->comment_content, 0, 50, '...'); ?>*点此开怼*
+          </a>
+        </div>
+      <?php endforeach;?>
+      </div>
+    </el-card>
+  </el-col>
+
+</el-row>
 </section>
 
 </section>
