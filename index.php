@@ -93,27 +93,16 @@ get_header(); ?>
     </el-card>
   </el-col>
 
-  <el-col class="gro-col-1" ref="grocol1" :xs="24" :sm="12" :md="12" :lg="10">
-    <el-card class="comment-card box-card">
-      <div slot="header" class="commment-header clearfix">
+  <el-col class="gro-col-2" ref="grocol2" :xs="24" :sm="12" :md="12" :lg="10">
+    <el-card class="wish-card box-card">
+      <div slot="header" class="wish-header clearfix">
         <span>愿望清单</span>
         <el-button style="float: right; padding: 3px 0" type="text">更多评论</el-button>
       </div>
-      <div class="comment-list text item">
-      <?php
-      $comments = get_comments('status=approve&number=5&order=asc');
-      foreach($comments as $comment) :
-      ?>
-        <div class="comment-text" v-for="o in 8" :key="o">
-          <div class="reply-game"><el-tag>dota2</el-tag></div>
-          <el-badge :value="11" :max="9" class="comment-reply item">
-            <span class="reply-text">回复</span>
-          </el-badge>
-          <a href="<?php echo esc_url( get_comment_link($comment->comment_ID) ); ?>">
-            <?php echo  mb_strimwidth($comment->comment_content, 0, 50, '...'); ?>*点此开怼*
-          </a>
+      <div class="wish-lists text item">
+        <div class="wish-text" v-for="wish in wishlist">
+          {{ wish.title }}
         </div>
-      <?php endforeach;?>
       </div>
     </el-card>
   </el-col>

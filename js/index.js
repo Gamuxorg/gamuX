@@ -7,6 +7,7 @@ var index = new Vue({
       {src: "https://media.st.dl.pinyuncloud.com/steam/apps/458710/ss_76881eb3fdb62c63ae71ec2b6737ce8321ffabe0.600x338.jpg?t=1560522460"}
     ],
     carHeight: 0,
+    wishlist: null,
   },
   methods: {
     getCarUrl: function(url) {
@@ -14,18 +15,40 @@ var index = new Vue({
     },
     getCarHeight: function() {
       return this.$refs.carcol1.$el.clientHeight;
+    },
+    getWishList: function(url, callback) {
+      axios({
+        method: 'get',
+        url: url,
+        responseType: 'json',
+        params: {
+          accept: 'application/vnd.github.v3+json',
+          filter: 'all',
+          state: 'open',
+          per_page: 10,
+          page: 1,
+          labels: '请求游戏',
+        },
+      }).then(function(response) {
+          callback(response.data);
+        });
     }
   },
   mounted: function(){
     this.$nextTick(function(){
       this.carHeight = this.getCarHeight();
     });
+    
     const that = this;
     window.onresize = function(){
       calTime1 = setTimeout(function(){
         that.carHeight = that.getCarHeight();
       }, 500);
     };
+
+    that.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues',function(data){
+      that.wishlist = data;
+    });
   },
   watch: {
     carHeight: function(val){
