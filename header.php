@@ -27,6 +27,7 @@
     #main {
       background-image: url(<?php echo get_post_meta($post->ID, 'bg')[0]; ?>);
     }
+    </style>
   <?php } elseif(is_home()) { ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/index.css">
   <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'gamelist') != false)){ ?>
