@@ -10,8 +10,8 @@
 remove_action( 'wp_head', 'wp_generator' );
 remove_action( 'wp_head', 'wlwmanifest_link' );
 remove_action( 'wp_head', 'rsd_link' );
-define( 'WP_POST_REVISIONS', 1);//只保存最近两次的版本修订
-define( 'AUTOSAVE_INTERVAL', 30);//每30秒自动保存一次
+//define( 'WP_POST_REVISIONS', 1);//只保存最近两次的版本修订
+//define( 'AUTOSAVE_INTERVAL', 30);//每30秒自动保存一次
 
 //1.1.2关闭rss
 //默认开启rss
@@ -297,3 +297,6 @@ function new_excerpt_more($excerpt) {
     return "....";
     }
     add_filter("excerpt_more", "new_excerpt_more");
+
+//2.4 增加文章模板
+get_template_part( 'template/config' );

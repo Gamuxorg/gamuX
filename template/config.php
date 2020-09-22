@@ -1,18 +1,48 @@
 <?php
+//from https://wordpress.stackexchange.com/questions/217027/undefined-constant-with-debug-set-to-true
+function gamux_single_template($template) {
+    echo "asdsdf";
+    // Get the current single post object
+    $post = get_queried_object();
+    // Set our 'constant' folder path
+    $path = 'template/';
+    $single_slug_head = 'single-slugs-';
 
-TEMPLATE_DIR = "/template";
-SINGLE_COMMON_NAME = "single-";
+    // Set our variable to hold our templates
+    $templates = [];
 
-//定义模板文件存放目录
- define(SINGLE_PATH, TEMPLATEPATH . $TEMPLATE_DIR);
- //自动选择模板的函数
- function gamux_single_template($single) {
-  global $wp_query, $post;
-  //通过分类别名或ID选择模板文件
-  foreach((array)get_the_category() as $cat) :
-    if(file_exists(SINGLE_PATH . $SINGLE_COMMON_NAME . $cat->slug . '.php'))
-      return SINGLE_PATH . $SINGLE_COMMON_NAME . $cat->slug . '.php';
- }
- //通过 single_template 钩子挂载函数
- add_filter('single_template', 'mobantu_single_template');
- ?>
+    // Lets handle the custom post type section
+    if ( 'post' != $post->post_type ) {
+        $templates[] = $path . 'single-' . $post->post_type . '-' . $post->post_name . '.php';
+        $templates[] = $path . 'single-' . $post->post_type . '.php';
+    }
+
+    // Lets handle the post post type stuff
+    if ( 'post' == $post->post_type ) {
+        // Get the post categories
+        $categories = get_the_category( $post->ID );
+        // Just for incase, check if we have categories
+        if ( $categories ) {
+            foreach ( $categories as $category ) {
+                // Create possible template names
+                $templates[] = $path . 'single-slugs-' . $category->slug . '.php';
+//                $templates[] = $path . $single_slug_head . $category->term_id . '.php';
+            } //endforeach
+        } //endif $categories
+    } // endif  
+
+    // Set our fallback templates
+    $templates[] = $path . 'single.php';
+    $templates[] = $path . 'term.php';
+
+    /**
+     * Now we can search for our templates and load the first one we find
+     * We will use the array ability of locate_template here
+     */
+    $template = locate_template( $templates );
+
+    // Return the template rteurned by locate_template
+    return $template;
+    var_dump($template);
+}
+add_filter( 'single_template', 'gamux_single_template');
