@@ -28,6 +28,6 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [ ] 更好的用户系统，有人@或回复消息，前端有提示
 * [ ] 更精确的数据统计
 * [ ] 更人性化的评论系统
-* [ ] 兼容wordpress 5.x
+* [ x ] 兼容wordpress 5.x
 * [ ] 优化后台数据库表
 * [ ] 编写网站的隐私政策
