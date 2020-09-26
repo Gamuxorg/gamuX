@@ -3,7 +3,7 @@
  * 首页模板
 */
 get_header(); ?>
-<section id="carousel" ref="car" :style="{height: carHeight + 'px'}">
+<section id="carousel" ref="car">
 <el-row :gutter="10">
 
   <el-col class="car-col-1" ref="carcol1" :xs="24" :sm="12" :md="12" :lg="10">

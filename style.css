@@ -27,12 +27,12 @@ html,body {
 /**
  * 头部
  */
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 576px) {
     #header {
         display: none;
     }
 }
-@media screen and (min-width:576px) {
+@media screen and (min-width:577px) {
     #header {
         display: block;
     }
@@ -42,11 +42,11 @@ html,body {
   border-right: solid 1px #e6e6e6;
   box-shadow: 1px 0 1px 1px rgba(230,230,230,0.2);
   overflow: hidden;
+  width: 200px;
 }
 #header-div {
   height: 100vh;
   min-height: 500px;
-  width: 200px;
   display: grid;
   grid-template-columns: none;
   grid-template-rows: 5rem 2rem 18rem 2rem auto;
@@ -134,6 +134,7 @@ html,body {
   flex-grow: 1;
   overflow-y: scroll;
   display: block;
+  width: min-content;
 }
 
 #inner-section {
