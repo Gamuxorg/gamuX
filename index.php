@@ -3,7 +3,6 @@
  * 首页模板
 */
 get_header(); ?>
-<?php var_dump(get_queried_object()); ?>
 <section id="carousel" ref="car" :style="{height: carHeight + 'px'}">
 <el-row :gutter="10">
 

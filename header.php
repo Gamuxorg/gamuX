@@ -95,3 +95,7 @@
   </div>
 </header>
 <div id="section">
+  <div id="mobile-header">
+
+  </div>
+  <div id="inner-section">

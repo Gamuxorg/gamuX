@@ -1,7 +1,6 @@
 <?php
 //from https://wordpress.stackexchange.com/questions/217027/undefined-constant-with-debug-set-to-true
 function gamux_single_template($template) {
-    echo "asdsdf";
     // Get the current single post object
     $post = get_queried_object();
     // Set our 'constant' folder path
@@ -25,7 +24,7 @@ function gamux_single_template($template) {
         if ( $categories ) {
             foreach ( $categories as $category ) {
                 // Create possible template names
-                $templates[] = $path . 'single-slugs-' . $category->slug . '.php';
+                $templates[] = $path . $single_slug_head . $category->slug . '.php';
 //                $templates[] = $path . $single_slug_head . $category->term_id . '.php';
             } //endforeach
         } //endif $categories
@@ -43,6 +42,5 @@ function gamux_single_template($template) {
 
     // Return the template rteurned by locate_template
     return $template;
-    var_dump($template);
 }
 add_filter( 'single_template', 'gamux_single_template');

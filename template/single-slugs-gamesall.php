@@ -1,6 +1,7 @@
 <?php 
 /*
- * 首页模板
+ * games-all template
 */
 get_header(); ?>
-asdasddfgdfg
+
+<? get_footer(); ?>
