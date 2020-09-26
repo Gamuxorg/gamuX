@@ -41,8 +41,7 @@
 <div id="container">
 <header id="header">
   <div id="header-div">
-    <div id="site-logo">GAMUX</div>
-
+    <div id="site-logo"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">GAMUX</a></div>
     <div>
       <el-input type="text" placeholder="请输入内容" id="header-search" name="headersearch" value="" size="small" suffix-icon="el-icon-search">
       <submit>

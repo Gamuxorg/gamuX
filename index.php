@@ -38,7 +38,6 @@ get_header(); ?>
 
 <div class="underline">
   <div class="ul-left">游戏上新</div>
-  <div class="ul-right">更多>></div>
 </div>
 
 <section id="cards">
@@ -53,7 +52,7 @@ get_header(); ?>
         </div>
         <div class="game-version-date">
           <div class="game-version">13.6.2.8</div>
-          <div class="game-date">2016-03-25</div>      
+          <div class="game-date">2016-03-25</div>  
         </div>
       </div>
     </el-card>

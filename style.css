@@ -27,12 +27,12 @@ html,body {
 /**
  * 头部
  */
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 575px) {
     #header {
         display: none;
     }
 }
-@media (min-width:577px) and screen {
+@media screen and (min-width:576px) {
     #header {
         display: block;
     }
@@ -56,6 +56,10 @@ html,body {
 #header-row,
 #header-col {
   height: auto;
+}
+#site-logo a {
+  text-decoration: none;
+  color: #409eff;
 }
 #techfrom {
   align-self: flex-end; 
@@ -131,7 +135,9 @@ html,body {
   overflow-y: scroll;
   display: block;
 }
-#section section {
+
+#inner-section {
+  position: relative;
   width: 98%;
   margin: 1rem auto;
 }

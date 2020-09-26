@@ -1,0 +1,14 @@
+.breadcrumb {
+  border-bottom: 2px dashed #409eff;
+}
+.el-page-header__title,
+.el-page-header__content,
+.el-page-header__left>.el-icon-back {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #409eff;
+}
+.el-page-header__left::after {
+  width: 3px;
+  height: 1.2rem;
+  background-color: #409eff;

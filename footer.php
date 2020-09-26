@@ -7,6 +7,10 @@
 <script src="<?php bloginfo('template_url'); ?>/js/common.js"></script>
 <?php if (is_home() || is_front_page()) { ?>
     <script src="<?php bloginfo('template_url'); ?>/js/index.js"></script>
+<?php } else if (is_single()) { ?>
+    <script src="<?php bloginfo('template_url'); ?>/js/single.js"></script>
+<?php } else { ?>
+
 <?php } ?>
 <?php wp_footer(); ?>
 </body>

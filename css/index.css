@@ -3,13 +3,16 @@
   --imgheight: calc(var(--imgbase) * 1px);
   --imgwidth: calc(var(--imgbase) * 324 / 151 * 1px);
 }
+#inner-section>div,
+#inner-section>section {
+  width:100%;
+}
 /*
  **********************区分线**********************************
 */
 .underline {
-  width:98%;
   height: 1.5rem;
-  margin: 0 auto;
+  margin: 1rem auto;
   border-bottom: 2px dashed #409eff;
   color:  #409eff;
 }
@@ -78,7 +81,7 @@
   grid-gap: 20px 30px;
   justify-content: space-evenly;
   justify-items: center;
-  margin: 1rem 0;
+  margin: 0;
 }
 #cards .el-card__body {
   padding: 0;
