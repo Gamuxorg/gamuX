@@ -7,6 +7,7 @@
 	/**
 	 * 获取首页的轮播图片，按照上个月下载量排名
 	 * 目前暂时先返回随机的图片
+	 * 使用： images.php?action=mainslidepic
 	 * 
 	 */
 	class MainSlidePic {
