@@ -1,7 +1,7 @@
 <?php
 	namespace Gamux;
 
-	require_once $_SERVER['DOCUMENT_ROOT']. '/wordpress' . '/wp-load.php';
+	require_once $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php';
 	wp();
 
 	/**
