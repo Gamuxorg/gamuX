@@ -11,7 +11,7 @@ get_header(); ?>
   <el-col id="game-main" :xs="24" :sm="18" :md="18" :lg="19">
     <section class="game-content">
       <div id="game-title">
-        {{ gamename }}
+        {{ catname }}
       </div>
       <div id="game-intro">
         {{ gamecontent }}

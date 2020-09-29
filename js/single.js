@@ -27,13 +27,24 @@ var game = new Vue({
       }).then(function(response) {
           callback(response.data);
         });
+    },
+    getPostId: function(url, callback) {
+      axios({
+        method: 'get',
+        url: url,
+        responseType: 'HEAD',
+      }).then(function(response) {
+          callback(response.data);
+        });
     }
+
   },
   mounted: function() {
     this.siteurl = this.getSiteUrl();
+    this.catname = this.getPostId();
     const that = this;
-    that.getPostJson(that.siteurl + '/wp-json/wp/v2/posts/1',function(data){
-      console.log(data);
+    that.getPostJson(that.siteurl + '/wp-json/wp/v2/posts/5',function(data){
+      that.gamecontent = data;
     });
   },
 })

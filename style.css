@@ -27,12 +27,12 @@ html,body {
 /**
  * 头部
  */
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 614px) {
     #header {
         display: none;
     }
 }
-@media screen and (min-width:577px) {
+@media screen and (min-width: 615px) {
     #header {
         display: block;
     }
