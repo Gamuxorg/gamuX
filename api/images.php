@@ -1,9 +1,5 @@
 <?php
 	namespace Gamux;
-
-	require_once $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php';
-	wp();
-
 	/**
 	 * 获取首页的轮播图片，按照上个月下载量排名
 	 * 目前暂时先返回随机的图片
@@ -102,28 +98,15 @@
 		}
 	} //class
 
-	if(isset($_REQUEST['action'])) {
-		if(!empty($_REQUEST['action'])) {
-			switch($_REQUEST['action']) {
-				case "mainslidepic":
-					$slides = new MainSlidePic();
-					if(!empty($_REQUEST['mainslidepicnum'])) {
-						if(is_numeric((int)$_REQUEST['mainslidepicnum'])) {
-							$picNum = (int)$_REQUEST['mainslidepicnum'];
-							$imgSrcs = $slides->getImageSrcs($picNum);
-						}
-						else
-							$imgSrcs = $slides->getImageSrcs();
-					}
-					else
-						$imgSrcs = $slides->getImageSrcs();
-					echo json_encode($imgSrcs);
-					break;
-				default:
-					break;
-			}
-		}
+	//获取首页的轮播图片，在route.php中调用
+	function get_mainSlide(\WP_REST_Request $request) {
+		$picNum = (int)$request->get_param('picnum');
+		$slides = new MainSlidePic();
+		if(!empty($picNum)) 
+			$imgSrcs = $slides->getImageSrcs($picNum);
+		else
+			$imgSrcs = $slides->getImageSrcs();	
+		
+		return $imgSrcs;
 	}
-	else
-		echo 0;
 ?>

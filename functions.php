@@ -300,3 +300,6 @@ function new_excerpt_more($excerpt) {
 
 //2.4 增加文章模板
 get_template_part( 'template/config' );
+
+//添加 REST-API 路由
+include("api/route.php");
