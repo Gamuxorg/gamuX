@@ -16,10 +16,10 @@ get_header(); ?>
       <div id="game-intro" v-html="postcontent"></div>
     </section>
     <section class="game-download">
-    {{ siteurl }}
+    <a :href="siteurl">下载地址</a>
     </section>    
     <section class="game-commit">
-    sdfadsf
+    游戏评论
     </section>
   </el-col>
 

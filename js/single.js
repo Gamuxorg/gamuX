@@ -2,10 +2,10 @@ var game = new Vue({
   el: '#section',
   data: {
     //数据绑定
-    postname: "游戏名获取失败",
-    catname: "获取分类失败",
+    postname: "游戏名加载中...",
+    catname: "游戏分类加载中...",
     caturl: 'goback',
-    postcontent: "123",
+    postcontent: "游戏内容加载中...",
     siteurl: "https://www.linuxgame.cn",
     cururl: "",
   },
@@ -38,8 +38,8 @@ var game = new Vue({
     postdata = urldata.data;
     console.log(postdata);
     postterm = postdata["_embedded"]["wp:term"][0];
-    this.catname = postterm[0]["name"];
-    this.caturl = postterm[0]["link"];
+    this.catname = postterm[0].name;
+    this.caturl = postterm[0].link;
     this.postname = postdata.title.rendered;
     this.postcontent = postdata.content.rendered;
   },
