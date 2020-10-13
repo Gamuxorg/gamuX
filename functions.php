@@ -73,7 +73,7 @@ add_filter('pre_option_link_manager_enabled','__return_true');
  * 1.2 修改wordpress功能
 **/
 //1.2.1修改自带jq调用规则
-/*
+
 if ( !is_admin() ) { // 后台不禁止
     function my_init_method() {
     wp_deregister_script( 'jquery' ); // 取消原有的 jquery 定义
@@ -81,7 +81,7 @@ if ( !is_admin() ) { // 后台不禁止
 add_action('init', 'my_init_method');
 }
 wp_deregister_script( 'l10n' );
-*/
+
 //1.2.2 获取当前页面url
 function curPageURL()
 {
