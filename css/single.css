@@ -12,3 +12,18 @@
   width: 3px;
   height: 1.2rem;
   background-color: #409eff;
+}
+#post section {
+  margin-top: .5rem;
+}
+#post-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+#post-intro p {
+  margin-top: .2rem;
+  margin-bottom: .2rem;
+}
+#post-edit button {
+  padding: 6px 15px;
+}

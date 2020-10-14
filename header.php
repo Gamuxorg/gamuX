@@ -34,6 +34,8 @@
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/category.css">
   <?php } elseif(is_search()){ ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/search.css">
+  <?php } elseif(is_single()) { ?>
+    <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/single.css">
   <?php } else { echo ""; } ?>
 	<?php wp_head(); ?>
 </head>
