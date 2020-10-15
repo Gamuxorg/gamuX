@@ -8,6 +8,10 @@ var game = new Vue({
     postcontent: "游戏内容加载中...",
     siteurl: "https://www.linuxgame.cn",
     cururl: "",
+    buyurls: [
+      {text: "在Steam购买本游戏", url: "http://www.baidu.com"},
+      {text: "在GOG购买本游戏", url: "http://www.360.cn"}
+    ],
   },
   methods: {
     //数据绑定

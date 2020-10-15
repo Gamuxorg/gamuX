@@ -32,8 +32,14 @@ get_header(); ?>
       <el-image src="https://media.st.dl.pinyuncloud.com/steam/apps/458710/header.jpg?t=1601048208" fit="fill"></el-image>
     </section>
     <section id="post-buy">
-      <el-button type="primary" icon="el-icon-shopping-cart-2">steam购买</el-button>
-      <el-button type="primary" icon="el-icon-shopping-cart-2">GOG购买</el-button>
+      <div class="post-buy-div" v-for="buy in buyurls">
+        <a :href="buy.url" target="_blank">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-gamux-buy"></use>
+          </svg>
+          {{ buy.text }}
+        </a>
+      </div>
     </section>
     <section id="post-rate">
     </section>
