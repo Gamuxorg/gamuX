@@ -5,7 +5,7 @@
 get_header(); ?>
 
 <div class="breadcrumb">
-  <el-page-header :title="catname" @back="goBack" :content="postname">
+  <el-page-header :title="catname" @back="goBack" :content="postdate">
 </div>
 <el-row id="post" :gutter="10">
   <el-col id="post-main" :xs="24" :sm="16" :md="16" :lg="18">
@@ -42,6 +42,12 @@ get_header(); ?>
       </div>
     </section>
     <section id="post-rate">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-dianzan-copy"></use>
+      </svg>
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-dianzan2"></use>
+      </svg>      
     </section>
   </el-col>  
 </el-row>

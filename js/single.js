@@ -8,6 +8,7 @@ var game = new Vue({
     postcontent: "游戏内容加载中...",
     siteurl: "https://www.linuxgame.cn",
     cururl: "",
+    postdate: "",
     buyurls: [
       {text: "在Steam购买本游戏", url: "http://www.baidu.com"},
       {text: "在GOG购买本游戏", url: "http://www.360.cn"}
@@ -16,7 +17,7 @@ var game = new Vue({
   methods: {
     //数据绑定
     goBack: function () {
-      window.location.href=this.caturl;
+      window.location.href=this.caturl; 
     },
     getSiteUrl: function() {
       let wwwpath = window.location.href;
@@ -46,5 +47,6 @@ var game = new Vue({
     this.caturl = postterm[0].link;
     this.postname = postdata.title.rendered;
     this.postcontent = postdata.content.rendered;
+    this.postdate = postdata.date.split("T")[0];
   },
 })

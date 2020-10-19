@@ -12,7 +12,7 @@
 <?php } else { ?>
 
 <?php } ?>
-<script src="//at.alicdn.com/t/font_2133732_u67s4kumra.js"></script>
+<script src="//at.alicdn.com/t/font_2133732_d6ur2ngu74.js"></script>
 <?php wp_footer(); ?>
 </body>
 </html>

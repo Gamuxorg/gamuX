@@ -16,8 +16,15 @@
 #post section {
   margin-top: .5rem;
 }
+/*
+ * 文章主区域
+*/
+#post-main {
+  border-right: solid 1px #e6e6e6;
+  height: 100vh;
+}
 #post-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
 }
 #post-intro p {
@@ -42,3 +49,7 @@
   margin-bottom: 5px;
   font-size: 1.5rem;  
 }
+
+/*  
+ * 侧边栏
+*/
