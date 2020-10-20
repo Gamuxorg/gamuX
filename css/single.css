@@ -27,6 +27,9 @@
   font-size: 2rem;
   font-weight: 700;
 }
+.el-carousel__item {
+  text-align: center;
+}
 #post-intro p {
   margin-top: .2rem;
   margin-bottom: .2rem;

@@ -7,12 +7,18 @@ get_header(); ?>
 <div class="breadcrumb">
   <el-page-header :title="catname" @back="goBack" :content="postdate">
 </div>
+
 <el-row id="post" :gutter="10">
   <el-col id="post-main" :xs="24" :sm="16" :md="16" :lg="18">
     <section class="game-content">
       <div id="post-title">
         {{ postname }}
       </div>
+      <el-carousel :interval="4000" :type="imgtype" arrow="never">
+        <el-carousel-item v-for="item in 4" :key="item">          
+          <el-image fit="fit" src="https://media.st.dl.pinyuncloud.com/steam/apps/812140/ss_0ef33c0f230da6ebac94f5959f0e0a8bbc48cf8a.600x338.jpg?t=1602601042"></el-image>
+        </el-carousel-item>
+      </el-carousel>
       <div id="post-intro" v-html="postcontent"></div>
     </section>
     <section class="post-download">

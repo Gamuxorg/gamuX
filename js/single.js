@@ -9,6 +9,7 @@ var game = new Vue({
     siteurl: "https://www.linuxgame.cn",
     cururl: "",
     postdate: "",
+    imgtype: "",
     buyurls: [
       {text: "在Steam购买本游戏", url: "http://www.baidu.com"},
       {text: "在GOG购买本游戏", url: "http://www.360.cn"}
