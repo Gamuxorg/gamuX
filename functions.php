@@ -74,13 +74,12 @@ add_filter('pre_option_link_manager_enabled','__return_true');
 **/
 //1.2.1修改自带jq调用规则
 
-if ( !is_admin() ) { // 后台不禁止
-    function my_init_method() {
+function my_init_method() {
+  if ( !is_admin() )  // 后台不禁止
     wp_deregister_script( 'jquery' ); // 取消原有的 jquery 定义
-    }
-add_action('init', 'my_init_method');
+  wp_deregister_script( 'l10n' );
 }
-wp_deregister_script( 'l10n' );
+add_action('wp_enqueue_scripts', 'my_init_method');
 
 //1.2.2 获取当前页面url
 function curPageURL()
@@ -105,10 +104,10 @@ function curPageURL()
  * 1.3 增加wordpress功能
 **/
 //1.3.1 增加github登陆
-get_template_part( 'function/github_login' ); 
+// get_template_part( 'function/github_login' ); 
 
 //1.3.2 增加编辑文章扩展功能
-get_template_part( 'function/edit_extra_box' );
+// get_template_part( 'function/edit_extra_box' );
 
 //1.3.3 上传文件重命名 
 /*function rename_upload_file($file) {
@@ -141,7 +140,7 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
 //1.3.6 获取特色图片的地址
 function get_thumbnail_url($id) {
   $thumbid = get_post_thumbnail_id($id);
-  $func = wp_get_attachment_image_src(get_post_thumbnail_id($id));
+  $func = wp_get_attachment_image_src($thumbid);
   if($func)
     return $func[0];
   else
@@ -224,20 +223,20 @@ function list_the_tags() {
  */
 //2.1 获取文章内图片
 //2.1.1 获取所有图片
-function get_all_img($content){
+function get_all_imgs($content){
   $pattern = '/<img[^>]*src=\"([^\"]+)\"[^>]*\/?>/si';
   $matches = array();
   $out = '';
   if (preg_match_all($pattern, $content, $matches)) {
     if (count($matches[1]) == 1) {
-      return '<div class="carousel-item active"><img class="d-block w-100" src="' . $matches[1][0] . '" alt="1"></div>'; 
+      return $matches[1][0]; 
     }
     else {
-      $out1 = '<div class="carousel-item active"><img class="d-block w-100" src="' . $matches[1][0] . '" alt="1"></div>';
-      for ($i = 1; $i < count($matches[1]); $i++) {        
-        $out .= '<div class="carousel-item"><img class="d-block w-100" src="' . $matches[1][$i] . '" alt="'.($i+1).'"></div>';
+      $out = array();
+      for ($i = 0; $i < count($matches[1]); $i++) {        
+        array_push($out, $matches[1][$i]);
       }
-      return $out1.$out;
+      return $out;
     }
   } 
   else {
@@ -303,3 +302,6 @@ get_template_part( 'template/config' );
 
 //添加 REST-API 路由
 include("api/route.php");
+
+//添加相对路径会报错……，先暂时这样
+include('function/edit_extra_box.php');
