@@ -55,6 +55,19 @@ get_header(); ?>
         <use xlink:href="#icon-dianzan2"></use>
       </svg>      
     </section>
+    <section id="timeline">
+      <el-timeline>
+        <el-timeline-item
+          v-for="(activity, index) in activities"
+          :key="index"
+          :icon="activity.icon"
+          :type="activity.type"
+          :size="activity.size"
+          :timestamp="activity.timestamp">
+          {{activity.author}}{{activity.content}}
+        </el-timeline-item>
+      </el-timeline>
+    </section>
   </el-col>  
 </el-row>
 <?php get_footer(); ?>

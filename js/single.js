@@ -4,6 +4,7 @@ var game = new Vue({
     //数据绑定
     postname: "游戏名加载中...",
     catname: "游戏分类加载中...",
+    modifiedauthor: "gamux",
     caturl: 'goback',
     postcontent: "游戏内容加载中...",
     siteurl: "https://www.linuxgame.cn",
@@ -14,6 +15,22 @@ var game = new Vue({
       {text: "在Steam购买本游戏", url: "http://www.baidu.com"},
       {text: "在GOG购买本游戏", url: "http://www.360.cn"}
     ],
+    activities: [{
+      author: 'gamux',
+      content: '进行了更新',
+      timestamp: '2012-08-20',
+      type: 'primary',
+      icon: 'el-icon-refresh',
+      size: 'large',
+
+    }, {
+      author: 'gamux',
+      content: '创建了文章',
+      timestamp: '2012-08-20',
+      icon: 'el-icon-edit',
+      type: 'info',
+      size: 'large'
+    }],
   },
   methods: {
     //数据绑定
@@ -49,5 +66,8 @@ var game = new Vue({
     this.postname = postdata.title.rendered;
     this.postcontent = postdata.content.rendered;
     this.postdate = postdata.date.split("T")[0];
+    modifieddate = postdata.modified.split("T")[0];
+    this.activities[1].timestamp = this.postdate;
+    this.activities[0].timestamp = modifieddate;
   },
 })
