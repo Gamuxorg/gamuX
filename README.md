@@ -26,7 +26,7 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [ ] 一键调取steam游戏数据
 * [ ] 独立的文档页、新闻页
 * [ ] 更好的用户系统，有人@或回复消息，前端有提示
-* [ ] 更精确的数据统计
+* [x] 更精确的数据统计
 * [ ] 更人性化的评论系统
 * [x] 兼容wordpress 5.x
 * [ ] 优化后台数据库表
