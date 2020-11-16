@@ -20,7 +20,7 @@ git clone https://github.com/Gamuxorg/gamuX.git
 
 * [ ] vuejs实现的前端
 * [ ] 完全重实现的后台（主要是文章编辑界面）
-* [ ] 重写github登录（检查登录错误、出现重号的问题）
+* [x] 重写github登录（检查登录错误、出现重号的问题）
 * [ ] 增加更多登录方式(wechat/QQ等)
 * [ ] 前端基于restful api实现更好的文章列表
 * [ ] 一键调取steam游戏数据
