@@ -7,8 +7,8 @@
  * 
  */
 class Weibo_Oauth extends Oauth2{
-	const APPID = "4140588984";
-	const APPSECRET = "33be68faca2c0a1912b45b11973b670d";
+	const APPID = "";
+	const APPSECRET = "";
 	const STATE = "ggggaaaa";					//用于防止CSRF的随机字符串
 	const REDIRECT_ROUTE = '/wp-json/gamux/v1/oauth/weibo';
 

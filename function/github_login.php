@@ -7,8 +7,8 @@
  * 
  */
 class Github_Oauth extends Oauth2{
-	const APPID = "b1f76da1ac1cc8ec28a1";		//请填入github的appid
-	const APPSECRET = "be0cae2258bc45140723960c210a8f3ad3f82238";	//请填入github的appsecret
+	const APPID = "";		//请填入github的appid
+	const APPSECRET = "";	//请填入github的appsecret
 	const STATE = "ggggaaaa";					//用于防止CSRF的随机字符串
 	const REDIRECT_ROUTE = '/wp-json/gamux/v1/oauth/github';
 
