@@ -31,6 +31,21 @@ var game = new Vue({
       type: 'info',
       size: 'large'
     }],
+    tableData: [{
+      version: '1.0.2',
+      date: '2016-05-02',
+      quantity: 35,
+      volume: '3.5G',
+      link: 'https://www.baidu.com',
+      remark: '上海市'
+    },{
+      version: '1.0.2',
+      date: '2016-05-02',
+      quantity: 35,
+      volume: '3.5G',
+      link: 'https://www.baidu.com',
+      remark: '路 1518 弄'
+    },],
   },
   methods: {
     //数据绑定

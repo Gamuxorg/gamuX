@@ -53,6 +53,24 @@
   font-size: 1.5rem;  
 }
 
+/* 评论 */
+.download-head {
+  border-bottom: 1.5px solid gray;
+  font-size: 1.2rem;
+  font-weight: 700;
+  height: 2rem;
+  line-height: 2rem;
+}
+.download-main .el-table__header-wrapper th,
+.download-main .el-table__body-wrapper td {
+ padding: 5px 0;
+}
+.download-main .el-table__body-wrapper .cell {
+  line-height: 1.3rem;
+} 
+table .cell {
+  text-align: center;
+}
 /*  
  * 侧边栏
 */

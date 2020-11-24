@@ -22,7 +22,36 @@ get_header(); ?>
       <div id="post-intro" v-html="postcontent"></div>
     </section>
     <section class="post-download">
-    <a :href="siteurl">下载地址</a>
+      <div class="download-head">下载地址</div>
+      <div class="download-main">
+        <el-table :data="tableData">
+        <el-table-column
+            prop="version"
+            label="版本">
+          </el-table-column>        
+          <el-table-column
+            prop="date"
+            label="日期">
+          </el-table-column>
+          <el-table-column
+            prop="quantity"
+            label="下载量">
+          </el-table-column>
+          <el-table-column
+            prop="volume"
+            label="容量">
+          </el-table-column>
+          <el-table-column
+            prop="link"
+            label="下载地址">
+          </el-table-column>
+          <el-table-column
+            prop="remark"
+            label="备注">
+            <a :href=></a>
+          </el-table-column>
+        </el-table>
+      </div>
     </section>    
     <section class="post-commit">
     游戏评论
