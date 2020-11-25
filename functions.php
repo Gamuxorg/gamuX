@@ -303,5 +303,11 @@ get_template_part( 'template/config' );
 //添加 REST-API 路由
 include("api/route.php");
 
-//添加相对路径会报错……，先暂时这样
+//添加post额外字段的支持
 include('function/edit_extra_box.php');
+
+//添加第三方登录
+include('function/oauth2_route.php');
+// include('function/github_login.php');
+include('function/weibo_login.php');
+include('function/qq_login.php');

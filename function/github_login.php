@@ -1,6 +1,6 @@
 <?php
 	namespace Gamux;
-	include ("oauth2.php");
+	include_once("oauth2.php");
 /**
  * class Github_Oauth
  * 用于github认证和登录的类

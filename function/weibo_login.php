@@ -1,6 +1,6 @@
 <?php
 	namespace Gamux;
-	include("oauth2.php");
+	include_once("oauth2.php");
 /**
  * class Weibo_Oauth
  * 用于weibo认证和登录的类
