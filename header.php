@@ -84,8 +84,10 @@
       </el-col>
     </el-row>
   
-    <div id="avatar">
+    <div id="avatar" style="text-align:center; margin-top:20%;">
       <div class="block avatar-inner">点击登录</div>
+      <a href="<?php \Gamux\qq_login_url(); ?>"><img src="http://www.sinaimg.cn/blog/developer/wiki/240.png" alt="weibo_login"></a>
+      <a href="<?php \Gamux\weibo_login_url(); ?>"><img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/bt_blue_76X24.png" alt="qq_login"></a>
     </div>
   
     <div id="techfrom">
