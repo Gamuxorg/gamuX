@@ -12,8 +12,8 @@ var game = new Vue({
     postdate: "",
     imgtype: "",
     buyurls: [
-      {text: "在Steam购买本游戏", url: "http://www.baidu.com"},
-      {text: "在GOG购买本游戏", url: "http://www.360.cn"}
+      {text: "在Steam购买本游戏", url: "https://www.baidu.com"},
+      {text: "在GOG购买本游戏", url: "https://www.360.cn"}
     ],
     activities: [{
       author: 'gamux',

@@ -48,7 +48,7 @@ get_header(); ?>
           <el-table-column
             prop="remark"
             label="备注">
-            <a :href=></a>
+            
           </el-table-column>
         </el-table>
       </div>
