@@ -21,7 +21,7 @@
 	<link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/logo.ico">
   <link crossorigin="anonymous" integrity="sha384-O56yuCW/A5HUnuYx7ap1CJOXGXqaD3BxgKS9EDLgNUpNIE2BY7KsLJ+H5yr+CXpf" href="https://lib.baomitu.com/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
   <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/style.css">
-  <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <?php if(is_single()) { ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/single.css">
     <style>
@@ -87,8 +87,8 @@
   
     <div id="avatar" style="text-align:center; margin-top:20%;">
       <div class="block avatar-inner">点击登录</div>
-      <a href="<?php echo \Gamux\weibo_login_url(); ?>"><img src="http://www.sinaimg.cn/blog/developer/wiki/240.png" alt="weibo_login"></a>
-      <a href="<?php echo \Gamux\qq_login_url(); ?>"><img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/bt_blue_76X24.png" alt="qq_login"></a>
+      <a href="<?php echo \Gamux\weibo_login_url(); ?>"><img src="https://www.sinaimg.cn/blog/developer/wiki/240.png" alt="weibo_login"></a>
+      <a href="<?php echo \Gamux\qq_login_url(); ?>"><img src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/bt_blue_76X24.png" alt="qq_login"></a>
     </div>
   
     <div id="techfrom">
