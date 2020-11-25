@@ -2,6 +2,7 @@
 <html lang="zh_CN">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="Linux游戏站是全世界唯一全面介绍Linux游戏及相关工具的中文社区，本站秉承简洁而不简单的办站原则，为广大Linux用户娱乐性而奋斗！">
   <meta name="revised" content="gamux, 2020/01/26/">
