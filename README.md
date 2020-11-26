@@ -18,12 +18,12 @@ git clone https://github.com/Gamuxorg/gamuX.git
 
 ## todo list
 
-* [ ] vuejs实现的前端
+* [x] vuejs实现的前端
 * [ ] 完全重实现的后台（主要是文章编辑界面）
 * [x] 重写github登录（检查登录错误、出现重号的问题）
-* [ ] 增加更多登录方式(wechat/QQ等)
+* [x] 增加更多登录方式(wechat/QQ等)
 * [ ] 前端基于restful api实现更好的文章列表
-* [ ] 一键调取steam游戏数据
+* [x] 一键调取steam游戏数据
 * [ ] 独立的文档页、新闻页
 * [ ] 更好的用户系统，有人@或回复消息，前端有提示
 * [x] 更精确的数据统计
@@ -31,3 +31,8 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [x] 兼容wordpress 5.x
 * [ ] 优化后台数据库表
 * [ ] 编写网站的隐私政策
+* [ ] 修复github用户获取昵称不正确bug，当前部分用户显示为github_xxxx
+* [ ] 轮播和文章中的图片进行分离，专门为轮播图片在后台增加上传模块（只贴url即可）
+* [ ] 支持多个购买链接
+* [ ] 支持多cpu平台
+* [ ] 限制非linux平台用户，只能获取网盘地址
