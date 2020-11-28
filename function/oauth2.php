@@ -17,6 +17,11 @@ class Oauth2{
 		$this->code = $code;
 	}
 
+	/**
+	 * 检查返回的state字段是否与本站的state字段相符，防止CSRF攻击
+	 *
+	 * @return void
+	 */
 	private function check_csrf() {
 		if($_GET['state'] != self::STATE) {
 			$error = new \WP_Error(403, "认证信息失败，请确保从linuxgame.cn登录并提供正确的凭据");
@@ -24,6 +29,13 @@ class Oauth2{
 		}
 	}
 
+	/**
+	 * 检查wp_remote_quest()操作是否正确获取到了远程资源
+	 *
+	 * @param array|WP_Error $response
+	 * @param string $target 请求的信息简介
+	 * @return array
+	 */
 	private function check_response_error($response, string $target) : array {
 		if(is_wp_error($response)) {
 			$error = new \WP_Error($response->get_error_code(), $response->get_error_message() . "\n Get $target failed.");
@@ -40,7 +52,14 @@ class Oauth2{
 		return $output;
 	}
 
-	private function check_response_data($output, $target) {
+	/**
+	 * 检查远程返回的JSON数据是否正确
+	 *
+	 * @param $output JSON解析后的数据
+	 * @param string $target 检查的字段
+	 * @return void
+	 */
+	private function check_response_data($output, string $target) {
 		if(empty($output[$target])) {
 			$error_mess = $output['error'];
 			$error_desc = $output['error_description'];
@@ -73,12 +92,4 @@ class Oauth2{
 	private function login() {}
 
 }
-
-	// class b extends Oauth2{
-	// 	const APPID = 333;
-	// }
-
-	// $ds = new b;
-	// echo $ds::APPID;
-
 ?>

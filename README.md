@@ -36,3 +36,4 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [ ] 支持多个购买链接
 * [ ] 支持多cpu平台
 * [ ] 限制非linux平台用户，只能获取网盘地址
+* [ ] 下载链接中增加一栏“备注”
