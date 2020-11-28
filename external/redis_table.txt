@@ -1,0 +1,13 @@
+daily tables(zset)
+daily-{id} 							//一个post一个有序集合
+	{date} value
+
+
+monthly tables(zset)
+monthly-{id} 						//一个post一个有序集合
+	{year}-{month} value
+
+
+overall table(hash)
+download_statistics_overall 		//所有post都存在一张hash表中
+	{id} value
