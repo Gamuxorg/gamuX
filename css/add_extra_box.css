@@ -1,0 +1,16 @@
+.gamux-up-input {
+	width: 50%;
+}
+.extra-text-input {
+	margin-left: .5rem;
+	width: 10%;
+}
+.gamux-edit-upload-label {
+	width: 15%;
+}
+.gamux-up-button {
+	margin-left: 5px;
+}
+.gamux-upload-add {
+	border: solid 1px #fff;
+}

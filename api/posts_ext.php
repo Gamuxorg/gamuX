@@ -59,16 +59,17 @@
 		else {								//用户已登录
 			$downloadList = array();
 			$count = gamux_down_count();
-			$gamux_down = gamux_down_var();
+			$gamux_down = down_var();
 
 			if($count > 0) {				//有下载链接
 				for($i = 0; $i < $count; $i++) {
 					$listItem = array(
-						"version" => get_post_meta($id, $gamux_down['title'].'_'.$i)[0],
+						"version" => get_post_meta($id, $gamux_down['title'].'_'.$i, true),
 						"downloadCount" => 0,
-						"date" => get_post_meta($id, $gamux_down['date'].'_'.$i)[0],
-						// "fileSize" => remote_file_size(get_post_meta($id, $gamux_down['durl'].'_'.$i)[0]),
-						"link" => get_post_meta($id, $gamux_down['durl'].'_'.$i)[0]
+						"date" => get_post_meta($id, $gamux_down['date'].'_'.$i, true),
+						// "fileSize" => remote_file_size(get_post_meta($id, $gamux_down['durl'].'_'.$i, true)),
+						"link" => get_post_meta($id, $gamux_down['durl'].'_'.$i, true),
+						"comment" => get_post_meta($id, $gamux_down['comment'].'_'.$i, true)
 					);
 					if(is_user_linux())
 						array_push($downloadList, $listItem);
@@ -121,18 +122,18 @@
 	function add_post_ext() {
 		register_rest_field("post", "exts", array(
 			"get_callback" => function($args) {
-				setPostViews($args['id']);		//更新文章阅读数
+				// setPostViews($args['id']);		//更新文章阅读数
 				update_post_caches($posts);
 				return array(
 					"thumbnail" => get_thumbnail_url($args['id']),
 					"images" => get_all_imgs($args['content']['raw']),
 					"downloadList" => get_downloadList($args["id"]),
 					"postViews" => (int)getPostViews($args['id']),
-					"buyUrl" => get_post_meta($args['id'], 'buy_url')[0],
+					"buyUrl" => get_post_meta($args['id'], 'buy_url', true),
 					"authorName" => get_the_author(),
 					"modAuthorName" => get_the_modified_author(),
 					"tagList" => get_the_tag_list(),
-					"sysRequirements" => get_post_meta($args['id'], 'peizhi')[0],
+					"sysRequirements" => get_post_meta($args['id'], 'peizhi', true),
 					"isUserLogin" => is_user_logged_in()
 				);
 			}
