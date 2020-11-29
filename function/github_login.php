@@ -89,7 +89,7 @@ class Github_Oauth extends Oauth2{
 			'display_name' => $name,
 			'user_email' => $email,
 			'user_pass' => $random_password,
-			'nickname' => $name
+			'user_nicename' => $name
 		);
 		$user_id = wp_insert_user( $userdata );
 		if(!is_wp_error($user_id)) {
@@ -118,7 +118,6 @@ class Github_Oauth extends Oauth2{
 			"meta_value" => $github_id
 		));
 		if(count($github_user) != 0) {		//用户正常登录
-			update_user_meta($github_user[0]->ID, "nickname", $data['name']);
 			wp_set_auth_cookie($github_user[0]->ID);
 			$this->oauth_redirect();
 		}
@@ -167,7 +166,7 @@ class Github_Oauth extends Oauth2{
 		$id = $current_user->ID;
 		$github_id = get_user_meta($id, 'github_id', true);
 		$avatar = 'https://kr.linuxgame.cn:8088/git_avatar.php?id='. $github_id;
-		$name = $current_user->nickname;
+		$name = $current_user->user_nicename;
 		return array($name, $avatar);
 	}
 

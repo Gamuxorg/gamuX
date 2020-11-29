@@ -12,12 +12,14 @@ jQuery(document).ready(function() {
 			'<input type="text" placeholder="备注" name="comment_'+download_link_index+'" class="gamux-upload-comment">'+
 			'<button type="button" class="gamux-up-button">上传</button><button type="button" class="gamux-upload-delete">-</button></div>');  
 	}); 
-    
+	
+	//删除下载链接
     $(wrapper).on("click",".gamux-upload-delete", function(e){
         e.preventDefault(); 
 		$(this).parents('.gamux-edit-upload-option').remove();
     });
 
+	//上传按钮
 	var formfield_url = '';
 	var formfield_title = '';
 	var gamux_upload_frame;
@@ -42,8 +44,20 @@ jQuery(document).ready(function() {
 			$(formfield_url).val(attachment.url);
 			$(formfield_title).val(attachment.title);
 			console.log(attachment);
-		});   
+		});
 		
 		gamux_upload_frame.open();
+	});
+
+	//多个购买链接的增加、删除
+	var gamux_buyurls = $("#gamux-buyurls");
+	var gamux_buyurl_add = $("#gamux-buyurl-add");
+	var gamux_buyurl_del = $("#gamux-buyurl-del");
+	gamux_buyurl_add.on('click', function() {
+		gamux_buyurls.append('<input style="width: 100%;" name="buy_url[]" value="">');
+	});
+	gamux_buyurl_del.on('click', function() {
+		if($("#gamux-buyurls input").size() > 1)
+			$("#gamux-buyurls input:last-child").remove();
 	});
 });

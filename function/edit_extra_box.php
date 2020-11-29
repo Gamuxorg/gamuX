@@ -19,10 +19,18 @@ function down_var() {
 
 //获取可用的下载链接数量
 function gamux_down_count() : int {
-	global $wpdb,$post;
-	$sql = "SELECT COUNT(meta_id) AS count FROM ".$wpdb->prefix."postmeta WHERE post_id = ".$post->ID." AND meta_key REGEXP 'downurl.'";
+	global $wpdb, $post;
+	$sql = "SELECT COUNT(meta_id) AS count FROM ".$wpdb->prefix."postmeta WHERE post_id = ".$post->ID." AND meta_key REGEXP 'downurl'";
 	return $wpdb->get_var($sql);
 }
+
+//获取可用的购买链接数量
+function gamux_buyurl_count() : int {
+	global $wpdb,$post;
+	$sql = "SELECT COUNT(meta_id) AS count FROM ".$wpdb->prefix."postmeta WHERE post_id = ".$post->ID." AND meta_key REGEXP 'buy_url'";
+	return $wpdb->get_var($sql);
+}
+
 
 //2获取远程文件大小，需打开allow_url_fopen
 function remote_file_size($url) {
@@ -124,22 +132,32 @@ footer;
 }
 
 /**
- * 处理download_upload_box上传的数据
+ * 处理download_box上传的数据
  *
  * @return void
  */
 function save_download_box($post_id) {
+	if(empty($_POST))
+		return $post_id;
 	if('page' == $_POST['post_type']){   
 		if(current_user_can( 'edit_page', $post_id ))   
 			return $post_id;
 	}
-	$j = 0;
+
+	$uploadCount = 0;
 	$durl = down_var()['durl'];
 	foreach($_POST as $key=>$value) {				//计算上传的链接数量
 		if(strpos($key, $durl) !== false)
-			$j++;
+			$uploadCount++;
 	}
-	for($i = 0; $i < $j; $i++) {
+	$dbCount = gamux_down_count();
+	$diff = $dbCount - $uploadCount;
+	if($diff > 0) {									//用户删除了部分下载链接
+		for($i=$dbCount-1; $i >= 0; $i--)
+			delete_post_meta( $post_id, down_var()['durl'].'_'.$i);
+	}
+
+	for($i = 0; $i < $uploadCount; $i++) {
 		$data = array(
 			$_POST[down_var()['durl'].'_'.$i], 
 			$_POST[down_var()['title'].'_'.$i], 
@@ -183,15 +201,28 @@ function extra_meta_box($post) {
 	$buy_key = 'buy_url';
 	$peizhi_key = 'peizhi';
 	$bg_key = 'bg';
-	$buy_value = get_post_meta( $post->ID, $buy_key, true);
 	$peizhi_value = get_post_meta( $post->ID, $peizhi_key, true);
 	$bg_value = get_post_meta( $post->ID, $bg_key, true);
+
+	//获取多个购买链接
+	$count = gamux_buyurl_count();	
+	$link_template = '<input style="width: 100%;" name="buy_url[]" value="buy_value">';
+	$buyList = "";
+	for($i=0; $i < $count; $i++)
+		$buyList .= str_replace("buy_value", get_post_meta( $post->ID, $buy_key.'_'.$i, true), $link_template);
+	
 	$html =<<<str
-	购买/源码地址，输入http(s)开头的url即可
-	<input style="width: 100%;" name="buy_url" value="$buy_value">
-	背景图片，输入http(s)开头的url即可
+	<div>
+		<label>购买/源码地址，输入http(s)开头的url即可</label>
+		<div id="gamux-buyurls" class="gamux-buyurls">	
+			$buyList
+		</div>
+		<input type="button" value="增加" id="gamux-buyurl-add">
+		<input type="button" value="删除" id="gamux-buyurl-del">
+	</div>
+	<label>背景图片，输入http(s)开头的url即可</label>
 	<input style="width: 100%;" name="bg" value="$bg_value">
-	运行配置
+	<label>运行配置</label>
 	<textarea name="peizhi" style="width: 100%;" rows = "10">$peizhi_value</textarea>
 str;
 	echo $html;
@@ -204,6 +235,8 @@ str;
  * @return void
  */
 function save_extra_meta_box( $post_id ) {
+	if(empty($_POST))
+		return;
 	if (!isset($_POST['rating_nonce_name'])) {
 		return $post_id;
 	}
@@ -221,12 +254,22 @@ function save_extra_meta_box( $post_id ) {
 	}
 
 	$buy_key = 'buy_url';
-	$buy_value = $_POST['buy_url'];
+	$buy_array = $_POST['buy_url'];
 	$peizhi_key = 'peizhi';
 	$peizhi_value = $_POST['peizhi'];
 	$bg_key = 'bg';
 	$bg_value = $_POST['bg'];
-	update_post_meta( $post_id, $buy_key, $buy_value );
+
+	$uploadCount = count($buy_array);
+	$dbCount = gamux_buyurl_count();
+	$diff = $dbCount - $uploadCount;
+	if($diff > 0) {									//用户删除了部分购买链接
+		for($i=$dbCount-1; $i > 0; $i--)
+			delete_post_meta( $post_id, $buy_key.'_'.$i);
+	}
+	for($i=0; $i < $uploadCount ;$i++) {
+		update_post_meta( $post_id, $buy_key.'_'.$i, $buy_array[$i]);
+	}
 	update_post_meta( $post_id, $peizhi_key, $peizhi_value );
 	update_post_meta( $post_id, $bg_key, $bg_value );
 }
