@@ -9,9 +9,23 @@ jQuery(document).ready(function() {
 			'<div class="gamux-edit-upload-option"><input type="text" placeholder="此处显示下载url，可粘贴外部url" name="downurl_'+
 			download_link_index+'" class="gamux-up-input" /><input type="text" placeholder="版本说明" name="dtitle_'+download_link_index+
 			'" class="gamux-text-input extra-text-input" />'+
-			'<input type="text" placeholder="备注" name="comment_'+download_link_index+'" class="gamux-upload-comment">'+
+			'<input type="text" placeholder="备注" name="dcomment_'+download_link_index+'" class="gamux-upload-comment">'+
+			'<select name="darch_'+download_link_index+'" class="gamux-upload-arch" data="0"><option selected disabled>CPU架构</option><option>i386</option><option>amd64</option><option>armel</option><option>armhf</option><option>arm64</option><option>mips</option><option>mipsel</option><option>mips64</option><option>mips64el</option><option>powerpc</option><option>ppc64</option><option>ppc64el</option><option>riscv32</option><option>riscv64</option><option>s390x</option><option>sw64</option></select>'+
 			'<button type="button" class="gamux-up-button">上传</button><button type="button" class="gamux-upload-delete">-</button></div>');  
 	}); 
+	
+	//根据CPU架构 <select> data属性设置选中项(因为后端不好做……)
+	$(".gamux-upload-arch").each(function(j) {
+		var entry = $(this).attr('data');
+		var ops = $(this).children('option');
+		var i;
+		var str = String();
+		for(i=0; i < ops.size(); i++) {
+			if(str = String(ops[i].innerText).match('^' + entry + '$')) {
+				this.selectedIndex = i;
+			}
+		}
+	});
 	
 	//删除下载链接
     $(wrapper).on("click",".gamux-upload-delete", function(e){
@@ -48,7 +62,7 @@ jQuery(document).ready(function() {
 		
 		gamux_upload_frame.open();
 	});
-
+	
 	//多个购买链接的增加、删除
 	var gamux_buyurls = $("#gamux-buyurls");
 	var gamux_buyurl_add = $("#gamux-buyurl-add");

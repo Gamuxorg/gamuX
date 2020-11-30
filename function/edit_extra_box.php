@@ -12,7 +12,8 @@ function down_var() {
 		"durl"   => "downurl",
 		"title"  => "dtitle",
 		"date"   => "ddate",
-		"comment"   => "comment"
+		"comment"  => "dcomment",
+		"arch"   => "darch"
 	);
 	return $gamux_down;
 }
@@ -106,12 +107,33 @@ header;
 				$verValue = get_post_meta($post->ID, down_var()['title'].'_'.$i, true);
 				$commentName = down_var()['comment'].'_'.$i;
 				$commentValue = get_post_meta($post->ID, down_var()['comment'].'_'.$i, true);
+				$archName = down_var()['arch'].'_'.$i;
+				$archValue = get_post_meta($post->ID, down_var()['arch'].'_'.$i, true);
 
 				$link=<<<link
 				<div class="gamux-edit-upload-option">
 					<input type="text" placeholder="此处显示下载url，可粘贴外部url" name="$durlName" value="$durlValue" class="gamux-up-input" />
 					<input type="text" placeholder="版本说明"  name="$verName" value="$verValue" class="gamux-text-input" />
-					<input type="text" placeholder="备注"  name="$commentName" value="$commentValue" class="gamux-text-input" />
+					<input type="text" placeholder="备注"  name="$commentName" value="$commentValue" class="gamux-upload-comment" />
+					<select name="$archName" class="gamux-upload-arch" data="$archValue">
+						<option selected disabled>CPU架构</option>
+						<option>i386</option>
+						<option>amd64</option>
+						<option>armel</option>
+						<option>armhf</option>
+						<option>arm64</option>
+						<option>mips</option>
+						<option>mipsel</option>
+						<option>mips64</option>
+						<option>mips64el</option>
+						<option>powerpc</option>
+						<option>ppc64</option>
+						<option>ppc64el</option>
+						<option>riscv32</option>
+						<option>riscv64</option>
+						<option>s390x</option>
+						<option>sw64</option>
+					</select>
 					<button type="button" class="gamux-up-button">上传</button>
 					<button type="button" class="gamux-upload-delete">-</button>
 				</div>
@@ -153,8 +175,13 @@ function save_download_box($post_id) {
 	$dbCount = gamux_down_count();
 	$diff = $dbCount - $uploadCount;
 	if($diff > 0) {									//用户删除了部分下载链接
-		for($i=$dbCount-1; $i >= 0; $i--)
+		for($i=$dbCount-1; $i >= 0; $i--) {
 			delete_post_meta( $post_id, down_var()['durl'].'_'.$i);
+			delete_post_meta( $post_id, down_var()['title'].'_'.$i);
+			delete_post_meta( $post_id, down_var()['comment'].'_'.$i);
+			delete_post_meta( $post_id, down_var()['date'].'_'.$i);
+			delete_post_meta( $post_id, down_var()['arch'].'_'.$i);
+		}
 	}
 
 	for($i = 0; $i < $uploadCount; $i++) {
@@ -162,15 +189,18 @@ function save_download_box($post_id) {
 			$_POST[down_var()['durl'].'_'.$i], 
 			$_POST[down_var()['title'].'_'.$i], 
 			date('y-m-d'),
-			$_POST[down_var()['comment'].'_'.$i]
+			$_POST[down_var()['comment'].'_'.$i],
+			$_POST[down_var()['arch'].'_'.$i]
 		);
-		if($data[0] != get_post_meta($post_id, down_var()['durl'].'_'.$i, true) || 
-					$data[1] != get_post_meta($post_id, down_var()['title'].'_'.$i, true) || 
-					$data[3] != get_post_meta($post_id, down_var()['comment'].'_'.$i, true)) {
+		if($data[0] != get_post_meta($post_id, down_var()['durl'].'_'.$i, true) or 
+					$data[1] != get_post_meta($post_id, down_var()['title'].'_'.$i, true) or
+					$data[3] != get_post_meta($post_id, down_var()['comment'].'_'.$i, true) or
+					$data[4] != get_post_meta($post_id, down_var()['arch'].'_'.$i, true)) {
 			update_post_meta($post_id, down_var()['durl'].'_'.$i, $data[0]);
 			update_post_meta($post_id, down_var()['title'].'_'.$i, $data[1]);
 			update_post_meta($post_id, down_var()['date'].'_'.$i, $data[2]);
 			update_post_meta($post_id, down_var()['comment'].'_'.$i, $data[3]);
+			update_post_meta($post_id, down_var()['arch'].'_'.$i, $data[4]);
 		}
 		//nothing changed, do nothing
 	}

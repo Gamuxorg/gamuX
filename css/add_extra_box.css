@@ -1,12 +1,20 @@
+.gamux-edit-upload-label {
+	width: 15%;
+}
 .gamux-up-input {
 	width: 50%;
 }
-.extra-text-input {
+.gamux-text-input {
 	margin-left: .5rem;
 	width: 10%;
 }
-.gamux-edit-upload-label {
-	width: 15%;
+.gamux-upload-comment {
+	margin-left: .5rem;
+	width: 13%;
+}
+.gamux-upload-arch {
+	margin-left: .5rem;
+	width: 10%;
 }
 .gamux-up-button {
 	margin-left: 5px;

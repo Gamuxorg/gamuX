@@ -34,7 +34,7 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [x] 修复github用户获取昵称不正确bug，当前部分用户显示为github_xxxx
 * [ ] 轮播和文章中的图片进行分离，专门为轮播图片在后台增加上传模块（只贴url即可）
 * [x] 支持多个购买链接(需要更新数据库meta_key)
-* [ ] 下载链接支持多cpu平台
+* [x] 下载链接支持多cpu平台
 * [x] 限制非linux平台用户，只能获取网盘地址
 * [x] 下载链接中增加一栏“备注”
 * [ ] 优化搜索算法
