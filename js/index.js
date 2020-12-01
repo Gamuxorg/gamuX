@@ -29,7 +29,7 @@ var index = new Vue({
           callback(response.data);
         });
     },
-    getJsonComm: function(url, callback) {
+    getJsonComm: async function(url, callback) {
       axios({
         method: 'get',
         url: url,
@@ -54,11 +54,11 @@ var index = new Vue({
     that.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues',function(data){
       that.wishlist = data;
     });
-    that.getJsonComm('wp-json/gamux/v1/images/mainslide/4', function(data){
+    that.getJsonComm('http://127.0.0.1/wp-json/gamux/v1/images/mainslide/4', function(data){
       for(let k in data) {
-        that.items[k] = {"src":"", "link":""};
+        that.items[k] = {"value": 0,"src":"", "link":""};
         that.items[k]["src"] = data[k];
-        console.log(data[k]);
+        that.items[k]["value"] = k;
       }
     });
   },
