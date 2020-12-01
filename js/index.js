@@ -1,11 +1,7 @@
 var index = new Vue({
   el: '#section',
   data: {
-    items: [
-      {src: "https://media.st.dl.pinyuncloud.com/steam/apps/458710/ss_b54a3709226a6a5971c66a0c102eb45d46cff9e5.600x338.jpg?t=1560522460"},
-      {src: "https://media.st.dl.pinyuncloud.com/steam/apps/458710/ss_d5303784b13da07936e3c8e9121b3d286eda8b9c.600x338.jpg?t=1560522460"},
-      {src: "https://media.st.dl.pinyuncloud.com/steam/apps/458710/ss_76881eb3fdb62c63ae71ec2b6737ce8321ffabe0.600x338.jpg?t=1560522460"}
-    ],
+    items: [],
     carHeight: 0,
     wishlist: null,
   },
@@ -32,6 +28,15 @@ var index = new Vue({
       }).then(function(response) {
           callback(response.data);
         });
+    },
+    getJsonComm: function(url, callback) {
+      axios({
+        method: 'get',
+        url: url,
+        responseType: 'json',
+      }).then(function(response) {
+          callback(response.data);
+        });      
     }
   },
   mounted: function(){
@@ -48,6 +53,13 @@ var index = new Vue({
 
     that.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues',function(data){
       that.wishlist = data;
+    });
+    that.getJsonComm('wp-json/gamux/v1/images/mainslide/4', function(data){
+      for(let k in data) {
+        that.items[k] = {"src":"", "link":""};
+        that.items[k]["src"] = data[k];
+        console.log(data[k]);
+      }
     });
   },
   watch: {

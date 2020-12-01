@@ -42,7 +42,7 @@
 					'numberposts'=>1,
 					'offset'=>$offset,
 					'category'=> [
-						256				//只获取游戏类别
+						1				//只获取游戏类别
 					]
 				]);
 			}while(empty($post));		//如果offset是非游戏类别时会返回空

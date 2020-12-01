@@ -8,7 +8,7 @@ get_header(); ?>
 
   <el-col class="car-col-1" ref="carcol1" :xs="24" :sm="12" :md="12" :lg="10">
    <el-carousel class="car-car" :interval="5000" arrow="always" indicator-position="none">
-    <el-carousel-item v-for="item in items" :key="item.src">
+    <el-carousel-item v-for="item in items" :key="item">
       <img :src=getCarUrl(item.src)>
     </el-carousel-item>
    </el-carousel>
