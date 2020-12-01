@@ -86,7 +86,7 @@
     </el-row>
   
     <div id="avatar" style="text-align:center; margin-top:20%;">
-      <div class="block avatar-inner">点击登录</div>
+      <div class="block avatar-inner"><a href="/wp-admin">点击登录</a></div>
       <a href="<?php echo \Gamux\weibo_login_url(); ?>"><img src="https://www.sinaimg.cn/blog/developer/wiki/240.png" alt="weibo_login"></a>
       <a href="<?php echo \Gamux\qq_login_url(); ?>"><img src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/bt_blue_76X24.png" alt="qq_login"></a>
     </div>
