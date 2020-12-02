@@ -38,21 +38,20 @@ var index = new Vue({
     }
   },
   mounted: async function(){
-    this.$nextTick(function(){
+    this.$nextTick( async function(){
       this.carHeight = this.getCarHeight();
+      const slidedata = await this.getJsonComm('wp-json/gamux/v1/images/mainslide/1');
+      for(const k in slidedata) {
+        this.items[k] = {"value": 0, "src": "", "link": ""};
+        this.items[k]["src"] = slidedata[k]["imageSrc"];
+        this.items[k]["link"] = slidedata[k]["postLink"];
+        this.items[k]["value"] = Number(k);
+      }
+      console.log(this.items);
     });
 
     const wishlistdata = await this.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues');
     this.wishlist = wishlistdata;
-
-    const slidedata = await this.getJsonComm('wp-json/gamux/v1/images/mainslide/1');
-    for(const k in slidedata) {
-      this.items[k] = {"value": 0, "src": "", "link": ""};
-      this.items[k]["src"] = slidedata[k]["imageSrc"];
-      this.items[k]["link"] = slidedata[k]["postLink"];
-      this.items[k]["value"] = Number(k);
-    }
-    console.log(this.getCarUrl(this.items[0]["link"]));
 
     const that = this;
     window.onresize = function(){
