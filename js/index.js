@@ -45,7 +45,7 @@ var index = new Vue({
     const wishlistdata = await this.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues');
     this.wishlist = wishlistdata;
 
-    const slidedata = await this.getJsonComm('wp-json/gamux/v1/images/mainslide/1');
+    const slidedata = await this.getJsonComm('wp-json/gamux/v1/images/mainslide/4');
     for(k in slidedata) {
       this.items[k] = {"value": 0, "src": "", "link": ""};
       this.items[k]["src"] = slidedata[k]["imageSrc"];

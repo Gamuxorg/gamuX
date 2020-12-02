@@ -48,7 +48,7 @@
 					'numberposts'=> 1,
 					'offset'=> $id,
 					'category'=> [
-						1				//只获取游戏类别
+						256				//只获取游戏类别
 					]
 				]);
 			}while(empty($post));			//如果offset是非游戏类别时会返回空
