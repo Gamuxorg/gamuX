@@ -13,7 +13,7 @@ var index = new Vue({
       return this.$refs.carcol1.$el.clientHeight;
     },
     getWishList: async function(url) {
-      let a = await axios({
+      const a = await axios({
         method: 'get',
         url: url,
         responseType: 'json',
@@ -29,7 +29,7 @@ var index = new Vue({
       return a.data;
     },
     getJsonComm: async function(url) {
-      let a = await axios({
+      const a = await axios({
         method: 'get',
         url: url,
         responseType: 'json',
@@ -42,16 +42,17 @@ var index = new Vue({
       this.carHeight = this.getCarHeight();
     });
 
-    let slidedata = await this.getJsonComm('wp-json/gamux/v1/images/mainslide/4');
+    const wishlistdata = await this.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues');
+    this.wishlist = wishlistdata;
+
+    const slidedata = await this.getJsonComm('wp-json/gamux/v1/images/mainslide/1');
     for(k in slidedata) {
       this.items[k] = {"value": 0, "src": "", "link": ""};
-      this.items[k]["src"] = slidedata[k];
-      this.items[k]["value"] = k;
+      this.items[k]["src"] = slidedata[k]["imageSrc"];
+      this.items[k]["link"] = slidedata[k]["postLink"];
+      this.items[k]["value"] = Number(k);
     }
-    console.log(slidedata);
-
-    let wishlistdata = await this.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues');
-    this.wishlist = wishlistdata;
+    console.log(this.getCarUrl(this.items));
 
     const that = this;
     window.onresize = function(){
