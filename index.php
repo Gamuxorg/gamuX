@@ -77,13 +77,13 @@ get_header(); ?>
       $comments = get_comments('status=approve&number=5&order=asc');
       foreach($comments as $comment) :
       ?>
-        <div class="comment-text" v-for="o in 8" :key="o">
+        <div class="comment-text">
           <div class="reply-game"><el-tag>dota2</el-tag></div>
           <el-badge :value="11" :max="9" class="comment-reply item">
             <span class="reply-text">回复</span>
           </el-badge>
           <a href="<?php echo esc_url( get_comment_link($comment->comment_ID) ); ?>">
-            <?php echo  mb_strimwidth($comment->comment_content, 0, 50, '...'); ?>*点此开怼*
+            <?php echo  mb_strimwidth($comment->comment_content, 0, 50, '...'); ?>回复
           </a>
         </div>
       <?php endforeach;?>
