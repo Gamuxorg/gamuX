@@ -23,6 +23,9 @@ function gamux_single_template($template) {
         // Just for incase, check if we have categories
         if ( $categories ) {
             foreach ( $categories as $category ) {
+                while($category->category_parent) {
+                    $category = get_category($category->category_parent);
+                }
                 // Create possible template names
                 $templates[] = $path . $single_slug_head . $category->slug . '.php';
 //                $templates[] = $path . $single_slug_head . $category->term_id . '.php';
