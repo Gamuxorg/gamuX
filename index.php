@@ -52,7 +52,7 @@ get_header(); ?>
         </div>
         <div class="game-version-date">
           <div class="game-version">13.6.2.8</div>
-          <div class="game-date">2016-03-25</div>  
+          <div class="game-date">{{ post.modified }}</div>  
         </div>
       </div>
     </el-card>

@@ -55,8 +55,12 @@ var index = new Vue({
     const postdatas = await this.getJsonComm('wp-json/wp/v2/posts?per_page=10');
     for(i=0;i<postdatas.length;i++) {
       this.postdata[i] = postdatas[i];
+      const a = this.postdata[i]["modified"];
+      const b = a.split("T");
+      const c = b[0];
+      this.postdata[i]["modified"] = c;
     }
-
+    console.log(postdatas);
     const wishlistdata = await this.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues');
     this.wishlist = wishlistdata;
 
