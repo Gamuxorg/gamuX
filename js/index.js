@@ -46,6 +46,7 @@ var index = new Vue({
         this.items[k]["src"] = slidedata[k]["imageSrc"];
         this.items[k]["link"] = slidedata[k]["postLink"];
         this.items[k]["value"] = Number(k);
+        this.$set(this.items, k , {"value": k, "src": slidedata[k]["imageSrc"], "link": slidedata[k]["postLink"]});
       }
       console.log(this.items);
     });
@@ -59,6 +60,9 @@ var index = new Vue({
         that.carHeight = that.getCarHeight();
       }, 500);
     };
+  },
+  created: async function() {
+
   },
   watch: {
     carHeight: function(val){

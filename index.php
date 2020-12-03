@@ -3,6 +3,7 @@
  * 首页模板
 */
 get_header(); ?>
+{{ items }}
 <section id="carousel" ref="car">
 <el-row :gutter="10">
 
