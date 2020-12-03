@@ -146,6 +146,10 @@ function get_thumbnail_url($id) {
   else
     return "https://avatars3.githubusercontent.com/u/4121607";
 }
+if (function_exists('add_theme_support')) {
+  add_theme_support('post-thumbnails');
+  set_post_thumbnail_size(315, 147, true);
+}
 
 //1.3.7 自定义url
 //自定义页面模板

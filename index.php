@@ -41,13 +41,13 @@ get_header(); ?>
 </div>
 
 <section id="cards">
-    <el-card class="card" v-for="{o,index} in 8" :key="o">
+    <el-card class="card" v-for="post in postdata" :key="post.id">
       <div class="pic">
-      <img src="https://media.st.dl.pinyuncloud.com/steam/apps/570/header.jpg?t=1591047995" class="image">
+      <img :src="post.exts.thumbnail" class="image">
       </div>
       <div class="game-info">
         <div class="game-name-sort">
-          <div class="game-name">刀塔2之大聪明的大聪明</div>
+          <div class="game-name">{{ post.title.rendered }}</div>
           <div class="game-sort"><el-button type="text">即时战略</el-button></div>
         </div>
         <div class="game-version-date">

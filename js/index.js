@@ -4,6 +4,8 @@ var index = new Vue({
     items: [],
     carHeight: 0,
     wishlist: null,
+    postnum: 10,
+    postdata: [],
   },
   methods: {
     getCarUrl: function(url) {
@@ -38,18 +40,22 @@ var index = new Vue({
     }
   },
   mounted: async function(){
-    this.$nextTick( async function(){
+    this.$nextTick(function(){
       this.carHeight = this.getCarHeight();
-      const slidedata = await this.getJsonComm('wp-json/gamux/v1/images/mainslide/1');
-      for(const k in slidedata) {
-        this.items[k] = {"value": 0, "src": "", "link": ""};
-        this.items[k]["src"] = slidedata[k]["imageSrc"];
-        this.items[k]["link"] = slidedata[k]["postLink"];
-        this.items[k]["value"] = Number(k);
-        this.$set(this.items, k , {"value": k, "src": slidedata[k]["imageSrc"], "link": slidedata[k]["postLink"]});
-      }
-      console.log(this.items);
     });
+    const slidedata = await this.getJsonComm('wp-json/gamux/v1/images/mainslide/1');
+    for(k=0;k<slidedata.length;k++) {
+      this.items[k] = {"value": 0, "src": "", "link": ""};
+      this.items[k]["src"] = slidedata[k]["imageSrc"];
+      this.items[k]["link"] = slidedata[k]["postLink"];
+      this.items[k]["value"] = Number(k);
+      this.$set(this.items, k , {"value": k, "src": slidedata[k]["imageSrc"], "link": slidedata[k]["postLink"]});
+    }
+
+    const postdatas = await this.getJsonComm('wp-json/wp/v2/posts?per_page=10');
+    for(i=0;i<postdatas.length;i++) {
+      this.postdata[i] = postdatas[i];
+    }
 
     const wishlistdata = await this.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues');
     this.wishlist = wishlistdata;
@@ -61,8 +67,7 @@ var index = new Vue({
       }, 500);
     };
   },
-  created: async function() {
-
+  created: function() {
   },
   watch: {
     carHeight: function(val){

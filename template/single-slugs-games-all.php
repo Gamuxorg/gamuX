@@ -64,7 +64,7 @@ get_header(); ?>
       <el-button type="primary" icon="el-icon-notebook-2">投稿</el-button>
     </section>
     <section id="post-thumb">
-      <el-image src="https://media.st.dl.pinyuncloud.com/steam/apps/458710/header.jpg?t=1601048208" fit="fill"></el-image>
+      <el-image :src="thumbnail" fit="fill"></el-image>
     </section>
     <section id="post-buy">
       <div class="post-buy-div" v-for="buy in buyurls">

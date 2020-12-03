@@ -11,6 +11,7 @@ var game = new Vue({
     cururl: "",
     postdate: "",
     imgtype: "",
+    thumbnail: "",
     buyurls: [
       {text: "在Steam购买本游戏", url: "https://www.baidu.com"},
       {text: "在GOG购买本游戏", url: "https://www.360.cn"}
@@ -84,5 +85,6 @@ var game = new Vue({
     modifieddate = postdata.modified.split("T")[0];
     this.activities[1].timestamp = this.postdate;
     this.activities[0].timestamp = modifieddate;
+    this.thumbnail = postdata.exts.thumbnail;
   },
 })
