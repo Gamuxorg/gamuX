@@ -99,7 +99,7 @@ get_header(); ?>
       </div>
       <div class="wish-lists text item">
         <div class="wish-text" v-for="wish in wishlist">
-          {{ wish.title }}
+          <div class="wish-title"><a :href="wish.html_url" target="_blank">{{ wish.title }}</a></div>
         </div>
       </div>
     </el-card>
