@@ -12,6 +12,7 @@ var game = new Vue({
     postdate: "",
     imgtype: "",
     thumbnail: "",
+    comments: "",
     buyurls: [
       {text: "在Steam购买本游戏", url: "https://www.baidu.com"},
       {text: "在GOG购买本游戏", url: "https://www.360.cn"}
@@ -71,20 +72,24 @@ var game = new Vue({
   },
   mounted: async function() {
     this.getSiteUrl();
-    urljson = await this.getPostJson(this.cururl);
-    postid = urljson.headers.link.split(/[,;=>]/)[5];
-    urldata = await this.getPostJson(this.siteurl + "/wp-json/wp/v2/posts/" + postid+"?_embed");
-    postdata = urldata.data;
-    console.log(postdata);
-    postterm = postdata["_embedded"]["wp:term"][0];
+    const urljson = await this.getPostJson(this.cururl);
+    const postid = urljson.headers.link.split(/[,;=>]/)[5];
+    const postdataorigin = await this.getPostJson(this.siteurl + "/wp-json/wp/v2/posts/" + postid+"?_embed");
+    const postdata = postdataorigin.data;
+    const postterm = postdata["_embedded"]["wp:term"][0];
     this.catname = postterm[0].name;
     this.caturl = postterm[0].link;
     this.postname = postdata.title.rendered;
     this.postcontent = postdata.content.rendered;
     this.postdate = postdata.date.split("T")[0];
-    modifieddate = postdata.modified.split("T")[0];
+    const modifieddate = postdata.modified.split("T")[0];
     this.activities[1].timestamp = this.postdate;
     this.activities[0].timestamp = modifieddate;
     this.thumbnail = postdata.exts.thumbnail;
+
+    const commentdataorigin = await this.getPostJson("/wp-json/wp/v2/comments?post=" + postid);
+    const commentdata = commentdataorigin.data;
+    this.comments = commentdata;
+    console.log(commentdata); 
   },
 })

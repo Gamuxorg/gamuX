@@ -222,6 +222,13 @@ function list_the_tags() {
   return $a;
 }*/
 
+//restful api cookie认证
+wp_localize_script( 'wp-api', 'wpApiSettings', array( 
+  'root' => esc_url_raw( rest_url() ), 
+  'nonce' => wp_create_nonce( 'wp_rest' ) 
+  ) 
+);
+
 /*
  * 第二部分，前台
  */

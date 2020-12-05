@@ -53,7 +53,7 @@
   font-size: 1.5rem;  
 }
 
-/* 评论 */
+/* 下载 */
 .download-head {
   border-bottom: 1.5px solid gray;
   font-size: 1.2rem;
@@ -70,6 +70,16 @@
 } 
 table .cell {
   text-align: center;
+}
+
+/* 评论 */
+.comment-author-avatar-img {
+  border: solid 1px gray;
+  border-radius: 5%;
+}
+.comment-author-reply p {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
 /*  
  * 侧边栏

@@ -43,12 +43,12 @@ get_header(); ?>
 <section id="cards">
     <el-card class="card" v-for="post in postdata" :key="post.id">
       <div class="pic">
-      <img :src="post.exts.thumbnail" class="image">
+      <a :href="post.link"><img :src="post.exts.thumbnail" class="image"></a>
       </div>
       <div class="game-info">
         <div class="game-name-sort">
-          <div class="game-name">{{ post.title.rendered }}</div>
-          <div class="game-sort"><el-button type="text">即时战略</el-button></div>
+          <div class="game-name"><a :href="post.link">{{ post.title.rendered }}</a></div>
+          <div class="game-sort"><el-button type="text"><a :href="post['_links']['wp:term'][0]['href']">即时战略</a></el-button></div>
         </div>
         <div class="game-version-date">
           <div class="game-version">13.6.2.8</div>
@@ -74,7 +74,7 @@ get_header(); ?>
       </div>
       <div class="comment-list text item">
       <?php
-      $comments = get_comments('status=approve&number=5&order=asc');
+      $comments = get_comments('status=approve&number=10&order=asc');
       foreach($comments as $comment) :
       ?>
         <div class="comment-text">
@@ -83,7 +83,7 @@ get_header(); ?>
             <span class="reply-text">回复</span>
           </el-badge>
           <a href="<?php echo esc_url( get_comment_link($comment->comment_ID) ); ?>">
-            <?php echo  mb_strimwidth($comment->comment_content, 0, 50, '...'); ?>回复
+            <?php echo  mb_strimwidth($comment->comment_content, 0, 50, '...'); ?>
           </a>
         </div>
       <?php endforeach;?>
