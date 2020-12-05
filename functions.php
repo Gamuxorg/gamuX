@@ -223,11 +223,12 @@ function list_the_tags() {
 }*/
 
 //restful api cookie认证
-wp_localize_script( 'wp-api', 'wpApiSettings', array( 
-  'root' => esc_url_raw( rest_url() ), 
-  'nonce' => wp_create_nonce( 'wp_rest' ) 
-  ) 
-);
+add_action( 'wp_enqueue_scripts', function()
+{
+    wp_enqueue_script( 'wp-api' );
+    wp_enqueue_script( 'test_script', get_theme_file_uri( '/js/auth.js' ), [ 'wp-api' ] );
+
+} );
 
 /*
  * 第二部分，前台
