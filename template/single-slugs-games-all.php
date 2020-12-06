@@ -53,37 +53,19 @@ get_header(); ?>
         </el-table>
       </div>
     </section>    
-    <section class="post-commit">
-      <div class="commit-head">评论</div>
-      <el-card v-for="comment in comments" :key="comment.id">
-        <el-row class="comment-card" :gutter="10">
-          <el-col :md="3">
-            <div class="comment-author-avatar">
-              <el-image class="comment-author-avatar-img" fit="fit" src="https://avatars3.githubusercontent.com/u/4121607"></el-image>
-            </div>
-          </el-col>
-          <el-col :md="21">
-            <div class="comment-main">
-              <div class="comment-author-reply" v-html="comment.content.rendered"></div>
-              <div class="comment-reply-card">
-                <div class="comment-reply-avatar"></div>
-                <div class="comment-reply-text">
-                  <time class="time">123</time>
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </div>
-          </el-col>
-        </el-row>
-      </el-card>      
-    </section>
+    <?php comments_template(); ?>
   </el-col>
 
   <el-col id="post-sidebar" :xs="0" :sm="8" :md="8" :lg="6">
-    <section id="post-edit">
+    <section id="post-edit" v-if="islogin == true">
+      <el-button type="primary" icon="el-icon-edit"><a href="/wp-admin/post.php?post=&action=edit">编辑</a></el-button>
+      <el-button type="primary" icon="el-icon-notebook-2"><a href="/wp-admin/post-new.php">投稿</a></el-button>
+    </section>
+    <section id="post-edit" v-else>
       <el-button type="primary" icon="el-icon-edit">编辑</el-button>
       <el-button type="primary" icon="el-icon-notebook-2">投稿</el-button>
     </section>
+       
     <section id="post-thumb">
       <el-image :src="thumbnail" fit="fill"></el-image>
     </section>
@@ -96,14 +78,6 @@ get_header(); ?>
           {{ buy.text }}
         </a>
       </div>
-    </section>
-    <section id="post-rate">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-dianzan-copy"></use>
-      </svg>
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-dianzan2"></use>
-      </svg>      
     </section>
     <section id="timeline">
       <el-timeline>

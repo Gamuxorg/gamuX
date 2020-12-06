@@ -13,6 +13,7 @@ var game = new Vue({
     imgtype: "",
     thumbnail: "",
     comments: "",
+    islogin: false,
     buyurls: [
       {text: "在Steam购买本游戏", url: "https://www.baidu.com"},
       {text: "在GOG购买本游戏", url: "https://www.360.cn"}
@@ -86,7 +87,7 @@ var game = new Vue({
     this.activities[1].timestamp = this.postdate;
     this.activities[0].timestamp = modifieddate;
     this.thumbnail = postdata.exts.thumbnail;
-
+    this.islogin = postdata.exts.isUserLogin;
     const commentdataorigin = await this.getPostJson("/wp-json/wp/v2/comments?post=" + postid);
     const commentdata = commentdataorigin.data;
     this.comments = commentdata;
