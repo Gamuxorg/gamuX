@@ -6,14 +6,21 @@
 	 * 
 	 */
 	class MainSlidePic {
-		private $postTotalCount;
+		const MaxRetryTime = 1000;	//防止无限循环
+
+		private $postMaxId;
+		private $post_idUsedCount;
 		public $post_idUsed;		//已经使用或判定无效的文章id
 		public $srcs;
 		public $post_ids;			//最终使用的文章id
 		public $posts;				//返回 postLink + src
 
 		public function __construct() {
-			$this->postTotalCount = wp_count_posts()->publish;
+			$this->postMaxId = wp_get_recent_posts([
+				'numberposts' => 1, 
+				'post_status' => 'publish'
+			])[0]['ID'];							//获取文章中最大的ID
+			$this->post_idUsedCount = 0;
 			$this->post_idUsed = array();
 			$this->srcs = array();
 			$this->post_ids = array();
@@ -23,32 +30,38 @@
 		/**
 		 * 返回一个不重复的随机的文档ID
 		 *
-		 * @return int $id
+		 * @return mixed $id || false 
 		 */
 		private function randID() : int {
+			$retry = 0;
 			do {
-				$id = rand(0, $this->postTotalCount - 1);
+				$id = rand(1, $this->postMaxId);
+				if($retry > self::MaxRetryTime)				//防止无限循环
+					return false;
 			}while(in_array($id, $this->post_idUsed));
 			
 			array_push($this->post_idUsed, $id);
+			$this->post_idUsedCount++;
 			return $id;
 		}
 
 		/**
 		 * 获取一个游戏内的所有图片
 		 *
-		 * @return mixed $post || NULL
+		 * @return mixed $post || false
 		 */
 		private function newImages() {
 			do {
-				$id = $this->randID();
+				if(($id = $this->randID()) === false) {
+					return false;
+				}
 				while(\get_post_type($id) != 'post')
 					$id = $this->randID();
 				$post = get_posts([
 					'numberposts'=> 1,
 					'offset'=> $id,
 					'category'=> [
-						1,256				//只获取游戏类别
+						1, 256					//只获取游戏类别
 					]
 				]);
 			}while(empty($post));			//如果offset是非游戏类别时会返回空
@@ -69,7 +82,7 @@
 		 * 获取一个游戏内的一张随机的图片的URL
 		 *
 		 * @param Array $imgs
-		 * @return mixed $tmp
+		 * @return mixed $tmp || false
 		 */
 		private function imageSrc(Array $imgs) {
 			$arrLen = count($imgs);
@@ -89,12 +102,15 @@
 		 * 获取指定数量的图片的链接src及其文章链接
 		 *
 		 * @param int $picNum
-		 * @return Array $posts
+		 * @return array $posts || false
 		 */
 		public function getImageSrcs($picNum = 4) : array {
 			for($i = 0; $i < $picNum; $i++) {
 				do {
 					$post = $this->newImages();
+					if(!is_array($post))
+						if($post === false)
+							return false;
 				}while(is_null($post));
 				array_push($this->post_ids, $post->id);
 
@@ -121,6 +137,23 @@
 		else
 			$imgSrcs = $slides->getImageSrcs();	
 		
-		return $imgSrcs;
+		if(!is_array($imgSrcs)) {
+			if($imgSrcs === false)
+				return [
+					"status" => -1,
+					"message" => "无法获取足够数量的图片，请尝试减少请求数"
+				];
+			else
+				return [
+					"status" => -2,
+					"message" => "未知错误"
+				];
+		}
+		else
+			return [
+				"status" => 0,
+				"message" => "成功",
+				"data" => $imgSrcs
+			];
 	}
 ?>
