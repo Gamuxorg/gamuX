@@ -43,7 +43,8 @@ var index = new Vue({
     this.$nextTick(function(){
       this.carHeight = this.getCarHeight();
     });
-    const slidedata = await this.getJsonComm('wp-json/gamux/v1/images/mainslide/1');
+    const slidedatas = await this.getJsonComm('wp-json/gamux/v1/images/mainslide/1');
+    const slidedata = slidedatas.data;
     for(k=0;k<slidedata.length;k++) {
       this.items[k] = {"value": 0, "src": "", "link": ""};
       this.items[k]["src"] = slidedata[k]["imageSrc"];
