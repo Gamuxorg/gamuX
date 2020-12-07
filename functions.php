@@ -226,8 +226,12 @@ function list_the_tags() {
 add_action( 'wp_enqueue_scripts', function()
 {
     wp_enqueue_script( 'wp-api' );
-    wp_enqueue_script( 'test_script', get_theme_file_uri( '/js/auth.js' ), [ 'wp-api' ] );
-
+    // wp_enqueue_script( 'test_script', get_theme_file_uri( '/js/auth.js' ), [ 'wp-api' ] );
+    wp_enqueue_script( 'auth_rest', get_theme_file_uri( '/js/auth_rest.js' ));
+    wp_localize_script( 'auth_rest', 'wpApiSettings', array(
+        'root' => esc_url_raw( rest_url() ),
+        'nonce' => wp_create_nonce( 'wp_rest' )
+    ));
 } );
 
 /*
