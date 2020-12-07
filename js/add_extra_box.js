@@ -68,10 +68,10 @@ jQuery(document).ready(function() {
 	var gamux_buyurl_add = $("#gamux-buyurl-add");
 	var gamux_buyurl_del = $("#gamux-buyurl-del");
 	gamux_buyurl_add.on('click', function() {
-		gamux_buyurls.append('<input style="width: 100%;" name="buy_url[]" value="">');
+		gamux_buyurls.append('<div><input style="width: 100%;" name="buy_url[]" value=""></div>');
 	});
 	gamux_buyurl_del.on('click', function() {
-		if($("#gamux-buyurls input").size() > 1)
-			$("#gamux-buyurls input:last-child").remove();
+		if($("#gamux-buyurls > div").size() > 1)
+			$("#gamux-buyurls > div:last-child").remove();
 	});
 });

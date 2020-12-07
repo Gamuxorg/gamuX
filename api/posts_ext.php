@@ -105,6 +105,65 @@
 	}
 
 	/**
+	 * 根据购买链接返回商店平台的类型，其他类型返回 "Etc"
+	 *
+	 * @param string $link
+	 * @return string $store
+	 */
+	function buy_url_type(string $link) : string {
+		$types = [
+			"Steam" => "store.steampowered.com",
+			"GOG" => "www.gog.com"
+		];
+
+		foreach ($types as $store => $url) {
+			if(strstr($link, $url) != "")
+				return $store;
+		}
+		return "Etc";
+	}
+
+	/**
+	 * 获取购买链接数组
+	 *
+	 * @param $id
+	 * @return array $buyList
+	 */
+	function get_buy_urls($id) {
+		$count = gamux_buyurl_count();	
+		$buyList = array();
+		for($i=0; $i < $count; $i++) {
+			$link = get_post_meta($id, 'buy_url_'.$i, true);
+			$store = buy_url_type($link);
+			array_push($buyList, [
+				"store" => $store,
+				"link" => $link
+			]);
+		}
+		return $buyList;
+	}
+
+	/**
+	 * 获取文章分类信息
+	 *
+	 * @param array $category_ids
+	 * @return array $categories
+	 */
+	function get_categories(array $category_ids) {
+		$categories = array();
+		foreach($category_ids as $id) {
+			$cat = \get_category($id);
+			array_push($categories, [
+				"cat_id" => $cat->cat_ID,
+				"name" => $cat->name,
+				"slug" => $cat->slug
+			]);
+		}
+			
+		return $categories;
+	}
+
+	/**
 	 * 添加和注册各个字段
 	 * 
 	 * 添加 thumbnail 字段，返回缩略图链接
@@ -127,9 +186,10 @@
 				return array(
 					"thumbnail" => get_thumbnail_url($args['id']),
 					"images" => get_all_imgs($args['content']['raw']),
-					"downloadList" => get_downloadList($args["id"]),
+					"downloadList" => get_downloadList($args['id']),
 					"postViews" => (int)getPostViews($args['id']),
-					"buyUrl" => get_post_meta($args['id'], 'buy_url', true),
+					"buyUrls" => get_buy_urls($args['id']),
+					"categories" => get_categories($args['categories']),
 					"authorName" => get_the_author(),
 					"modAuthorName" => get_the_modified_author(),
 					"tagList" => get_the_tag_list(),

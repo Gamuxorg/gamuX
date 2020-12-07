@@ -236,7 +236,7 @@ function extra_meta_box($post) {
 
 	//获取多个购买链接
 	$count = gamux_buyurl_count();	
-	$link_template = '<input style="width: 100%;" name="buy_url[]" value="buy_value">';
+	$link_template = '<div><input style="width: 100%;" name="buy_url[]" value="buy_value"></div>';
 	$buyList = "";
 	for($i=0; $i < $count; $i++)
 		$buyList .= str_replace("buy_value", get_post_meta( $post->ID, $buy_key.'_'.$i, true), $link_template);
@@ -251,9 +251,9 @@ function extra_meta_box($post) {
 		<input type="button" value="删除" id="gamux-buyurl-del">
 	</div>
 	<label>背景图片，输入http(s)开头的url即可</label>
-	<input style="width: 100%;" name="bg" value="$bg_value">
+	<input style="width: 100%;" name="bg" id="bg" value="$bg_value">
 	<label>运行配置</label>
-	<textarea name="peizhi" style="width: 100%;" rows = "10">$peizhi_value</textarea>
+	<textarea name="peizhi" id="peizhi" style="width: 100%;" rows = "10">$peizhi_value</textarea>
 str;
 	echo $html;
 }
