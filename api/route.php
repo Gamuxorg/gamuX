@@ -25,10 +25,23 @@ add_action( 'rest_api_init', function () {
 	));
 });
 
-add_action('rest_api_init', function () {
-	register_rest_route( 'gamux/v1', '/oauth/weibo/\?code=(?P<code>\w+)', array(
+//获取评论，输入post_id，调用get_comments
+//route: wp-json/gamux/v1/comments/(?P<post>\d+)
+include("comments.php");
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'gamux/v1', '/comments/(?P<post>\d+)', array(
 		'methods' => 'GET',
-		'callback' => '\Gamux\weibo_oauth_login_init'
+		'callback' => '\Gamux\get_comments',
+		'args' => array(
+			'post' => array(
+				'validate_callback' => function($param, $request, $key) {
+					if(!empty($param))
+						return is_numeric($param);
+					else
+						return true;
+				}
+			)
+		)
 	));
 });
 
