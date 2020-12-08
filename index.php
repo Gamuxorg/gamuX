@@ -48,7 +48,7 @@ get_header(); ?>
       <div class="game-info">
         <div class="game-name-sort">
           <div class="game-name"><a :href="post.link">{{ post.title.rendered }}</a></div>
-          <div class="game-sort"><el-button type="text"><a :href="post['_links']['wp:term'][0]['href']">即时战略</a></el-button></div>
+          <div class="game-sort"><el-button type="text"><a :href="'/gamelist?catid=' + (post.exts.categories)[0].cat_id">{{ (post.exts.categories)[0].name }}</a></el-button></div>
         </div>
         <div class="game-version-date">
           <div class="game-version">13.6.2.8</div>

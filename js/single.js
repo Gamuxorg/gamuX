@@ -9,6 +9,9 @@ var game = new Vue({
     postcontent: "游戏内容加载中...",
     siteurl: "https://www.linuxgame.cn",
     cururl: "",
+    postid: 1,
+    editurl: "",
+    contributeurl: "",
     postdate: "",
     imgtype: "",
     thumbnail: "",
@@ -72,9 +75,12 @@ var game = new Vue({
     },
   },
   mounted: async function() {
-    this.getSiteUrl();
+    const siteurl = this.getSiteUrl();
     const urljson = await this.getPostJson(this.cururl);
     const postid = urljson.headers.link.split(/[,;=>]/)[5];
+    this.postid = postid;
+    this.editurl = siteurl + "/wp-admin/post.php?post=" + postid + "postid'&action=edit";
+    this.contributeurl = siteurl + "/wp-admin/post-new.php";
     const postdataorigin = await this.getPostJson(this.siteurl + "/wp-json/wp/v2/posts/" + postid+"?_embed");
     const postdata = postdataorigin.data;
     const postterm = postdata["_embedded"]["wp:term"][0];
