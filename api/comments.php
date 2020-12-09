@@ -21,9 +21,10 @@
 	}
 
 class Comments {
-	public $post_id;
+	private $post_id;
 
 	public function __construct($post_id) {
+		settype($post_id, 'int');
 		$this->post_id = $post_id;
 	}
 
@@ -84,7 +85,7 @@ class Comments {
 	 * @return array $data
 	 */
 	function get_comments($args) {
-		$post_id = $args->get_params('post');
+		$post_id = $args->get_param('post');
 		$commentObj = new Comments($post_id);
 		$data = $commentObj->retrieve_comments();
 		return $data;
