@@ -73,14 +73,34 @@ table .cell {
 }
 
 /* 评论 */
-.comment-author-avatar-img {
+.comment-card {
+  margin-bottom: .35rem;;
+}
+.comment-left {
+  text-align: center;
+}
+.comment-author-name {
+  font-size: .8rem;
+  overflow: hidden;
+  height: 1rem;
+  line-height: 1rem;
+}
+.comment-author-avatar-img img {
   border: solid 1px gray;
-  border-radius: 5%;
+  border-radius: 100%;
+  width: 80%;
+  height: 80%;
 }
-.comment-author-reply p {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+.comment-main-content {
+
 }
+.comment-main-info {
+  text-align: right;
+}
+.comment-main-info-main>span>button {
+  padding: 0 0.5rem 0 1rem;
+}
+
 /*  
  * 侧边栏
 */

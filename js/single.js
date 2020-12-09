@@ -15,7 +15,7 @@ var game = new Vue({
     postdate: "",
     imgtype: "",
     thumbnail: "",
-    comments: "",
+    comments: [],
     islogin: false,
     buyurls: [
       {text: "在Steam购买本游戏", url: "https://www.baidu.com"},
@@ -76,6 +76,7 @@ var game = new Vue({
   },
   mounted: async function() {
     const siteurl = this.getSiteUrl();
+    //文章详情
     const urljson = await this.getPostJson(this.cururl);
     const postid = urljson.headers.link.split(/[,;=>]/)[5];
     this.postid = postid;
@@ -94,9 +95,9 @@ var game = new Vue({
     this.activities[0].timestamp = modifieddate;
     this.thumbnail = postdata.exts.thumbnail;
     this.islogin = postdata.exts.isUserLogin;
-    const commentdataorigin = await this.getPostJson("/wp-json/wp/v2/comments?post=" + postid);
-    const commentdata = commentdataorigin.data;
-    this.comments = commentdata;
-    console.log(commentdata); 
+    //评论
+    const comment = await this.getPostJson("/wp-json/gamux/v1/comments/" + postid);
+    this.comments = comment.data;
+    console.log(this.comments); 
   },
 })
