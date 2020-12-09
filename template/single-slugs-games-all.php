@@ -58,8 +58,8 @@ get_header(); ?>
 
   <el-col id="post-sidebar" :xs="0" :sm="8" :md="8" :lg="6">
     <section id="post-edit" v-if="islogin == true">
-      <el-button type="primary" icon="el-icon-edit"><a href="/wp-admin/post.php?post=&action=edit">编辑</a></el-button>
-      <el-button type="primary" icon="el-icon-notebook-2"><a href="/wp-admin/post-new.php">投稿</a></el-button>
+    <a :href="editurl"><el-button type="primary" icon="el-icon-edit">编辑</el-button></a>
+    <a :href="contributeurl"><el-button type="primary" icon="el-icon-notebook-2">投稿</el-button></a>
     </section>
     <section id="post-edit" v-else>
       <el-button type="primary" icon="el-icon-edit">编辑</el-button>

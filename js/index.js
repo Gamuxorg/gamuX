@@ -6,6 +6,7 @@ var index = new Vue({
     wishlist: null,
     postnum: 10,
     postdata: [],
+    caturl: "",
   },
   methods: {
     getCarUrl: function(url) {
@@ -43,7 +44,7 @@ var index = new Vue({
     this.$nextTick(function(){
       this.carHeight = this.getCarHeight();
     });
-    const slidedatas = await this.getJsonComm('wp-json/gamux/v1/images/mainslide/1');
+    const slidedatas = await this.getJsonComm('/wp-json/gamux/v1/images/mainslide/4');
     const slidedata = slidedatas.data;
     for(k=0;k<slidedata.length;k++) {
       this.items[k] = {"value": 0, "src": "", "link": ""};
@@ -61,6 +62,7 @@ var index = new Vue({
       const c = b[0];
       this.postdata[i]["modified"] = c;
     }
+
     console.log(postdatas);
     const wishlistdata = await this.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues');
     this.wishlist = wishlistdata;
