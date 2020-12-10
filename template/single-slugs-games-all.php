@@ -57,13 +57,13 @@ get_header(); ?>
       <div class="comment-head">评论</div>
       <el-card class="comment-card" v-for="comment in comments" :key="comment.id">
         <el-row class="comment-card" :gutter="10">
-          <el-col class="comment-left" :xs="24" :sm="4" :md="3">
+          <el-col class="comment-left" :xs="24" :sm="4" :md="3" :lg="3">
             <div class="comment-author-avatar">
               <el-image class="comment-author-avatar-img" fit="fit" src="https://avatars3.githubusercontent.com/u/4121607"></el-image>
             </div>
             <div class="comment-author-name">{{ comment.author_name }}</div>
           </el-col>
-          <el-col class="comment-right" :xs="24" :sm="20" :md="21">
+          <el-col class="comment-right" :xs="24" :sm="20" :md="21" :lg="22">
             <div class="comment-main">
               <div class="comment-main-content" v-html="comment.content"></div>
               <div class="comment-main-info">
