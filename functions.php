@@ -327,3 +327,6 @@ include('function/oauth2_route.php');
 // include('function/github_login.php');
 include('function/weibo_login.php');
 include('function/qq_login.php');
+
+//添加用户未读评论回复数处理
+include('function/user_comment.php');

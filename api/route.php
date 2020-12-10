@@ -45,4 +45,24 @@ add_action( 'rest_api_init', function () {
 	));
 });
 
+//获取用户未读评论数，输入user_id
+//route: wp-json/gamux/v1/comments/unread/(?P<user>\d+)
+include("user_comment.php");
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'gamux/v1', '/comments/unread/(?P<user>\d+)', array(
+		'methods' => 'GET',
+		'callback' => '\Gamux\get_user_unread',
+		'args' => array(
+			'user' => array(
+				'validate_callback' => function($param, $request, $key) {
+					if(!empty($param))
+						return is_numeric($param);
+					else
+						return true;
+				}
+			)
+		)
+	));
+});
+
 ?>
