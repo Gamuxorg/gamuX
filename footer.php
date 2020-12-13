@@ -8,6 +8,8 @@
 <?php if (is_home() || is_front_page()) { ?>
     <script src="<?php bloginfo('template_url'); ?>/js/index.js"></script>
 <?php } else if (is_single()) { ?>
+    <script crossorigin="anonymous" integrity="sha384-QUJ+ckWz1M+a7w0UfG1sEn4pPrbQwSxGm/1TIPyioqXBrwuT9l4f9gdHWLDLbVWI" src="https://lib.baomitu.com/quill/1.3.7/quill.min.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/vue-quill-editor.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/single.js"></script>
 <?php } else { ?>
 

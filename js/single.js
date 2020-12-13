@@ -1,3 +1,6 @@
+Vue.use(window.VueQuillEditor);
+axios.defaults.headers.post['X-WP-Nonce'] = wpApiSettings.nonce;
+
 var game = new Vue({
   el: '#section',
   data: {
@@ -16,6 +19,17 @@ var game = new Vue({
     imgtype: "",
     thumbnail: "",
     comments: [],
+    comnum: 0,
+    //当前登录用户名
+    username: "",
+    //当前登录用户id
+    userid: "",
+    //当前登录用户url
+    userurl: "",
+    //当前时间,gmt
+    curdate: "",
+    //当前时间,本地
+    curutcdate: "",
     islogin: false,
     buyurls: [
       {text: "在Steam购买本游戏", url: "https://www.baidu.com"},
@@ -52,6 +66,15 @@ var game = new Vue({
       link: 'https://www.baidu.com',
       remark: '路 1518 弄'
     },],
+    //comment editor
+    editorContent: '',
+    editorOption: {
+      modules: {
+        toolbar: 
+          ['bold', 'underline', 'strike', 'blockquote', 'code-block', {'color': []}, 'clean'],
+      },
+      placeholder: '',
+    },    
   },
   methods: {
     //数据绑定
@@ -73,6 +96,38 @@ var game = new Vue({
       });
       return a;
     },
+    //comment editor
+    onEditorBlur: function(quill) {
+      console.log('editor blur!', quill)
+    },
+    onEditorFocus: function(quill) {
+      console.log('editor focus!', quill)
+    },
+    onEditorReady: function(quill) {
+      console.log('editor ready!', quill)
+    },
+    onEditorChange: function({quill, html, text}) {
+      this.editorContent = html;
+    },
+    onEditorButtonClicked: function () {
+      axios({
+        method: 'post',
+        url: this.siteurl + '/wp-json/wp/v2/comments',
+        data: {
+          'content': this.editorContent,
+          'post': this.postid,
+          'author_name': this.username,
+          'author': this.userid,
+          'date': this.curdate,
+          'date_gmt': this.curutcdate,
+        },
+      }).then(function(response) {
+        console.log(response);
+      }).catch(function(e) {
+        console.log(e);
+        console.log('失败');
+      });
+    }
   },
   mounted: async function() {
     const siteurl = this.getSiteUrl();
@@ -95,9 +150,28 @@ var game = new Vue({
     this.activities[0].timestamp = modifieddate;
     this.thumbnail = postdata.exts.thumbnail;
     this.islogin = postdata.exts.isUserLogin;
-    //评论
+//日期    
+    const getDate = new Date();
+    this.curdate = new Date(getDate.getTime() - (getDate.getTimezoneOffset() * 60000)).toJSON();
+    this.curutcdate = getDate.toJSON();
+    //userinfo
+    const userinfos = await this.getPostJson("/wp-json/wp/v2/users/me?_wpnonce=" + wpApiSettings.nonce);
+    const userinfo = userinfos.data;
+    if (userinfos.statusText == "OK") {
+      this.username = userinfo.name;
+      this.userid = userinfo.id;
+    }
+    else {
+      console.log(userinfos);
+    }
+    //comment
     const comment = await this.getPostJson("/wp-json/gamux/v1/comments/" + postid);
     this.comments = comment.data;
-    console.log(this.comments); 
+    this.comnum = comment.data.length;
+  },
+  computed: {
+    editor: function() {
+      return this.$refs.myQuillEditor.quill;
+    }
   },
 })

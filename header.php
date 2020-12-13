@@ -24,11 +24,8 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <?php if(is_single()) { ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/single.css">
-    <style>
-    #main {
-      background-image: url(<?php echo get_post_meta($post->ID, 'bg')[0]; ?>);
-    }
-    </style>
+    <link crossorigin="anonymous" integrity="sha384-ZRDpVVqGBi+Z6MTPAvbDgaCG9LsF0YC4CamTOCc/suXE1tMk27dC3pjJS/QxoiUW" href="https://lib.baomitu.com/quill/1.3.7/quill.core.min.css" rel="stylesheet">
+    <link crossorigin="anonymous" integrity="sha384-Cr4NirNGPwhXoUPml2HA5PmMExeUuxM/oxUMDhMdSzUi9udHL+hdgDZZpq/2rOrp" href="https://lib.baomitu.com/quill/1.3.7/quill.snow.min.css" rel="stylesheet">
   <?php } elseif(is_home()) { ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/index.css">
   <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'gamelist') != false)){ ?>

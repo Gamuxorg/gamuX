@@ -53,7 +53,7 @@ get_header(); ?>
         </el-table>
       </div>
     </section>    
-    <section class="post-commit">
+    <section class="post-commit" v-if="comnum > 0">
       <div class="comment-head">评论</div>
       <el-card class="comment-card" v-for="comment in comments" :key="comment.id">
         <el-row class="comment-card" :gutter="10">
@@ -63,13 +63,13 @@ get_header(); ?>
             </div>
             <div class="comment-author-name">{{ comment.author_name }}</div>
           </el-col>
-          <el-col class="comment-right" :xs="24" :sm="20" :md="21" :lg="22">
+          <el-col class="comment-right" :xs="24" :sm="20" :md="21" :lg="21">
             <div class="comment-main">
               <div class="comment-main-content" v-html="comment.content"></div>
               <div class="comment-main-info">
                 <div class="comment-main-info-main">
                   <span>{{ comment.date }}</span>
-                  <span><el-button type="text" icon="el-icon-edit">回复</el-button></a></span>
+                  <span><el-button type="text" icon="el-icon-edit">回复</el-button></span>
                 </div>
               </div>
             </div>
@@ -85,14 +85,34 @@ get_header(); ?>
                 <div class="comment-main-info">
                   <div class="comment-main-info-main">
                     <span>{{ reply.date }}</span>
-                    <span><el-button type="text" icon="el-icon-edit">回复</el-button></a></span>
+                    <span><el-button type="text" icon="el-icon-edit">回复</el-button></span>
                   </div>
                 </div>
               </el-col>             
             </el-row>
           </el-col>
         </el-row>
-      </el-card>      
+      </el-card>
+    </section>
+    <section class="post-commit" v-else>
+      <div class="comment-head">评论</div>
+      <div class="nocomment">还没有评论，试试发布一个吧~</div>
+    </section>
+    <section id="report-commit">
+      <div id="commit-editor">
+        <quill-editor
+          ref="myQuillEditor"
+          v-model="editorContent"
+          :options="editorOption"
+          @blur="onEditorBlur($event)"
+          @focus="onEditorFocus($event)"
+          @ready="onEditorReady($event)"
+          @change="onEditorChange($event)"
+        />
+      </div>
+      <div class="report-button">
+        <el-button type="type" icon="el-icon-edit" @click="onEditorButtonClicked">发布评论</el-button>
+      </div>
     </section>
   </el-col>
 
