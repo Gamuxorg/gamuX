@@ -9,8 +9,9 @@
 class Weibo_Oauth extends Oauth2{
 	const APPID = "";
 	const APPSECRET = "";
-	const STATE = "ggggaaaa";					//用于防止CSRF的随机字符串
+	const STATE = "";					//用于防止CSRF的随机字符串
 	const REDIRECT_ROUTE = '/wp-json/gamux/v1/oauth/weibo';
+	const DEFAULT_EMAIL = "weibo@sina.com";
 
 	public $uid;		//weibo返回的uid
 	public $email;		//weibo返回的用户email
@@ -44,22 +45,24 @@ class Weibo_Oauth extends Oauth2{
 	 *
 	 * @return bool
 	 */
-	// function request_token_info() {
-	// 	$url = "https://api.weibo.com/oauth2/get_token_info";
-	// 	$token = $this->token;
-	// 	//发送POST请求
-	// 	$response = wp_remote_post($request_url, array(
-	// 		'headers' => "Authorization:OAuth2 $token",
-	// 		'redirection' => 5,
-	// 		'blocking' => true,					
-	// 		'timeout'=> 15
-	// 	));
+	/*
+	function request_token_info() {
+		$url = "https://api.weibo.com/oauth2/get_token_info";
+		$token = $this->token;
+		//发送POST请求
+		$response = wp_remote_post($request_url, array(
+			'headers' => "Authorization:OAuth2 $token",
+			'redirection' => 5,
+			'blocking' => true,					
+			'timeout'=> 15
+		));
 		
-	// 	$output = $this->check_response_error($response, $target = "uid");
-	// 	$this->check_response_error($output, $target);
-	// 	$this->uid = $output["uid"];
-	// 	return true;
-	// }
+		$output = $this->check_response_error($response, $target = "uid");
+		$this->check_response_error($output, $target);
+		$this->uid = $output["uid"];
+		return true;
+	}
+	*/
 
 	/**
 	 * 使用获取的 access_token 向 weibo 请求用户信息
@@ -109,9 +112,8 @@ class Weibo_Oauth extends Oauth2{
 	private function register_newUser(array $data) : array {
 		$weibo_id = $data['id'];
 		// $email = $this->email;
-		$email = "weibo@sina.com";
+		$email = self::DEFAULT_EMAIL;
 		$name = $data['name'];
-		$nickname = $data['screen_name'];
 		$avatar = $data['profile_image_url'];
 		$weibo_account = $weibo_id;
 		$prefix = 'weibo_';
@@ -123,12 +125,13 @@ class Weibo_Oauth extends Oauth2{
 			'display_name' => $name,
 			'user_email' => $email,
 			'user_pass' => $random_password,
-			'user_nicename' => $nickname
+			'user_nicename' => $name
 		);
 		$user_id = wp_insert_user( $userdata );
 		if(!is_wp_error($user_id)) {
 			add_user_meta($user_id, "weibo_id", $weibo_id);
 			add_user_meta($user_id, "weibo_avatar", $avatar);
+			update_user_meta($user_id, "nickname", $name);
 			$new_user = array(
 				"user_login" => $login_name,
 				'user_pass' => $random_password
@@ -141,9 +144,22 @@ class Weibo_Oauth extends Oauth2{
 	}
 
 	/**
-	 * 用户正常登录
+	 * 更新用户头像链接，因为会过期
 	 *
 	 * @return bool
+	 */
+	private function update_avatar($weibo_id) {
+		$prefix = 'weibo_';
+		$user_id = get_user_id_from_string($prefix . $weibo_id);
+		$avatar = $this->data['profile_image_url'];
+		update_user_meta($user_id, "weibo_avatar", $avatar);
+		return true;
+	}
+
+	/**
+	 * 用户正常登录
+	 *
+	 * @return void
 	 */
 	private function login() {
 		$data = $this->data;
@@ -153,6 +169,7 @@ class Weibo_Oauth extends Oauth2{
 			"meta_value" => $weibo_id
 		));
 		if(count($weibo_user) != 0) {		//用户正常登录
+			$this->update_avatar($weibo_id);
 			wp_set_auth_cookie($weibo_user[0]->ID);
 			$this->oauth_redirect();
 		}

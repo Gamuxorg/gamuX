@@ -24,14 +24,14 @@ class Github_Oauth extends Oauth2{
 	 */
 	private function request_access_token() {
 		//防止CSRF攻击
-		$this->check_csrf();
+		$this->check_csrf(self::STATE);
 
 		$request_url = "https://github.com/login/oauth/access_token";
 		$data = array(
 			'client_id' => self::APPID,
 			'client_secret' => self::APPSECRET,
 			'code' => $this->code,
-			'redirect_uri' => site_url(),
+			'redirect_uri' => site_url() . self::REDIRECT_ROUTE,
 			'state' => self::STATE
 		);
 		//发送POST请求
@@ -45,7 +45,8 @@ class Github_Oauth extends Oauth2{
 			'timeout'=> 15			            // using a shorter time to ensure user experience
 		));
 		$output = $this->check_response_error($response, $target = "access_token");
-		$this->check_response_error($output, $target);
+
+		$this->check_response_data($output, $target);
 		$this->token = $output[$target];
 		return true;
 	}
@@ -63,8 +64,8 @@ class Github_Oauth extends Oauth2{
 			'headers' => "Authorization: token $token"
 		));
 		$output = $this->check_response_error($response, $target = "user_info");
-		$this->check_response_error($output, $target = "login");
 		
+		$this->check_response_data($output, $target = "login");
 		$this->data = $output;
 		return true;
 	}
@@ -94,6 +95,7 @@ class Github_Oauth extends Oauth2{
 		$user_id = wp_insert_user( $userdata );
 		if(!is_wp_error($user_id)) {
 			add_user_meta($user_id, "github_id", $github_id);
+			update_user_meta($user_id, "nickname", $name);
 			$new_user = array(
 				"user_login" => $login_name,
 				'user_pass' => $random_password
@@ -156,7 +158,7 @@ class Github_Oauth extends Oauth2{
 	 * @return string $url
 	 */
 	function github_login_url() : string {
-		$url = 'https://github.com/login/oauth/authorize?client_id=' . Github_Oauth::APPID . '&scope=user&state=' . Github_Oauth::STATE . '&redirect_uri='. site_url();
+		$url = 'https://github.com/login/oauth/authorize?client_id=' . Github_Oauth::APPID . '&scope=user&state=' . Github_Oauth::STATE . '&redirect_uri='. site_url() . Github_Oauth::REDIRECT_ROUTE;
 		return $url;
 	}
 
@@ -166,12 +168,13 @@ class Github_Oauth extends Oauth2{
 		$id = $current_user->ID;
 		$github_id = get_user_meta($id, 'github_id', true);
 		$avatar = 'https://kr.linuxgame.cn:8088/git_avatar.php?id='. $github_id;
-		$name = $current_user->user_nicename;
+		$name = $current_user->display_name;
 		return array($name, $avatar);
 	}
 
 	//用户已完成认证，github 带上code授权码重定向回本站
-	function github_oauth_login_init(){
+	function github_oauth_login_init(\WP_REST_Request $request){
+		$code = $request->get_param('code');
 		if(!empty($code)) {
 			if(session_status() == PHP_SESSION_NONE)
 				session_start();
@@ -179,4 +182,3 @@ class Github_Oauth extends Oauth2{
 			$github_oauth->github_oauth();
 		}
 	}
-	// add_action('init','\Gamux\github_oauth_login_init');		//init 是否合理

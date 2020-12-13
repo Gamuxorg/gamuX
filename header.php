@@ -82,8 +82,9 @@
       </el-col>
     </el-row>
   
-    <div id="avatar" style="text-align:center; margin-top:20%;">
+    <div id="avatar" style="text-align:center; margin-top:50%;">
       <div class="block avatar-inner"><a href="/wp-admin">点击登录</a></div>
+      <a href="<?php echo \Gamux\github_login_url(); ?>"><img style="width:100%; margin-bottom:-5px;" src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/4363/github.png" alt="github_login"></a>
       <a href="<?php echo \Gamux\weibo_login_url(); ?>"><img src="https://www.sinaimg.cn/blog/developer/wiki/240.png" alt="weibo_login"></a>
       <a href="<?php echo \Gamux\qq_login_url(); ?>"><img src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/bt_blue_76X24.png" alt="qq_login"></a>
     </div>
