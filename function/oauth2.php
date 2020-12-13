@@ -28,13 +28,13 @@ class Oauth2{
 	}
 
 	/**
-	 * 检查wp_remote_quest()操作是否正确获取到了远程资源
+	 * 检查wp_remote_request()操作是否正确获取到了远程资源
 	 *
 	 * @param array|WP_Error $response
 	 * @param string $target 请求的信息简介
-	 * @return array $output
+	 * @return $output
 	 */
-	protected function check_response_error($response, string $target) : array {
+	protected function check_response_error($response, string $target) {
 		if(is_wp_error($response)) {
 			$error = new \WP_Error($response->get_error_code(), $response->get_error_message() . "\n Get $target failed.");
 			wp_die($error);
@@ -59,7 +59,7 @@ class Oauth2{
 	 */
 	protected function check_response_data($output, string $target) {
 		if(empty($output[$target])) {
-			$err_message = $output['error'];
+			$error_mess = $output['error'];
 			$error_desc = $output['error_description'];
 			wp_die("获取{$target}失败\n" . $error_mess . "\n $error_desc");
 		}

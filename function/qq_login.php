@@ -6,13 +6,15 @@
  * 用于qq认证和登录的类
  * 
  */
-class QQ_Oauth extends Oauth2{
+class QQ_Oauth extends Oauth2 {
 	const APPID = "";
 	const APPSECRET = "";
-	const STATE = "ggggaaaa";					//用于防止CSRF的随机字符串
+	const STATE = "";					//用于防止CSRF的随机字符串
 	const REDIRECT_ROUTE = '/wp-json/gamux/v1/oauth/qq';
+	const DEFAULT_EMAIL = "qq@qq.com";
 
-	public $openid;		//qq返回的openid
+	public $openid;		//qq返回的openid，可唯一识别用户
+	public $unionid;	//qq返回的unionid，可唯一识别用户
 
 	//完成所有步骤后，重定向回主页
 	private function oauth_redirect() {
@@ -25,14 +27,19 @@ class QQ_Oauth extends Oauth2{
 	 * @return bool
 	 */
 	private function request_access_token() {
-		$this->check_csrf();
+		$this->check_csrf(self::STATE);
 
-		$request_url = "https://graph.qq.com/oauth2.0/token?client_id=" . self::APPID . "&client_secret=" . self::APPSECRET . "&grant_type=authorization_code&redirect_uri=" . site_url() . self::REDIRECT_ROUTE . "&code=" . $this->code;
 		//发送GET请求
+		$request_url = "https://graph.qq.com/oauth2.0/token?client_id=" . self::APPID . "&client_secret=" . self::APPSECRET . "&grant_type=authorization_code&redirect_uri=" . site_url() . self::REDIRECT_ROUTE . "&code=" . $this->code;
 		$response = wp_remote_get($request_url);
-		
-		$output = $this->check_response_error($response, $target = "access_token");
-		$this->check_response_error($output, $target);
+		$this->check_response_error($response, $target = "access_token");
+
+		//解析返回的HTTP queryString格式 字符串
+		$queryString = new \http\QueryString;		// plz install php extension pecl_http
+		$queryString->set($response['body']);
+		$output = $queryString->toArray();
+
+		$this->check_response_data($output, $target);
 		$this->token = $output["access_token"];
 		return true;
 	}
@@ -43,13 +50,20 @@ class QQ_Oauth extends Oauth2{
 	 * @return bool
 	 */
 	function request_token_info() {
-		$url = "https://graph.qq.com/oauth2.0/me?access_token=";
 		$token = $this->token;
-		//发送POST请求
-		$response = wp_remote_get($url . $token);
-		
+		$url = "https://graph.qq.com/oauth2.0/me?fmt=json&access_token=$token";
+		//发送GET请求
+		$response = wp_remote_get($url);
 		$output = $this->check_response_error($response, $target = "openid");
-		$this->check_response_error($output, $target);
+
+		//解析返回的jsonpb字符串，去除data两端的 'callback(' + data + ')'
+		// $body = $response['body'];
+		// $lpos = strpos($body, "(");
+		// $rpos = strrpos($body, ")");
+		// $body  = substr($body, $lpos + 1, $rpos - $lpos -1);
+		// $output = json_decode($body);
+
+		$this->check_response_data($output, $target);
 		$this->openid = $output["openid"];
 		return true;
 	}
@@ -65,13 +79,21 @@ class QQ_Oauth extends Oauth2{
 		$url = "https://graph.qq.com/user/get_user_info?access_token={$token}&oauth_consumer_key=" . self::APPID . "&openid={$openid}";
 		//发送GET请求
 		$response = wp_remote_get($url);
-		
 		$output = $this->check_response_error($response, $target = "user_info");
-		if(isset($output['ret'])) {
+
+		//oauth2 错误
+		if(isset($output['error'])) {
 			$error_mess = $output['error'];
 			$error_desc = $output['error_description'];
 			wp_die("获取{$target}失败\n" . $error_mess . "\n $error_desc");
 		}
+		//qq 自定义错误
+		if(isset($output['ret']) && $output['ret'] != 0) {
+			$error_code = $output['ret'];
+			$error_desc = $output['msg'];
+			wp_die("获取{$target}失败\n" . "错误码：$error_code" . "\n $error_desc");
+		}
+
 		$this->data = $output;
 		return true;
 	}
@@ -83,12 +105,11 @@ class QQ_Oauth extends Oauth2{
 	 * @return array $new_user
 	 */
 	private function register_newUser(array $data) : array {
-		$qq_id = $data['id'];
-		$email = $this->email;
-		$name = $data['name'];
-		$nickname = $data['screen_name'];
-		$avatar = $data['profile_image_url'];
-		$qq_account = $data['domain'];
+		$qq_id = $this->openid;
+		$email = self::DEFAULT_EMAIL;
+		$name = $data['nickname'];
+		$avatar = $data['figureurl_2'];
+		$qq_account = hash('fnv164', $qq_id);		//openid太长，使用hash将其压缩为17位
 		$prefix = 'qq_';
 
 		$random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
@@ -98,12 +119,13 @@ class QQ_Oauth extends Oauth2{
 			'display_name' => $name,
 			'user_email' => $email,
 			'user_pass' => $random_password,
-			'nickname' => $nickname
+			'user_nicename' => $name
 		);
 		$user_id = wp_insert_user( $userdata );
 		if(!is_wp_error($user_id)) {
 			add_user_meta($user_id, "qq_id", $qq_id);
 			add_user_meta($user_id, "qq_avatar", $avatar);
+			update_user_meta($user_id, "nickname", $name);
 			$new_user = array(
 				"user_login" => $login_name,
 				'user_pass' => $random_password
@@ -122,15 +144,14 @@ class QQ_Oauth extends Oauth2{
 	 */
 	private function login() {
 		$data = $this->data;
-		$qq_id = $data['id'];
+		$qq_id = $this->openid;
 		$qq_user = get_users(array(
 			"meta_key" => "qq_id",
 			"meta_value" => $qq_id
 		));
 		if(count($qq_user) != 0) {		//用户正常登录
-			update_user_meta($qq_user[0]->ID , "nickname", $data['name']);
 			wp_set_auth_cookie($qq_user[0]->ID);
-			oauth_redirect();
+			$this->oauth_redirect();
 		}
 		else {								//用户首次登录
 			$new_user = $this->register_newUser($data);
@@ -138,7 +159,7 @@ class QQ_Oauth extends Oauth2{
 				"user_login" => $new_user['user_login'], 
 				"user_password" => $new_user['user_pass']
 			), false);
-			oauth_redirect();
+			$this->oauth_redirect();
 		}
 	}
 
@@ -149,8 +170,8 @@ class QQ_Oauth extends Oauth2{
 	 */
 	public function qq_oauth() {
 		$this->request_access_token();
+		$this->request_token_info();
 		$this->request_user_info();
-		$this->request_email();
 
 		if(is_user_logged_in()) {				//用户已登录
 			$this->oauth_redirect();
@@ -163,7 +184,7 @@ class QQ_Oauth extends Oauth2{
 
 	// 返回前端所需的登录URL
 	function qq_login_url() {
-		$url = "https://graph.qq.com/oauth2.0/authorize?client_id=" . QQ_Oauth::APPID . "&state=" . QQ_Oauth::STATE . "&response_type=code&redirect_uri=" . site_url() . QQ_Oauth::REDIRECT_ROUTE . "&scope=";
+		$url = "https://graph.qq.com/oauth2.0/authorize?client_id=" . QQ_Oauth::APPID . "&state=" . QQ_Oauth::STATE . "&response_type=code&redirect_uri=" . site_url() . QQ_Oauth::REDIRECT_ROUTE;
 		return $url;
 	}
 
@@ -177,7 +198,4 @@ class QQ_Oauth extends Oauth2{
 			$qq_oauth->qq_oauth();
 		}
 	}
-	// add_action('init','\Gamux\qq_oauth_login_init');	
-
-
 ?>
