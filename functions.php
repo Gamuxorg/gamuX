@@ -323,7 +323,7 @@ include('function/edit_extra_box.php');
 
 //添加第三方登录
 include('function/oauth2_route.php');
-// include('function/github_login.php');
+include('function/github_login.php');
 include('function/weibo_login.php');
 include('function/qq_login.php');
 

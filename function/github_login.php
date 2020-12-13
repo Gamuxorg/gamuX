@@ -158,7 +158,7 @@ class Github_Oauth extends Oauth2{
 	 * @return string $url
 	 */
 	function github_login_url() : string {
-		$url = 'https://github.com/login/oauth/authorize?client_id=' . Github_Oauth::APPID . '&scope=user&state=' . Github_Oauth::STATE . '&redirect_uri='. sit_url() . Github_Oauth::REDIRECT_ROUTE;
+		$url = 'https://github.com/login/oauth/authorize?client_id=' . Github_Oauth::APPID . '&scope=user&state=' . Github_Oauth::STATE . '&redirect_uri='. site_url() . Github_Oauth::REDIRECT_ROUTE;
 		return $url;
 	}
 
