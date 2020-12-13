@@ -169,7 +169,7 @@ class Weibo_Oauth extends Oauth2{
 			"meta_value" => $weibo_id
 		));
 		if(count($weibo_user) != 0) {		//用户正常登录
-			update_avatar($weibo_id);
+			$this->update_avatar($weibo_id);
 			wp_set_auth_cookie($weibo_user[0]->ID);
 			$this->oauth_redirect();
 		}
