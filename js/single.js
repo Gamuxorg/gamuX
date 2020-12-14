@@ -30,7 +30,7 @@ var game = new Vue({
     curdate: "",
     //当前时间,本地
     curutcdate: "",
-    islogin: false,
+    islogin: 0,
     buyurls: [
       {text: "在Steam购买本游戏", url: "https://www.baidu.com"},
       {text: "在GOG购买本游戏", url: "https://www.360.cn"}
@@ -98,13 +98,10 @@ var game = new Vue({
     },
     //comment editor
     onEditorBlur: function(quill) {
-      console.log('editor blur!', quill)
     },
     onEditorFocus: function(quill) {
-      console.log('editor focus!', quill)
     },
     onEditorReady: function(quill) {
-      console.log('editor ready!', quill)
     },
     onEditorChange: function({quill, html, text}) {
       this.editorContent = html;
@@ -135,8 +132,8 @@ var game = new Vue({
     const urljson = await this.getPostJson(this.cururl);
     const postid = urljson.headers.link.split(/[,;=>]/)[5];
     this.postid = postid;
-    this.editurl = siteurl + "/wp-admin/post.php?post=" + postid + "postid'&action=edit";
-    this.contributeurl = siteurl + "/wp-admin/post-new.php";
+    this.editurl = this.siteurl + "/wp-admin/post.php?post=" + postid + "postid'&action=edit";
+    this.contributeurl = this.siteurl + "/wp-admin/post-new.php";
     const postdataorigin = await this.getPostJson(this.siteurl + "/wp-json/wp/v2/posts/" + postid+"?_embed");
     const postdata = postdataorigin.data;
     const postterm = postdata["_embedded"]["wp:term"][0];
@@ -149,7 +146,6 @@ var game = new Vue({
     this.activities[1].timestamp = this.postdate;
     this.activities[0].timestamp = modifieddate;
     this.thumbnail = postdata.exts.thumbnail;
-    this.islogin = postdata.exts.isUserLogin;
 //日期    
     const getDate = new Date();
     this.curdate = new Date(getDate.getTime() - (getDate.getTimezoneOffset() * 60000)).toJSON();
@@ -160,9 +156,11 @@ var game = new Vue({
     if (userinfos.statusText == "OK") {
       this.username = userinfo.name;
       this.userid = userinfo.id;
+      this.islogin = 1;
     }
     else {
       console.log(userinfos);
+      this.islogin = 0;
     }
     //comment
     const comment = await this.getPostJson("/wp-json/gamux/v1/comments/" + postid);

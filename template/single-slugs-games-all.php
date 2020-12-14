@@ -117,7 +117,7 @@ get_header(); ?>
   </el-col>
 
   <el-col id="post-sidebar" :xs="0" :sm="8" :md="8" :lg="6">
-    <section id="post-edit" v-if="islogin == true">
+    <section id="post-edit" v-if="islogin == 1">
     <a :href="editurl"><el-button type="primary" icon="el-icon-edit">编辑</el-button></a>
     <a :href="contributeurl"><el-button type="primary" icon="el-icon-notebook-2">投稿</el-button></a>
     </section>
@@ -127,7 +127,9 @@ get_header(); ?>
     </section>
        
     <section id="post-thumb">
-      <el-image :src="thumbnail" fit="fill"></el-image>
+      <div id="post-thumb-div">
+        <img :src="thumbnail" intrinsicsize="2x1">
+      </div>
     </section>
     <section id="post-buy">
       <div class="post-buy-div" v-for="buy in buyurls">
