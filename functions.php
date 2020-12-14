@@ -329,3 +329,6 @@ include('function/qq_login.php');
 
 //添加用户未读评论回复数处理
 include('function/user_comment.php');
+
+//添加user额外字段avatar，用户头像链接
+include('api/user_ext.php');
