@@ -119,10 +119,10 @@ var game = new Vue({
           'date_gmt': this.curutcdate,
         },
       }).then(function(response) {
-        console.log(response);
+        console.log("成功发送评论");
       }).catch(function(e) {
         console.log(e);
-        console.log('失败');
+        console.log('评论失败');
       });
     }
   },
@@ -146,23 +146,17 @@ var game = new Vue({
     this.activities[1].timestamp = this.postdate;
     this.activities[0].timestamp = modifieddate;
     this.thumbnail = postdata.exts.thumbnail;
-//日期    
+
+    //日期    
     const getDate = new Date();
     this.curdate = new Date(getDate.getTime() - (getDate.getTimezoneOffset() * 60000)).toJSON();
     this.curutcdate = getDate.toJSON();
-    //userinfo
-    const userinfos = await this.getPostJson("/wp-json/wp/v2/users/me?_wpnonce=" + wpApiSettings.nonce);
-    const userinfo = userinfos.data;
-    if (userinfos.statusText == "OK") {
-      this.username = userinfo.name;
-      this.userid = userinfo.id;
-      this.islogin = 1;
-    }
-    else {
-      console.log(userinfos);
-      this.islogin = 0;
-    }
-    //comment
+
+    this.islogin = gamux.islogin;
+    this.username = gamux.username;
+    this.userid = gamux.userid;
+
+    //评论
     const comment = await this.getPostJson("/wp-json/gamux/v1/comments/" + postid);
     this.comments = comment.data;
     this.comnum = comment.data.length;

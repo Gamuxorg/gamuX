@@ -63,7 +63,6 @@ var index = new Vue({
       this.postdata[i]["modified"] = c;
     }
 
-    console.log(postdatas);
     const wishlistdata = await this.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues');
     this.wishlist = wishlistdata;
 
