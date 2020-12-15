@@ -14,7 +14,7 @@
 <?php } else { ?>
 
 <?php } ?>
-<script src="//at.alicdn.com/t/font_2133732_d6ur2ngu74.js"></script>
+<script src="//at.alicdn.com/t/font_2133732_74plclthjc2.js"></script>
 <?php wp_footer(); ?>
 </body>
 </html>

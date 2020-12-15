@@ -6,6 +6,7 @@ var gamux = new Vue ({
     islogin: 0,
     username: "",
     userid: "",
+    dialogloginVisible: false,
   },
   methods: {
     getPostJson: async function(url) {

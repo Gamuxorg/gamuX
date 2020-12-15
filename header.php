@@ -82,15 +82,38 @@
       </el-col>
     </el-row>
   
-    <div id="avatar" style="text-align: center;margin-top: 51%;background-color: #409eff;" v-if="islogin==0">
-      <div class="block avatar-inner"><el-button type="text">点击登录</el-button></div>
-      <a href="<?php echo \Gamux\github_login_url(); ?>"><img style="width:100%; margin-bottom:-5px;" src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/4363/github.png" alt="github_login"></a>
-      <a href="<?php echo \Gamux\weibo_login_url(); ?>"><img src="https://www.sinaimg.cn/blog/developer/wiki/240.png" alt="weibo_login"></a>
-      <a href="<?php echo \Gamux\qq_login_url(); ?>"><img src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/bt_blue_76X24.png" alt="qq_login"></a>
+    <div id="avatar" v-if="islogin==0">
+      <div class="block avatar-inner">
+        <el-button class="login-button" type="text" @click="dialogloginVisible = true">点击登录</el-button>
+      </div>
     </div>
-    <div id="avatar" style="text-align:center; margin-top:51%;" v-else>
+    <div id="avatar" v-else>
     </div>
-  
+    <!--弹窗登录-->
+    <el-dialog title="网站登录" class="login-dialog" :visible.sync="dialogloginVisible">
+      <div class="github-login login-dialog-list">
+        <a href="<?php echo \Gamux\github_login_url(); ?>">
+          <svg class="aliicon" aria-hidden="true">
+            <use xlink:href="#icon-gamux-github2"></use>
+          </svg>使用GitHub登录
+        </a>
+      </div>
+      <div class="weibo-login login-dialog-list">
+        <a href="<?php echo \Gamux\weibo_login_url(); ?>">
+          <svg class="aliicon" aria-hidden="true">
+            <use xlink:href="#icon-weibo"></use>
+          </svg>使用新浪微博登录
+        </a>
+      </div>
+      <div class="qq-login login-dialog-list">
+        <a href="<?php echo \Gamux\qq_login_url(); ?>">
+          <svg class="aliicon" aria-hidden="true">
+            <use xlink:href="#icon-QQ"></use>
+          </svg>使用腾讯QQ登录
+        </a>
+      </div>
+    </el-dialog>
+
     <div id="techfrom">
       <span class="wplogo"><img src="<?php bloginfo('template_url'); ?>/img/wplogo.png"></span>
       <span class="vuelogo"><img src="<?php bloginfo('template_url'); ?>/img/vuelogo.png"></span>
