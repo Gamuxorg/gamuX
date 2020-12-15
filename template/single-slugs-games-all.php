@@ -48,7 +48,6 @@ get_header(); ?>
           <el-table-column
             prop="remark"
             label="备注">
-            
           </el-table-column>
         </el-table>
       </div>
@@ -122,8 +121,9 @@ get_header(); ?>
     <a :href="contributeurl"><el-button type="primary" icon="el-icon-notebook-2">投稿</el-button></a>
     </section>
     <section id="post-edit" v-else>
-      <el-button type="primary" icon="el-icon-edit">编辑</el-button>
-      <el-button type="primary" icon="el-icon-notebook-2">投稿</el-button>
+      <el-button type="primary" icon="el-icon-edit" @click="dialogloginVisible">编辑</el-button>
+      <el-button type="primary" icon="el-icon-notebook-2" @click="dialogloginVisible">投稿</el-button>
+      <div class="clear"></div>
     </section>
        
     <section id="post-thumb">
@@ -134,10 +134,10 @@ get_header(); ?>
     <section id="post-buy">
       <div class="post-buy-div" v-for="buy in buyurls">
         <a :href="buy.url" target="_blank">
-          <svg class="icon" aria-hidden="true">
+          <svg class="aliicon" aria-hidden="true">
             <use xlink:href="#icon-gamux-buy"></use>
           </svg>
-          {{ buy.text }}
+          购买·{{ buy.text }}
         </a>
       </div>
     </section>

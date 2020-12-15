@@ -34,24 +34,6 @@
   margin-top: .2rem;
   margin-bottom: .2rem;
 }
-#post-edit button {
-  padding: 6px 15px;
-}
-#post-buy {
-  text-align: center;
-}
-.post-buy-div {
-  width: 100%;
-  border-bottom: 1px solid #fbc4c4;
-}
-.post-buy-div>a {
-  width: 100%;
-  height: 100%;
-  color: #f56c6c;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-size: 1.5rem;  
-}
 
 /* 下载 */
 .download-head {
@@ -101,6 +83,13 @@ table .cell {
 /*  
  * 侧边栏
 */
+#post-edit {
+  position: relative;
+  min-height: 2rem;
+}
+#post-edit button {
+  float: left;
+}
 #post-thumb-div {
   width: 100%;
   height: 0;
@@ -113,4 +102,22 @@ table .cell {
   height: 0;
   width: 100%;
   height: 100%;
+}
+#post-edit button {
+  padding: 6px 8px;
+}
+#post-buy {
+  text-align: center;
+  margin: 0 -5px;
+}
+.post-buy-div {
+  width: 100%;
+  background-color: black;
+  margin: 7.5px 0;
+  height: 2rem;
+  line-height: 2rem;
+}
+.post-buy-div>a {
+  color: #409EFF;
+  font-size: 1.2rem;
 }

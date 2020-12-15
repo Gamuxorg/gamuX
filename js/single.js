@@ -77,6 +77,9 @@ var game = new Vue({
     },    
   },
   methods: {
+    dialogloginVisible: function() {
+      gamux.$refs.login.$el.click();
+    },
     //数据绑定
     goBack: function () {
       window.location.href=this.caturl; 
