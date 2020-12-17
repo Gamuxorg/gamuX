@@ -1,7 +1,7 @@
 <?php
 /* Gmaux WP REST-API route settings */
 
-//扩展 wp-json/wp/v2/post/<post_id>，添加自定义的字段
+//扩展 wp-json/wp/v2/posts/<post_id>，添加自定义的字段
 include("posts_ext.php");
 
 //获取首页轮播图片 ，调用get_mainSlide

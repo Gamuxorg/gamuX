@@ -81,10 +81,6 @@ function downlist_array() {
 	return $output;		
 }
 
-// 激活缩略图
-add_theme_support('post-thumbnails', array('post'));
-set_post_thumbnail_size( 85, 85 );
-
 
 /*--------------------------------添加新的输入栏-----------------------------------------*/
 
