@@ -81,10 +81,6 @@ function downlist_array() {
 	return $output;		
 }
 
-// 激活缩略图
-add_theme_support('post-thumbnails', array('post'));
-set_post_thumbnail_size( 85, 85 );
-
 
 /*--------------------------------添加新的输入栏-----------------------------------------*/
 
@@ -228,8 +224,13 @@ function extra_meta_box($post) {
 	$count = gamux_buyurl_count();	
 	$link_template = '<div><input style="width: 100%;" name="buy_url[]" value="buy_value"></div>';
 	$buyList = "";
-	for($i=0; $i < $count; $i++)
-		$buyList .= str_replace("buy_value", get_post_meta( $post->ID, $buy_key.'_'.$i, true), $link_template);
+	if($count > 0) {
+		for($i=0; $i < $count; $i++)
+			$buyList .= str_replace("buy_value", get_post_meta( $post->ID, $buy_key.'_'.$i, true), $link_template);
+	}
+	else {				//新文章，添加一个空的
+		$buyList .= str_replace("buy_value", "", $link_template);
+	}
 	
 	$html =<<<str
 	<div>
