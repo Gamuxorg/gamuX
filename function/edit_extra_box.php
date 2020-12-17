@@ -119,19 +119,9 @@ header;
 						<option selected disabled>CPU架构</option>
 						<option>i386</option>
 						<option>amd64</option>
-						<option>armel</option>
-						<option>armhf</option>
 						<option>arm64</option>
-						<option>mips</option>
-						<option>mipsel</option>
-						<option>mips64</option>
 						<option>mips64el</option>
-						<option>powerpc</option>
-						<option>ppc64</option>
-						<option>ppc64el</option>
-						<option>riscv32</option>
 						<option>riscv64</option>
-						<option>s390x</option>
 						<option>sw64</option>
 					</select>
 					<button type="button" class="gamux-up-button">上传</button>

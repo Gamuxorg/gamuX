@@ -133,15 +133,20 @@ get_header(); ?>
     </section>
     <section id="post-buy">
       <div class="post-buy-div" v-for="buy in buyurls">
-        <a :href="buy.url" target="_blank">
+        <a :href="buy.link" target="_blank">
           <svg class="aliicon" aria-hidden="true">
             <use xlink:href="#icon-gamux-buy"></use>
           </svg>
-          购买·{{ buy.text }}
+          {{ buy.store }}
         </a>
       </div>
     </section>
+    <section id="post-tag">
+      <el-divider class="tag-title">本文标签</el-divider>
+      <div class="tag-content" v-html="taglist"></div>
+    </section>
     <section id="timeline">
+    <el-divider class="tag-title">修订记录</el-divider>
       <el-timeline>
         <el-timeline-item
           v-for="(activity, index) in activities"

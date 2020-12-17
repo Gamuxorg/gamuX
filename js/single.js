@@ -30,42 +30,34 @@ var game = new Vue({
     curdate: "",
     //当前时间,本地
     curutcdate: "",
+    taglist: "",
     islogin: 0,
-    buyurls: [
-      {text: "在Steam购买本游戏", url: "https://www.baidu.com"},
-      {text: "在GOG购买本游戏", url: "https://www.360.cn"}
-    ],
+    buyurls: [],
+    posteditcount: 0,
     activities: [{
-      author: 'gamux',
-      content: '进行了更新',
+      author: '',
+      content: ' · 最后作者',
       timestamp: '2012-08-20',
       type: 'primary',
       icon: 'el-icon-refresh',
       size: 'large',
 
     }, {
-      author: 'gamux',
-      content: '创建了文章',
+      author: '',
+      content: '',
+      timestamp: '',
+      icon: 'el-icon-magic-stick',
+      type: 'info',
+      size: 'large'
+    }, {
+      author: '',
+      content: ' · 开始创建',
       timestamp: '2012-08-20',
       icon: 'el-icon-edit',
       type: 'info',
       size: 'large'
     }],
-    tableData: [{
-      version: '1.0.2',
-      date: '2016-05-02',
-      quantity: 35,
-      volume: '3.5G',
-      link: 'https://www.baidu.com',
-      remark: '上海市'
-    },{
-      version: '1.0.2',
-      date: '2016-05-02',
-      quantity: 35,
-      volume: '3.5G',
-      link: 'https://www.baidu.com',
-      remark: '路 1518 弄'
-    },],
+    tableData: [],
     //comment editor
     editorContent: '',
     editorOption: {
@@ -144,17 +136,31 @@ var game = new Vue({
     this.caturl = postterm[0].link;
     this.postname = postdata.title.rendered;
     this.postcontent = postdata.content.rendered;
+
+    //下载链接
+
+    //购买链接
+    this.buyurls = postdata.exts.buyUrls;
+
+    //文章更新记录
     this.postdate = postdata.date.split("T")[0];
     const modifieddate = postdata.modified.split("T")[0];
-    this.activities[1].timestamp = this.postdate;
+    this.activities[2].timestamp = this.postdate;
     this.activities[0].timestamp = modifieddate;
+    this.activities[2].author = postdata.exts.authorName;
+    this.activities[0].author = postdata.exts.modAuthorName;
+    this.activities[1].content = '期间一共更新了' + postdata["_links"]["version-history"][0]["count"] + '次';
     this.thumbnail = postdata.exts.thumbnail;
+
+    //文章标签
+    this.taglist = postdata.exts.tagList;
 
     //日期    
     const getDate = new Date();
     this.curdate = new Date(getDate.getTime() - (getDate.getTimezoneOffset() * 60000)).toJSON();
     this.curutcdate = getDate.toJSON();
 
+    //用户信息
     this.islogin = gamux.islogin;
     this.username = gamux.username;
     this.userid = gamux.userid;
@@ -163,6 +169,8 @@ var game = new Vue({
     const comment = await this.getPostJson("/wp-json/gamux/v1/comments/" + postid);
     this.comments = comment.data;
     this.comnum = comment.data.length;
+
+    //侧边
   },
   computed: {
     editor: function() {

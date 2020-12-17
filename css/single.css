@@ -118,6 +118,34 @@ table .cell {
   line-height: 2rem;
 }
 .post-buy-div>a {
-  color: #409EFF;
+  color: #B8860B;
   font-size: 1.2rem;
+}
+.el-divider__text {
+  padding: 0 5px;
+}
+.tag-content>a {
+  color: #409EFF;
+  text-decoration: underline;
+}
+.tag-content>a+a {
+  margin-left: .5rem;
+}
+#timeline .el-timeline-item__node {
+  top: 2px;
+}
+#timeline>.el-timeline>.el-timeline-item {
+  padding-bottom: 30px;
+}
+#timeline>.el-timeline>li:last-child {
+  padding-bottom: unset;
+}
+#timeline .el-timeline-item__tail {
+  top: 4px;
+}
+#timeline .el-timeline-item__icon {
+  font-size: 14px;
+}
+#timeline .el-timeline-item__timestamp {
+  margin-top: 2px;
 }
