@@ -150,7 +150,7 @@ class Weibo_Oauth extends Oauth2{
 	 */
 	private function update_avatar($weibo_id) {
 		$prefix = 'weibo_';
-		$user_id = get_user_id_from_string($prefix . $weibo_id);
+		$user_id = get_user_by("login", $prefix . $weibo_id)->ID;
 		$avatar = $this->data['profile_image_url'];
 		update_user_meta($user_id, "weibo_avatar", $avatar);
 		return true;
