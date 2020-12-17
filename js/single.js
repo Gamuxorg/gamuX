@@ -45,7 +45,7 @@ var game = new Vue({
     }, {
       author: '',
       content: '',
-      timestamp: '',
+      timestamp: '感谢各位的贡献',
       icon: 'el-icon-magic-stick',
       type: 'info',
       size: 'large'
@@ -57,7 +57,6 @@ var game = new Vue({
       type: 'info',
       size: 'large'
     }],
-    tableData: [],
     //comment editor
     editorContent: '',
     editorOption: {
@@ -66,7 +65,9 @@ var game = new Vue({
           ['bold', 'underline', 'strike', 'blockquote', 'code-block', {'color': []}, 'clean'],
       },
       placeholder: '',
-    },    
+    },
+    downloadlist: [],
+    dialogdownload: false,
   },
   methods: {
     dialogloginVisible: function() {
@@ -119,7 +120,7 @@ var game = new Vue({
         console.log(e);
         console.log('评论失败');
       });
-    }
+    },
   },
   mounted: async function() {
     const siteurl = this.getSiteUrl();
@@ -138,7 +139,7 @@ var game = new Vue({
     this.postcontent = postdata.content.rendered;
 
     //下载链接
-
+    this.downloadlist = postdata.exts.downloadList;
     //购买链接
     this.buyurls = postdata.exts.buyUrls;
 

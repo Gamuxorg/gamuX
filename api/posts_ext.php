@@ -47,60 +47,51 @@
 	 *
 	 * @param $id 文章的id
 	 * @return array $retVal 返回status, message, downloadList下载链接数组，
-	 * 					     .staus: 成功获取链接时返回1,没有下载链接时返回0，用户未登录时返回-1，windows用户但是没有网盘链接时返回-2
+	 * 					     .staus: 成功获取链接时返回1,没有下载链接时返回0，windows用户但是没有网盘链接时返回-2
 	 */
 	function get_downloadList($id) {
-		if(!is_user_logged_in()) {
-			$retVal = array(
-				"status" => -1,
-				"message" => "请登录后获取下载链接"		
-			);
-		}
-		else {								//用户已登录
-			$downloadList = array();
-			$count = gamux_down_count();
-			$gamux_down = down_var();
+		$downloadList = array();
+		$count = gamux_down_count();
+		$gamux_down = down_var();
 
-			if($count > 0) {				//有下载链接
-				for($i = 0; $i < $count; $i++) {
-					$listItem = array(
-						"version" => get_post_meta($id, $gamux_down['title'].'_'.$i, true),
-						"downloadCount" => 0,
-						"date" => get_post_meta($id, $gamux_down['date'].'_'.$i, true),
-						// "fileSize" => remote_file_size(get_post_meta($id, $gamux_down['durl'].'_'.$i, true)),
-						"link" => get_post_meta($id, $gamux_down['durl'].'_'.$i, true),
-						"comment" => get_post_meta($id, $gamux_down['comment'].'_'.$i, true)
-					);
-					if(is_user_linux())
+		if($count > 0) {				//有下载链接
+			for($i = 0; $i < $count; $i++) {
+				$listItem = array(
+					"version" => get_post_meta($id, $gamux_down['title'].'_'.$i, true),
+					"downloadCount" => 0,
+					"date" => get_post_meta($id, $gamux_down['date'].'_'.$i, true),
+					// "fileSize" => remote_file_size(get_post_meta($id, $gamux_down['durl'].'_'.$i, true)),
+					"link" => get_post_meta($id, $gamux_down['durl'].'_'.$i, true),
+					"comment" => get_post_meta($id, $gamux_down['comment'].'_'.$i, true)
+				);
+				if(is_user_linux())
+					array_push($downloadList, $listItem);
+				else{
+					if(is_netdisk_link($listItem['link']))
 						array_push($downloadList, $listItem);
-					else{
-						if(is_netdisk_link($listItem['link']))
-							array_push($downloadList, $listItem);
-					}
-				}
-
-				if(count($downloadList) == 0) {							//用户为windows，且没有网盘链接，只有直链
-					$retVal = array(
-						"status" => -2,
-						"message" => "请使用Linux平台访问本站以获取下载链接"		
-					);
-				}
-				else {													//用户为 win/Linux，且获取到了可用链接
-					$retVal = array(
-						"status" => 1,
-						"message" => "成功获取下载链接",
-						"downloadList" => $downloadList
-					);
 				}
 			}
-			else {
+
+			if(count($downloadList) == 0) {							//用户为windows，且没有网盘链接，只有直链
 				$retVal = array(
-					"status" => 0,
-					"message" => "无可用下载链接"
+					"status" => -2,
+					"message" => "请使用Linux平台访问本站以获取下载链接"		
+				);
+			}
+			else {													//用户为 win/Linux，且获取到了可用链接
+				$retVal = array(
+					"status" => 1,
+					"message" => "成功获取下载链接",
+					"downloadList" => $downloadList
 				);
 			}
 		}
-
+		else {
+			$retVal = array(
+				"status" => 0,
+				"message" => "无可用下载链接"
+			);
+		}
 		return $retVal;
 	}
 
@@ -175,7 +166,6 @@
 	 * 添加 modAuthorName 字段，返回修改作者
 	 * 添加 tagList 字段，返回文章标签列表
 	 * 添加 sysRequirements 字段，返回配置信息
-	 * 添加 BOOL isUserLogin 字段，判断用户是否登陆
 	 * @return void
 	 */
 	function add_post_ext() {
@@ -194,7 +184,6 @@
 					"modAuthorName" => get_the_modified_author(),
 					"tagList" => get_the_tag_list(),
 					"sysRequirements" => get_post_meta($args['id'], 'peizhi', true),
-					"isUserLogin" => is_user_logged_in()
 				);
 			}
 		));

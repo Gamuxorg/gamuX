@@ -21,39 +21,10 @@ get_header(); ?>
       </el-carousel>
       <div id="post-intro" v-html="postcontent"></div>
     </section>
-    <section class="post-download">
-      <div class="download-head">下载地址</div>
-      <div class="download-main">
-        <el-table :data="tableData">
-        <el-table-column
-            prop="version"
-            label="版本">
-          </el-table-column>        
-          <el-table-column
-            prop="date"
-            label="日期">
-          </el-table-column>
-          <el-table-column
-            prop="quantity"
-            label="下载量">
-          </el-table-column>
-          <el-table-column
-            prop="volume"
-            label="容量">
-          </el-table-column>
-          <el-table-column
-            prop="link"
-            label="下载地址">
-          </el-table-column>
-          <el-table-column
-            prop="remark"
-            label="备注">
-          </el-table-column>
-        </el-table>
-      </div>
-    </section>    
+   
+    <!--评论-->
+    <el-divider></el-divider>
     <section class="post-commit" v-if="comnum > 0">
-      <div class="comment-head">评论</div>
       <el-card class="comment-card" v-for="comment in comments" :key="comment.id">
         <el-row class="comment-card" :gutter="10">
           <el-col class="comment-left" :xs="24" :sm="4" :md="3" :lg="3">
@@ -116,21 +87,62 @@ get_header(); ?>
   </el-col>
 
   <el-col id="post-sidebar" :xs="0" :sm="8" :md="8" :lg="6">
+    <!--下载-->
     <section id="post-edit" v-if="islogin == 1">
-    <a :href="editurl"><el-button type="primary" icon="el-icon-edit">编辑</el-button></a>
-    <a :href="contributeurl"><el-button type="primary" icon="el-icon-notebook-2">投稿</el-button></a>
+      <a :href="editurl"><i class="el-icon-edit"></i>编辑</a>
+      <a :href="contributeurl"><i class="el-icon-notebook-2"></i>投稿</a>
+      <el-button type="text" icon="el-icon-download" @click="dialogdownload = true">登录下载</el-button>
     </section>
     <section id="post-edit" v-else>
-      <el-button type="primary" icon="el-icon-edit" @click="dialogloginVisible">编辑</el-button>
-      <el-button type="primary" icon="el-icon-notebook-2" @click="dialogloginVisible">投稿</el-button>
+      <el-button type="text" icon="el-icon-edit" @click="dialogloginVisible">编辑</el-button>
+      <el-button type="text" icon="el-icon-notebook-2" @click="dialogloginVisible">投稿</el-button>
+      <el-button type="text" icon="el-icon-download" @click="dialogloginVisible">登录下载</el-button>
       <div class="clear"></div>
     </section>
-       
+    <el-dialog id="download" :title="`下载链接·${downloadlist['message']}`" :visible.sync="dialogdownload">
+      <el-table :data="downloadlist.downloadList" :default-sort="{prop: 'version', order: 'descending'}" max-height="70vh">
+        <el-table-column
+          prop="version"
+          label="版本"
+          sortable>
+        </el-table-column>        
+        <el-table-column
+          prop="date"
+          label="日期"
+          sortable>
+        </el-table-column>
+        <el-table-column
+          prop="downloadCount"
+          label="下载量"
+          sortable>
+        </el-table-column>
+        <el-table-column
+          prop="volume"
+          label="容量"
+          sortable>
+        </el-table-column>
+        <el-table-column
+          prop="link"
+          label="下载">
+          <template slot-scope="scope">
+            <el-link :href="scope.row.link" type="primary" target="_blank">下载</el-link>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="comment"
+          label="备注">
+        </el-table-column>
+      </el-table>
+    </el-dialog>
+    
+    <!--特色图片-->
     <section id="post-thumb">
       <div id="post-thumb-div">
         <img :src="thumbnail" intrinsicsize="2x1">
       </div>
     </section>
+
+    <!--购买链接-->
     <section id="post-buy">
       <div class="post-buy-div" v-for="buy in buyurls">
         <a :href="buy.link" target="_blank">
@@ -141,10 +153,14 @@ get_header(); ?>
         </a>
       </div>
     </section>
+
+    <!--标签-->
     <section id="post-tag">
       <el-divider class="tag-title">本文标签</el-divider>
       <div class="tag-content" v-html="taglist"></div>
     </section>
+
+    <!--文章修改记录-->
     <section id="timeline">
     <el-divider class="tag-title">修订记录</el-divider>
       <el-timeline>
