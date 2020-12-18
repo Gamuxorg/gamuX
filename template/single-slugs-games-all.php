@@ -26,14 +26,14 @@ get_header(); ?>
     <el-divider></el-divider>
     <section class="post-commit" v-if="comnum > 0">
       <el-card class="comment-card" v-for="comment in comments" :key="comment.id">
-        <el-row class="comment-card" :gutter="10">
-          <el-col class="comment-left" :xs="24" :sm="4" :md="3" :lg="3">
+        <div class="comment-card">
+          <div class="comment-left">
             <div class="comment-author-avatar">
-              <el-image class="comment-author-avatar-img" fit="fit" src="https://avatars3.githubusercontent.com/u/4121607"></el-image>
+              <el-image class="comment-author-avatar-img" fit="fit" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-image>
             </div>
             <div class="comment-author-name">{{ comment.author_name }}</div>
-          </el-col>
-          <el-col class="comment-right" :xs="24" :sm="20" :md="21" :lg="21">
+          </div>
+          <div class="comment-right">
             <div class="comment-main">
               <div class="comment-main-content" v-html="comment.content"></div>
               <div class="comment-main-info">
@@ -43,25 +43,27 @@ get_header(); ?>
                 </div>
               </div>
             </div>
-            <el-row class="comment-reply-card" :gutter="10" v-if="comment.children" v-for="reply in comment.children" :key="reply.id">
-              <el-col class="comment-left" :xs="24" :sm="3" :md="2" :lg="1">
+            <div class="comment-reply-card" v-if="comment.children" v-for="reply in comment.children" :key="reply.id">
+              <div class="comment-left">
                 <div class="comment-author-avatar">
-                  <el-image class="comment-author-avatar-img" fit="fit" src="https://avatars3.githubusercontent.com/u/4121607"></el-image>
+                  <el-image class="comment-author-avatar-img" fit="fit" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-image>
                 </div>
                 <div class="comment-author-name">{{ reply.author_name }}</div>
-              </el-col>
-              <el-col class="comment-right" :xs="24" :sm="21" :md="22" :lg="23">
-                <div class="comment-main-content" v-html="reply.content"></div>
-                <div class="comment-main-info">
-                  <div class="comment-main-info-main">
-                    <span>{{ reply.date }}</span>
-                    <span><el-button type="text" icon="el-icon-edit">回复</el-button></span>
+              </div>
+              <div class="comment-right">
+                <div class="comment-main">
+                  <div class="comment-main-content" v-html="reply.content"></div>
+                  <div class="comment-main-info">
+                    <div class="comment-main-info-main">
+                      <span>{{ reply.date }}</span>
+                      <span><el-button type="text" icon="el-icon-edit">回复</el-button></span>
+                    </div>
                   </div>
                 </div>
-              </el-col>             
-            </el-row>
-          </el-col>
-        </el-row>
+              </div>             
+            </div>
+          </div>
+        </div>
       </el-card>
     </section>
     <section class="post-commit" v-else>

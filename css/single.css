@@ -55,11 +55,45 @@ table .cell {
 }
 
 /* 评论 */
-.comment-card {
-  margin-bottom: .35rem;;
+.comment-card,
+.comment-reply-card {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.comment-card>.el-card__body,
+.comment-reply-card .el-card__body {
+  width: 100%;
+}
+.comment-card p {
+  margin: unset;
 }
 .comment-left {
   text-align: center;
+  flex: none;
+}
+.comment-right {
+  flex: auto;
+  margin-left: 1rem;
+}
+.comment-right>.comment-main {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.comment-main>.comment-main-content {
+  flex: auto;
+  margin-bottom: .5rem;
+}
+.comment-main>.comment-main-info {
+  flex: none;
+}
+.comment-reply-card>.comment-right>.comment-main {
+  min-height: 54px;
+  border-bottom: dashed 1px #409eff;
+}
+.comment-card>.comment-right>.comment-main {
+  min-height: 68px;
+  border-bottom: solid 1px #409eff;
+  margin-bottom: .5rem;
 }
 .comment-author-name {
   font-size: .8rem;
@@ -70,16 +104,21 @@ table .cell {
 .comment-author-avatar-img img {
   border: solid 1px gray;
   border-radius: 100%;
-  width: 80%;
-  height: 80%;
+  width: 48px;
+  height: 48px;
+}
+.comment-reply-card .comment-author-avatar-img img {
+  border: solid 1px gray;
+  border-radius: 100%;
+  width: 32px;
+  height: 32px;
 }
 .comment-main-info {
   text-align: right;
 }
 .comment-main-info-main>span>button {
-  padding: 0 0.5rem 0 1rem;
+  padding: 0 0 0 .5rem;
 }
-
 /*  
  * 侧边栏
 */
