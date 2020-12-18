@@ -91,25 +91,31 @@
     </div>
     <!--弹窗登录-->
     <el-dialog title="网站登录" class="login-dialog" :visible.sync="dialogloginVisible">
-      <div class="github-login login-dialog-list">
+      <div class="github-login login-dialog-list">        
         <a href="<?php echo \Gamux\github_login_url(); ?>">
+          <el-button type="primary">
           <svg class="aliicon" aria-hidden="true">
             <use xlink:href="#icon-gamux-github2"></use>
-          </svg>使用GitHub登录
+          </svg>GitHub账号登录
+          </el-button>
         </a>
       </div>
       <div class="weibo-login login-dialog-list">
         <a href="<?php echo \Gamux\weibo_login_url(); ?>">
+        <el-button type="danger">
           <svg class="aliicon" aria-hidden="true">
             <use xlink:href="#icon-weibo"></use>
-          </svg>使用新浪微博登录
+          </svg>新浪微博账号登录
+        </el-button>
         </a>
       </div>
       <div class="qq-login login-dialog-list">
         <a href="<?php echo \Gamux\qq_login_url(); ?>">
+        <el-button type="success">
           <svg class="aliicon" aria-hidden="true">
             <use xlink:href="#icon-QQ"></use>
-          </svg>使用腾讯QQ登录
+          </svg>腾讯QQ账号登录
+        </el-button>
         </a>
       </div>
     </el-dialog>

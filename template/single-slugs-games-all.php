@@ -91,7 +91,7 @@ get_header(); ?>
     <section id="post-edit" v-if="islogin == 1">
       <a :href="editurl"><i class="el-icon-edit"></i>编辑</a>
       <a :href="contributeurl"><i class="el-icon-notebook-2"></i>投稿</a>
-      <el-button type="text" icon="el-icon-download" @click="dialogdownload = true">登录下载</el-button>
+      <el-button type="text" icon="el-icon-download" @click="dialogdownload = true">下载游戏</el-button>
     </section>
     <section id="post-edit" v-else>
       <el-button type="text" icon="el-icon-edit" @click="dialogloginVisible">编辑</el-button>

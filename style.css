@@ -130,8 +130,7 @@ a:active {
 }
 
 .login-dialog .el-dialog__body {
-  padding: 10px 0 20px 25%;
-  font-size: 1.1rem;
+  padding: 10px 0 20px 20%;
 }
 .login-dialog>.el-dialog {
   width: 20rem;
@@ -141,7 +140,21 @@ a:active {
   font-size: 1.2rem;
 }
 .login-dialog-list {
-  margin-bottom: 10px;;
+  width: 80%;
+  margin: 15px 0;
+}
+.login-dialog-list .aliicon {
+  margin-right: .3rem;
+}
+.login-dialog-list button {
+  text-align: left;
+}
+.login-dialog-list button span {
+  font-size: 1.1rem;
+}
+.login-dialog-list a,
+.login-dialog-list button {
+  width: 100%;
 }
 
 /**
