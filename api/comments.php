@@ -38,7 +38,7 @@ class Comments {
 		$newComment = new Comment_Result;
 		$newComment->id = $comment->comment_ID;
 		$newComment->post = $comment->comment_post_ID;
-		$newComment->author_id = $comment->user_id;
+		$newComment->author = $comment->user_id;
 		$newComment->author_name = $comment->comment_author;
 		$newComment->date = $comment->comment_date;
 		$newComment->content = $comment->comment_content;

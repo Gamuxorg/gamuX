@@ -18,8 +18,6 @@ var game = new Vue({
     postdate: "",
     imgtype: "",
     thumbnail: "",
-    comments: [],
-    comnum: 0,
     //当前登录用户名
     username: "",
     //当前登录用户id
@@ -57,6 +55,9 @@ var game = new Vue({
       type: 'info',
       size: 'large'
     }],
+    comments: [],
+    comnum: 0,
+    parent_id: 0,
     //comment editor
     editorContent: '',
     editorOption: {
@@ -66,6 +67,7 @@ var game = new Vue({
       },
       placeholder: '',
     },
+    replyTextarea: '',
     downloadlist: [],
     dialogdownload: false,
   },
@@ -102,24 +104,51 @@ var game = new Vue({
     onEditorChange: function({quill, html, text}) {
       this.editorContent = html;
     },
-    onEditorButtonClicked: function () {
+    onEditorButtonClicked: function (e,content,parent) {
+      if (e.currentTarget.id == "reportButton") {
+        parent = 0;
+        cotent = this.editorContent;
+      }
+      else if (e.currentTarget.id == "replyButton") {
+        content = this.replyTextarea;
+        parent = this.parent_id;
+      }
+      else {
+        alert("非法点击!");
+      }
       axios({
-        method: 'post',
+        method: 'POST',
         url: this.siteurl + '/wp-json/wp/v2/comments',
         data: {
-          'content': this.editorContent,
+          'content': content,
           'post': this.postid,
           'author_name': this.username,
           'author': this.userid,
           'date': this.curdate,
           'date_gmt': this.curutcdate,
+          'parent': parent,
         },
       }).then(function(response) {
-        console.log("成功发送评论");
+//        const commentplus = this.comment.unshift(response.data);
+//        Vue.set(game,'comments','commentplus');
+        console.log(response);
       }).catch(function(e) {
         console.log(e);
         console.log('评论失败');
       });
+    },
+    commentReply: function (e) {
+      const a = document.getElementById("reply");
+      a.remove();
+      const inserted =  e.currentTarget.parentElement.parentElement;
+      inserted.insertBefore(a,inserted.childNodes[-1]);
+      a.style.display= 'block';
+      this.replyTextarea = "";
+    },
+    commentReplyCancle: function () {
+      const a = document.getElementById("reply");
+      a.style.display= 'none';
+      this.replyTextarea = "";
     },
   },
   mounted: async function() {
@@ -169,7 +198,12 @@ var game = new Vue({
     //评论
     const comment = await this.getPostJson("/wp-json/gamux/v1/comments/" + postid);
     this.comments = comment.data;
+    console.log(this.comments);
     this.comnum = comment.data.length;
+    if (document.getElementById("reply").style.display == "block") {
+
+    };
+    
 
     //侧边
   },

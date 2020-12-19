@@ -24,8 +24,8 @@ get_header(); ?>
    
     <!--评论-->
     <el-divider></el-divider>
-    <section class="post-commit" v-if="comnum > 0">
-      <el-card class="comment-card" v-for="comment in comments" :key="comment.id">
+    <section class="post-commit"  v-if="comnum > 0">
+      <el-card class="comment-div" v-for="comment in comments" :key="comment.id" :id="'comment-' + comment.id">
         <div class="comment-card">
           <div class="comment-left">
             <div class="comment-author-avatar">
@@ -39,11 +39,11 @@ get_header(); ?>
               <div class="comment-main-info">
                 <div class="comment-main-info-main">
                   <span>{{ comment.date }}</span>
-                  <span><el-button type="text" icon="el-icon-edit">回复</el-button></span>
+                  <span class="comment-reply-span"><el-button type="text" icon="el-icon-edit" @click="commentReply($event)">回复</el-button></span>
                 </div>
               </div>
             </div>
-            <div class="comment-reply-card" v-if="comment.children" v-for="reply in comment.children" :key="reply.id">
+            <div class="comment-reply-card" v-if="comment.children" v-for="reply in comment.children" :key="reply.id" :id="'comment-reply-' + reply.id">
               <div class="comment-left">
                 <div class="comment-author-avatar">
                   <el-image class="comment-author-avatar-img" fit="fit" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-image>
@@ -56,7 +56,7 @@ get_header(); ?>
                   <div class="comment-main-info">
                     <div class="comment-main-info-main">
                       <span>{{ reply.date }}</span>
-                      <span><el-button type="text" icon="el-icon-edit">回复</el-button></span>
+                      <span class="comment-replay-span"><el-button type="text" icon="el-icon-edit" @click="commentReply($event)">回复</el-button></span>                      
                     </div>
                   </div>
                 </div>
@@ -65,6 +65,18 @@ get_header(); ?>
           </div>
         </div>
       </el-card>
+      <div id="reply" rel="replydiv">
+        <el-input
+          type="textarea"
+          :autosize="{ minRows: 2}"
+          placeholder="请输入内容"
+          v-model="replyTextarea">
+        </el-input>
+        <div class="reply-button-aria">
+          <el-button type="text" icon="el-icon-edit" @click="commentReplyCancle()">取消回复</el-button>
+          <el-button id="replyButton" type="text" icon="el-icon-edit" @click="onEditorButtonClicked($event)">发送回复</el-button>
+        </div>
+      </div>
     </section>
     <section class="post-commit" v-else>
       <div class="comment-head">评论</div>
@@ -83,7 +95,7 @@ get_header(); ?>
         />
       </div>
       <div class="report-button">
-        <el-button type="type" icon="el-icon-edit" @click="onEditorButtonClicked">发布评论</el-button>
+        <el-button id="reportButton" type="type" icon="el-icon-edit" @click="onEditorButtonClicked($event)">发布评论</el-button>
       </div>
     </section>
   </el-col>
