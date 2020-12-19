@@ -29,7 +29,7 @@ get_header(); ?>
         <div class="comment-card" :id="'comment-main-' + comment.id">
           <div class="comment-left">
             <div class="comment-author-avatar">
-              <el-image class="comment-author-avatar-img" fit="fit" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-image>
+              <el-image class="comment-author-avatar-img" fit="fit" :src="comment.author_avatar"></el-image>
             </div>
             <div class="comment-author-name">{{ comment.author_name }}</div>
           </div>
@@ -46,7 +46,7 @@ get_header(); ?>
             <div class="comment-reply-card" v-if="comment.children" v-for="reply in comment.children" :key="reply.id" :id="'comment-reply-' + reply.id">
               <div class="comment-left">
                 <div class="comment-author-avatar">
-                  <el-image class="comment-author-avatar-img" fit="fit" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-image>
+                  <el-image class="comment-author-avatar-img" fit="fit" :src="reply.author_avatar"></el-image>
                 </div>
                 <div class="comment-author-name">{{ reply.author_name }}</div>
               </div>
@@ -65,6 +65,7 @@ get_header(); ?>
           </div>
         </div>
       </el-card>
+      <!--回复框-->
       <div id="reply" class="onlyreply" rel="reply" style="display:none;">
         <el-input
           type="textarea"
@@ -82,6 +83,8 @@ get_header(); ?>
       <div class="comment-head">评论</div>
       <div class="nocomment">还没有评论，试试发布一个吧~</div>
     </section>
+
+    <!--评论框-->
     <section id="report-commit">
       <div id="commit-editor">
         <quill-editor

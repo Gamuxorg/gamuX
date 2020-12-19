@@ -6,6 +6,7 @@ var gamux = new Vue ({
     islogin: 0,
     username: "",
     userid: "",
+    useravatar: "",
     dialogloginVisible: false,
   },
   methods: {
@@ -25,6 +26,7 @@ var gamux = new Vue ({
       this.username = userinfo.name;
       this.userid = userinfo.id;
       this.islogin = 1;
+      this.useravatar = userinfo.avatar;
     }
     catch (error) {
       this.islogin = 0;

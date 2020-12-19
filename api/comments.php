@@ -12,7 +12,7 @@
 	class Comment_Result {
 		public $id;
 		public $post;
-		public $author_id;
+		public $author;
 		public $author_name;
 		public $author_avatar;
 		public $date;

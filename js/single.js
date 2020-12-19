@@ -20,6 +20,7 @@ var game = new Vue({
     thumbnail: "",
     //当前登录用户名
     username: "",
+    useravatar: "",
     //当前登录用户id
     userid: "",
     //当前登录用户url
@@ -105,8 +106,10 @@ var game = new Vue({
       this.editorContent = html;
     },
     onEditorButtonClicked: function (e,content) {
+      console.log(this.curdate, this.curutcdate);
       if (e.currentTarget.id == "reportButton") {
-        cotent = this.editorContent;
+        content = this.editorContent;
+        this.parent_id = 0;
       }
       else if (e.currentTarget.id == "replyButton") {
         content = this.replyTextarea;
@@ -127,13 +130,55 @@ var game = new Vue({
           'parent': this.parent_id,
         },
       }).then(function(response) {
-//        const commentplus = this.comment.unshift(response.data);
-//        Vue.set(game,'comments','commentplus');
+        game.comnum = 0;
+        game.$nextTick(function () {
+          game.comnum = 1;
+        });
         console.log(response);
+/*
+        let item;
+        const thisdate = game.curdate.split("T")[0] + " " + game.curdate.split("T")[1];
+        if ( game.parent_id == 0 ) {
+          item = game.comments;
+        }
+        else {
+          for (const i=0; i < game.comments.length; i++) {
+            if (game["comments"][i]["id"] == game.parent_id) {
+              if ( (game["comments"][i]["children"]).length == 0 ) {
+                console.log((game["comments"][i]["children"]).length);
+                game["comments"][i]["children"] = [];
+                item = game["comments"][i]["children"];
+              }
+              else {
+                item = game["comments"][i]["children"];
+              }
+              break;
+            }
+          }
+        }
+
+        const itemLen = item.length;
+        const itemlist = {
+          'id': response.data.id,
+          'content': content,
+          'post': game.postid,
+          'author_name': game.username,
+          'author': game.userid,
+          'date': thisdate,
+          'parent': game.parent_id,
+          'author_avatar': this.useravatar,      
+        }
+        Vue.set(item,itemLen,itemlist);
+        console.log(item); 
+*/
       }).catch(function(e) {
+        alert("评论失败，出错！" + e);
         console.log(e);
-        console.log('评论失败');
       });
+      this.editor.setContents([{ insert: '\n' }]);
+      const a = document.getElementById("reply");
+      a.style.display= 'none';
+      this.replyTextarea = "";
     },
     commentReply: function (e) {
       const a = document.getElementById("reply");
@@ -196,13 +241,16 @@ var game = new Vue({
 
     //日期    
     const getDate = new Date();
-    this.curdate = new Date(getDate.getTime() - (getDate.getTimezoneOffset() * 60000)).toJSON();
-    this.curutcdate = getDate.toJSON();
+    const tmpcurdate = new Date(getDate.getTime() - (getDate.getTimezoneOffset() * 60000)).toJSON();
+    const tmpcurutcdate = getDate.toJSON();
+    this.curdate = tmpcurdate.split(".")[0];
+    this.curutcdate = tmpcurutcdate.split(".")[0]; 
 
     //用户信息
     this.islogin = gamux.islogin;
     this.username = gamux.username;
     this.userid = gamux.userid;
+    this.useravatar = gamux.useravatar;
 
     //评论
     const comment = await this.getPostJson("/wp-json/gamux/v1/comments/" + postid);
