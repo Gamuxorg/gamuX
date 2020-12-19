@@ -23,6 +23,7 @@
 
 class Comments {
 	private $post_id;
+	private $tmpComment;	//一个临时的全局变量
 
 	public function __construct($post_id) {
 		settype($post_id, 'int');
@@ -32,10 +33,10 @@ class Comments {
 	/**
 	 * 将结果进行过滤,去除不必要的字段,并递归添加children
 	 *
-	 * @param \WP_Comment $comment
+	 * @param \WP_Comment $comment, int $level 递归层级
 	 * @return Comment_Result $newComment
 	 */
-	private function filter_result(\WP_Comment $comment) {
+	private function filter_result(\WP_Comment $comment, int $level) {
 		$newComment = new Comment_Result;
 		$newComment->id = $comment->comment_ID;
 		$newComment->post = $comment->comment_post_ID;
@@ -46,11 +47,12 @@ class Comments {
 		$newComment->content = $comment->comment_content;
 		$newComment->parent = $comment->comment_parent;
 		$newComment->children = array();
-		if(count($comment->get_children()) > 0) {			//children是私有成员,需使用函数获取
-			$children = $comment->get_children();
-			$num = count($children);
-			foreach($children as $child) {
-				array_push($newComment->children, $this->filter_result($child));
+		if($level == 1) {
+			if(count($comment->get_children(['hierarchical' => 'flat'])) > 0) {			//children是私有成员,需使用函数获取
+				$children = $comment->get_children();
+				foreach($children as $child) {
+					array_push($newComment->children, $this->filter_result($child, 2));
+				}
 			}
 		}
 		return $newComment;
@@ -66,12 +68,12 @@ class Comments {
 		$newComments = array();
 		$comments = \get_comments([
 			'post_id' => $post_id,
-			'hierarchical' => 'threaded',
+			'hierarchical' => 'flat',
 		]);
 		
 		if(count($comments) > 0) {
 			foreach($comments as $comment) {
-				$newComment = $this->filter_result($comment);
+				$newComment = $this->filter_result($comment, 1);
 				array_push($newComments, $newComment);
 			}
 		}
