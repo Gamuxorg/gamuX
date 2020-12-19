@@ -14,6 +14,7 @@
 		public $post;
 		public $author_id;
 		public $author_name;
+		public $author_avatar;
 		public $date;
 		public $content;
 		public $parent;
@@ -40,6 +41,7 @@ class Comments {
 		$newComment->post = $comment->comment_post_ID;
 		$newComment->author_id = $comment->user_id;
 		$newComment->author_name = $comment->comment_author;
+		$newComment->author_avatar = get_user_avatar($comment->user_id);
 		$newComment->date = $comment->comment_date;
 		$newComment->content = $comment->comment_content;
 		$newComment->parent = $comment->comment_parent;
