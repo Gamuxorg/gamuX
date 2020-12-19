@@ -55,9 +55,6 @@ table .cell {
 }
 
 /* 评论 */
-#reply {
-  display: none;
-}
 .comment-div+div {
   margin-top: .5rem;
 }

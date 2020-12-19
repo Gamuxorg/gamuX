@@ -25,8 +25,8 @@ get_header(); ?>
     <!--评论-->
     <el-divider></el-divider>
     <section class="post-commit"  v-if="comnum > 0">
-      <el-card class="comment-div" v-for="comment in comments" :key="comment.id" :id="'comment-' + comment.id">
-        <div class="comment-card">
+      <el-card class="comment-div" v-for="comment in comments" :key="comment.id">
+        <div class="comment-card" :id="'comment-main-' + comment.id">
           <div class="comment-left">
             <div class="comment-author-avatar">
               <el-image class="comment-author-avatar-img" fit="fit" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-image>
@@ -65,7 +65,7 @@ get_header(); ?>
           </div>
         </div>
       </el-card>
-      <div id="reply" rel="replydiv">
+      <div id="reply" class="onlyreply" rel="reply" style="display:none;">
         <el-input
           type="textarea"
           :autosize="{ minRows: 2}"

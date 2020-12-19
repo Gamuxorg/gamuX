@@ -104,14 +104,12 @@ var game = new Vue({
     onEditorChange: function({quill, html, text}) {
       this.editorContent = html;
     },
-    onEditorButtonClicked: function (e,content,parent) {
+    onEditorButtonClicked: function (e,content) {
       if (e.currentTarget.id == "reportButton") {
-        parent = 0;
         cotent = this.editorContent;
       }
       else if (e.currentTarget.id == "replyButton") {
         content = this.replyTextarea;
-        parent = this.parent_id;
       }
       else {
         alert("非法点击!");
@@ -126,7 +124,7 @@ var game = new Vue({
           'author': this.userid,
           'date': this.curdate,
           'date_gmt': this.curutcdate,
-          'parent': parent,
+          'parent': this.parent_id,
         },
       }).then(function(response) {
 //        const commentplus = this.comment.unshift(response.data);
@@ -140,10 +138,21 @@ var game = new Vue({
     commentReply: function (e) {
       const a = document.getElementById("reply");
       a.remove();
-      const inserted =  e.currentTarget.parentElement.parentElement;
+      const inserted =  e.currentTarget.parentNode.parentNode;
       inserted.insertBefore(a,inserted.childNodes[-1]);
       a.style.display= 'block';
       this.replyTextarea = "";
+      this.$nextTick(function () {
+        const replyaria = document.getElementById("reply");
+        const wholeid = replyaria.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+        const iddata = wholeid.split("-");
+        if (iddata[1] == "reply" || iddata[1] == "main") {
+          this.parent_id = iddata[2];
+        }
+        else {
+          alert("内部错误！");
+        }
+      });
     },
     commentReplyCancle: function () {
       const a = document.getElementById("reply");
@@ -198,18 +207,13 @@ var game = new Vue({
     //评论
     const comment = await this.getPostJson("/wp-json/gamux/v1/comments/" + postid);
     this.comments = comment.data;
-    console.log(this.comments);
     this.comnum = comment.data.length;
-    if (document.getElementById("reply").style.display == "block") {
-
-    };
-    
 
     //侧边
   },
   computed: {
     editor: function() {
       return this.$refs.myQuillEditor.quill;
-    }
+    },
   },
 })
