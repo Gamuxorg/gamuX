@@ -34,7 +34,7 @@ class Comments {
 	 * 将结果进行过滤,去除不必要的字段,并递归添加children
 	 *
 	 * @param \WP_Comment $comment, int $level 递归层级
-	 * @return Comment_Result $newComment
+	 * @return Comment_Result $newComment | NULL
 	 */
 	private function filter_result(\WP_Comment $comment, int $level) {
 		$newComment = new Comment_Result;
@@ -48,11 +48,16 @@ class Comments {
 		$newComment->parent = $comment->comment_parent;
 		$newComment->children = array();
 		if($level == 1) {
-			if(count($comment->get_children(['hierarchical' => 'flat'])) > 0) {			//children是私有成员,需使用函数获取
-				$children = $comment->get_children();
-				foreach($children as $child) {
-					array_push($newComment->children, $this->filter_result($child, 2));
+			if($comment->comment_parent == 0) {
+				if(count($comment->get_children(['hierarchical' => 'flat'])) > 0) {			//children是私有成员,需使用成员函数获取
+					$children = $comment->get_children(['hierarchical' => 'flat']);			//这里获取到的是所有的子评论(不分层级)的数组
+					foreach($children as $child) {
+						array_push($newComment->children, $this->filter_result($child, 2));
+					}
 				}
+			}
+			else {										//防止重复添加子评论
+				return NULL;
 			}
 		}
 		return $newComment;
@@ -74,7 +79,8 @@ class Comments {
 		if(count($comments) > 0) {
 			foreach($comments as $comment) {
 				$newComment = $this->filter_result($comment, 1);
-				array_push($newComments, $newComment);
+				if(!is_null($newComment))							//防止重复添加子评论
+					array_push($newComments, $newComment);
 			}
 		}
 		return $newComments;
