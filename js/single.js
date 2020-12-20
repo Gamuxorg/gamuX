@@ -146,6 +146,9 @@ var game = new Vue({
           'parent': that.parentId,
           'author_avatar': that.useravatar,
         }
+        if(that.comments.length == 0) {
+          that.comnum = 1;
+        }
         if ( that.parentId == 0 ) {
           that.comments.unshift(itemlist);
           that.$set(that.comments, 0, itemlist);
