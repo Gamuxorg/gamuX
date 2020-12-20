@@ -43,7 +43,7 @@ get_header(); ?>
                 </div>
               </div>
             </div>
-            <div class="comment-reply-card" v-if="comment.children" v-for="reply in comment.children" :key="reply.id" :id="'comment-reply-' + reply.id">
+            <div class="comment-reply-card" v-if="comment.children" v-for="reply in comment.children" :key="reply.id" :id="'comment-reply-' + comment.id + '-' + reply.id">
               <div class="comment-left">
                 <div class="comment-author-avatar">
                   <el-image class="comment-author-avatar-img" fit="fit" :src="reply.author_avatar"></el-image>

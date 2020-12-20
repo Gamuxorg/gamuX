@@ -59,6 +59,7 @@ var game = new Vue({
     comments: [],
     comnum: 0,
     parentId: 0,
+    rootparent: 0,
     //comment editor
     editorContent: '',
     editorOption: {
@@ -132,14 +133,14 @@ var game = new Vue({
           'parent': that.parentId,
         },
       }).then(function(response) {
-        location.reload(false);
-/*      以下方法：不刷新页面，只刷新评论部分视图；但是很遗憾没有完成。 
+
         const thisdate = that.curdate.split("T")[0] + " " + that.curdate.split("T")[1];
         var itemlist = {
           'id': response.data.id,
           'content': content,
           'post': that.postid,
           'author_name': that.username,
+          'children': [],
           'author': that.userid,
           'date': thisdate,
           'parent': that.parentId,
@@ -150,25 +151,24 @@ var game = new Vue({
           that.$set(that.comments, 0, itemlist);
         }
         else {
-          for (var itemi = 0; itemi < that.comments.length; itemi++) {
-            if (that["comments"][itemi]["id"] == that.parentId) {
-              var item = that["comments"][itemi]["children"];
+          for (var itemi = 0; itemi < game.comments.length; itemi++) {
+            if (game["comments"][itemi]["id"] == game.rootparent) {
+              var item = game["comments"][itemi]["children"];
               item.unshift(itemlist);
-              console.log(item);
-//              Vue.set(that["comments"], itemi, item);
+              Vue.set(game["comments"], itemi, game["comments"][itemi]);
               break;
             }
           }
         }
-        that.$nextTick(function () {
-          that.editor.setContents([{ insert: '\n' }]);
-          const reply = document.getElementById("reply");
-          reply.style.display= 'none';
-          that.replyTextarea = "";
-        })*/
       }).catch(function(e) {
         alert("评论失败，出错！" + e);
         console.log(e);
+      });
+      this.$nextTick(function () {
+        this.editor.setContents([{ insert: '\n' }]);
+        const reply = document.getElementById("reply");
+        reply.style.display= 'none';
+        this.replyTextarea = "";
       });
     },
     commentReply: function (e) {
@@ -182,8 +182,13 @@ var game = new Vue({
         var replyaria = document.getElementById("reply");
         var wholeid = replyaria.parentNode.parentNode.parentNode.parentNode.parentNode.id;
         var iddata = wholeid.split("-");
-        if (iddata[1] == "reply" || iddata[1] == "main") {
+        if (iddata[1] == "reply" ) {
+          this.parentId = iddata[3];
+          this.rootparent = iddata[2];
+        }
+        else if ( iddata[1] == "main" ) {
           this.parentId = iddata[2];
+          this.rootparent = iddata[2];          
         }
         else {
           alert("内部错误！");
