@@ -58,7 +58,7 @@ var game = new Vue({
     }],
     comments: [],
     comnum: 0,
-    parent_id: 0,
+    parentId: 0,
     //comment editor
     editorContent: '',
     editorOption: {
@@ -69,6 +69,7 @@ var game = new Vue({
       placeholder: '',
     },
     replyTextarea: '',
+    replyModJson: [],
     downloadlist: [],
     dialogdownload: false,
   },
@@ -105,11 +106,11 @@ var game = new Vue({
     onEditorChange: function({quill, html, text}) {
       this.editorContent = html;
     },
-    onEditorButtonClicked: function (e,content) {
-      console.log(this.curdate, this.curutcdate);
+    onEditorButtonClicked: function (e) {
+      let content;
       if (e.currentTarget.id == "reportButton") {
         content = this.editorContent;
-        this.parent_id = 0;
+        this.parentId = 0;
       }
       else if (e.currentTarget.id == "replyButton") {
         content = this.replyTextarea;
@@ -117,82 +118,72 @@ var game = new Vue({
       else {
         alert("非法点击!");
       }
+      var that = this;
       axios({
         method: 'POST',
-        url: this.siteurl + '/wp-json/wp/v2/comments',
+        url: that.siteurl + '/wp-json/wp/v2/comments',
         data: {
           'content': content,
-          'post': this.postid,
-          'author_name': this.username,
-          'author': this.userid,
-          'date': this.curdate,
-          'date_gmt': this.curutcdate,
-          'parent': this.parent_id,
+          'post': that.postid,
+          'author_name': that.username,
+          'author': that.userid,
+          'date': that.curdate,
+          'date_gmt': that.curutcdate,
+          'parent': that.parentId,
         },
       }).then(function(response) {
-        game.comnum = 0;
-        game.$nextTick(function () {
-          game.comnum = 1;
-        });
-        console.log(response);
-/*
-        let item;
-        const thisdate = game.curdate.split("T")[0] + " " + game.curdate.split("T")[1];
-        if ( game.parent_id == 0 ) {
-          item = game.comments;
+        location.reload(false);
+/*      以下方法：不刷新页面，只刷新评论部分视图；但是很遗憾没有完成。 
+        const thisdate = that.curdate.split("T")[0] + " " + that.curdate.split("T")[1];
+        var itemlist = {
+          'id': response.data.id,
+          'content': content,
+          'post': that.postid,
+          'author_name': that.username,
+          'author': that.userid,
+          'date': thisdate,
+          'parent': that.parentId,
+          'author_avatar': that.useravatar,
+        }
+        if ( that.parentId == 0 ) {
+          that.comments.unshift(itemlist);
+          that.$set(that.comments, 0, itemlist);
         }
         else {
-          for (const i=0; i < game.comments.length; i++) {
-            if (game["comments"][i]["id"] == game.parent_id) {
-              if ( (game["comments"][i]["children"]).length == 0 ) {
-                console.log((game["comments"][i]["children"]).length);
-                game["comments"][i]["children"] = [];
-                item = game["comments"][i]["children"];
-              }
-              else {
-                item = game["comments"][i]["children"];
-              }
+          for (var itemi = 0; itemi < that.comments.length; itemi++) {
+            if (that["comments"][itemi]["id"] == that.parentId) {
+              var item = that["comments"][itemi]["children"];
+              item.unshift(itemlist);
+              console.log(item);
+//              Vue.set(that["comments"], itemi, item);
               break;
             }
           }
         }
-
-        const itemLen = item.length;
-        const itemlist = {
-          'id': response.data.id,
-          'content': content,
-          'post': game.postid,
-          'author_name': game.username,
-          'author': game.userid,
-          'date': thisdate,
-          'parent': game.parent_id,
-          'author_avatar': this.useravatar,      
-        }
-        Vue.set(item,itemLen,itemlist);
-        console.log(item); 
-*/
+        that.$nextTick(function () {
+          that.editor.setContents([{ insert: '\n' }]);
+          const reply = document.getElementById("reply");
+          reply.style.display= 'none';
+          that.replyTextarea = "";
+        })*/
       }).catch(function(e) {
         alert("评论失败，出错！" + e);
         console.log(e);
       });
-      this.editor.setContents([{ insert: '\n' }]);
-      const a = document.getElementById("reply");
-      a.style.display= 'none';
-      this.replyTextarea = "";
     },
     commentReply: function (e) {
-      const a = document.getElementById("reply");
+      var a = document.getElementById("reply");
       a.remove();
-      const inserted =  e.currentTarget.parentNode.parentNode;
+      var inserted =  e.currentTarget.parentNode.parentNode;
       inserted.insertBefore(a,inserted.childNodes[-1]);
       a.style.display= 'block';
       this.replyTextarea = "";
       this.$nextTick(function () {
-        const replyaria = document.getElementById("reply");
-        const wholeid = replyaria.parentNode.parentNode.parentNode.parentNode.parentNode.id;
-        const iddata = wholeid.split("-");
+        var replyaria = document.getElementById("reply");
+        var wholeid = replyaria.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+        var iddata = wholeid.split("-");
         if (iddata[1] == "reply" || iddata[1] == "main") {
-          this.parent_id = iddata[2];
+          this.parentId = iddata[2];
         }
         else {
           alert("内部错误！");
