@@ -8,6 +8,8 @@ var gamux = new Vue ({
     userid: "",
     useravatar: "",
     dialogloginVisible: false,
+    siteurl: "",
+    cururl: "",
   },
   methods: {
     getPostJson: async function(url) {
@@ -18,8 +20,16 @@ var gamux = new Vue ({
       });
       return a;
     },
+    getSiteUrl: function() {
+      let wwwpath = window.location.href;
+      let pathname = window.location.pathname;
+      let pos = wwwpath.indexOf(pathname);
+      this.siteurl = wwwpath.substring(0, pos);
+      this.cururl = wwwpath;
+    },
   },
   mounted: async function() {
+    this.getSiteUrl();
     try {
       const userinfos = await this.getPostJson("/wp-json/wp/v2/users/me?_wpnonce=" + wpApiSettings.nonce);
       const userinfo = userinfos.data;

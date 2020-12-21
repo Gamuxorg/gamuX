@@ -82,13 +82,6 @@ var game = new Vue({
     goBack: function () {
       window.location.href=this.caturl; 
     },
-    getSiteUrl: function() {
-      let wwwpath = window.location.href;
-      let pathname = window.location.pathname;
-      let pos = wwwpath.indexOf(pathname);
-      this.siteurl = wwwpath.substring(0, pos);
-      this.cururl = wwwpath;
-    },
     getPostJson: async function(url) {
       let a = await axios({
         method: 'get',
@@ -199,7 +192,8 @@ var game = new Vue({
     },
   },
   mounted: async function() {
-    const siteurl = this.getSiteUrl();
+    this.siteurl = gamux.siteurl;
+    this.cururl = gamux.cururl;
     //文章详情
     const urljson = await this.getPostJson(this.cururl);
     const postid = urljson.headers.link.split(/[,;=>]/)[5];
