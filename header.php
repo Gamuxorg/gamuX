@@ -81,12 +81,16 @@
       </el-col>
     </el-row>
   
-    <div id="avatar" v-if="islogin==0">
+    <div id="avatar" v-if="islogin == 0">
       <div class="block avatar-inner">
         <el-button class="login-button" type="text" ref="login" @click="dialogloginVisible = true">点击登录</el-button>
       </div>
     </div>
     <div id="avatar" v-else>
+      <div class="header-avatar">
+        <el-image :src="useravatar"></el-image>
+        <div class="username"><a :href="siteurl + '/wp-admin'">{{ username }}</a>,<></div>
+      </div>      
     </div>
     <!--弹窗登录-->
     <el-dialog title="网站登录" class="login-dialog" :visible.sync="dialogloginVisible">
