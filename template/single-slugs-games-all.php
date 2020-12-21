@@ -39,7 +39,10 @@ get_header(); ?>
               <div class="comment-main-info">
                 <div class="comment-main-info-main">
                   <span>{{ comment.date }}</span>
-                  <span class="comment-reply-span"><el-button type="text" icon="el-icon-edit" @click="commentReply($event)">回复</el-button></span>
+                  <span class="comment-reply-span">
+                    <el-button v-if="islogin == 1" type="text" icon="el-icon-edit" @click="commentReply($event)">回复</el-button>
+                    <el-button v-else type="text" icon="el-icon-edit" @click="dialogloginVisible">回复</el-button>
+                  </span>
                 </div>
               </div>
             </div>
@@ -56,7 +59,10 @@ get_header(); ?>
                   <div class="comment-main-info">
                     <div class="comment-main-info-main">
                       <span>{{ reply.date }}</span>
-                      <span class="comment-replay-span"><el-button type="text" icon="el-icon-edit" @click="commentReply($event)">回复</el-button></span>                      
+                      <span class="comment-replay-span">
+                        <el-button v-if="islogin == 1" type="text" icon="el-icon-edit" @click="commentReply($event)">回复</el-button>
+                        <el-button v-else type="text" icon="el-icon-edit" @click="dialogloginVisible">回复</el-button>
+                      </span>                      
                     </div>
                   </div>
                 </div>
@@ -91,14 +97,12 @@ get_header(); ?>
           ref="myQuillEditor"
           v-model="editorContent"
           :options="editorOption"
-          @blur="onEditorBlur($event)"
-          @focus="onEditorFocus($event)"
-          @ready="onEditorReady($event)"
           @change="onEditorChange($event)"
         />
       </div>
       <div class="report-button">
-        <el-button id="reportButton" type="type" icon="el-icon-edit" @click="onEditorButtonClicked($event)">发布评论</el-button>
+        <el-button v-if="islogin == 1" id="reportButton" type="type" icon="el-icon-edit" @click="onEditorButtonClicked($event)">发布评论</el-button>
+        <el-button v-else id="reportButton" type="type" icon="el-icon-edit" @click="dialogloginVisible">发布评论</el-button>
       </div>
     </section>
   </el-col>

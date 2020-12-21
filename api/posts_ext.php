@@ -104,14 +104,19 @@
 	function buy_url_type(string $link) : string {
 		$types = [
 			"Steam" => "store.steampowered.com",
-			"GOG" => "www.gog.com"
+			"GOG" => "gog.com",
+			"Humble" => "humblebundle.com",
+			"itch.io" => "itch.io",
+			"Github" => "github.com",
+			"Gitlab" => "gitlab.com",
+			"码云" => "gitee.com"
 		];
 
 		foreach ($types as $store => $url) {
 			if(strstr($link, $url) != "")
 				return $store;
 		}
-		return "Etc";
+		return "购买/获取源码";
 	}
 
 	/**

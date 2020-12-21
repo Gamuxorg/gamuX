@@ -98,12 +98,6 @@ var game = new Vue({
       return a;
     },
     //comment editor
-    onEditorBlur: function(quill) {
-    },
-    onEditorFocus: function(quill) {
-    },
-    onEditorReady: function(quill) {
-    },
     onEditorChange: function({quill, html, text}) {
       this.editorContent = html;
     },

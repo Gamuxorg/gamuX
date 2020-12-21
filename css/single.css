@@ -63,9 +63,12 @@ table .cell {
   display: flex;
   flex-flow: row nowrap;
 }
-.comment-card>.el-card__body,
+.comment-reply-card {
+  margin-bottom: .3rem;
+}
+.comment-div>.el-card__body,
 .comment-reply-card .el-card__body {
-  width: 100%;
+  padding: 10px 10px 5px 10px;
 }
 .comment-card p {
   margin: unset;
@@ -73,10 +76,11 @@ table .cell {
 .comment-left {
   text-align: center;
   flex: none;
+  width: 60px;
 }
 .comment-right {
   flex: auto;
-  margin-left: 1rem;
+  margin-left: .5rem;
 }
 .comment-right>.comment-main {
   display: flex;
@@ -100,9 +104,8 @@ table .cell {
 }
 .comment-author-name {
   font-size: .8rem;
-  overflow: hidden;
-  height: 1rem;
-  line-height: 1rem;
+  overflow-wrap: break-word;
+  width: 100%;
 }
 .comment-author-avatar-img img {
   border: solid 1px gray;
@@ -121,6 +124,32 @@ table .cell {
 }
 .comment-main-info-main>span>button {
   padding: 0 0 0 .5rem;
+}
+.quill-editor {
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+  border: 1px solid #EBEEF5;
+  background-color: #FFF;
+  color: #303133;
+  -webkit-transition: .3s;
+  transition: .3s;
+  border-radius: 4px;
+}
+.quill-editor>div {
+  border-top: unset!important;
+  border-left: unset!important;
+  border-right: unset!important;
+}
+.quill-editor>div.ql-container {
+  border-bottom: unset;
+}
+.quill-editor>div.ql-toolbar {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.report-button {
+  margin-top: .5rem;
+}
+.report-button>button {
+  width: 100%;
 }
 /*  
  * 侧边栏

@@ -81,41 +81,18 @@ function my_init_method() {
 }
 add_action('wp_enqueue_scripts', 'my_init_method');
 
-//1.2.2 获取当前页面url
-function curPageURL()
-{
-    $pageURL = 'http';
-    if ($_SERVER["HTTPS"] == "on")
-    {
-        $pageURL .= "s";
-    }
-    $pageURL .= "://";
-    if ($_SERVER["SERVER_PORT"] != "80")
-    {
-        $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
-    }
-    else
-    {
-        $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-    }
-    return $pageURL;
-}
 /*
  * 1.3 增加wordpress功能
 **/
-//1.3.1 增加github登陆
-// get_template_part( 'function/github_login' ); 
-
-//1.3.2 增加编辑文章扩展功能
-// get_template_part( 'function/edit_extra_box' );
-
-//1.3.3 上传文件重命名 
-/*function rename_upload_file($file) {
-    $time=date("Y-m-d H:i:s");
-    $file['name'] = $time."".mt_rand(100,999).".".pathinfo($file['name'] , PATHINFO_EXTENSION);
-    return $file;
-}
-add_filter('wp_handle_upload_prefilter', 'rename_upload_file');*/
+//1.3.3 restful api cookie认证
+add_action( 'wp_enqueue_scripts', function()
+{
+    wp_enqueue_script( 'auth_rest', get_theme_file_uri());
+    wp_localize_script( 'auth_rest', 'wpApiSettings', array(
+        'root' => esc_url_raw( rest_url() ),
+        'nonce' => wp_create_nonce( 'wp_rest' )
+    ));
+} );
 
 //1.3.4 修改上传目录
 function slider_upload_dir($uploads) {
@@ -153,7 +130,7 @@ if (function_exists('add_theme_support')) {
 
 //1.3.7 自定义url
 //自定义页面模板
-/*function loadCustomTemplate($template) {
+function loadCustomTemplate($template) {
 	global $wp_query;
 	if(!file_exists($template))return;
 	$wp_query->is_page = true;
@@ -177,61 +154,7 @@ function templateRedirect() {
 	$basename = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
 	loadCustomTemplate(TEMPLATEPATH.'/gamux/'."/$basename.php");
 }
-add_action('template_redirect', 'templateRedirect');*/
-//1.3.7 统计已发布文章数
-
-/*
- * 1.4 Rest API 修改
-*/
-//1.4.1 增加posts API里的缩略图字段
-/*
-add_action( 'rest_api_init', 'slug_register_starship' );
-function slug_register_starship() {
-    register_rest_field( 'post', 'gmeta', array(
-		'get_callback'    => 'rest_post_gmeta',
-		'update_callback' => null,
-		'schema'          => null
-        )
-    );
-}
-*/
-function list_the_tags() {
-	global $post;
-	//输出tag列表
-	$a = wp_get_post_tags($post->ID);
-	$b = count($a);
-	$c = [];
-	if ($b == 0) {
-		return '未设置标签';
-	}
-	else {
-		for( $d=0; $d<$b; $d++ ) {
-			$c[$d] = $a[$d]->name;
-		}
-		return $c;
-	}
-}
-/*function rest_post_gmeta() {
-	global $post;
-	$a[0] = get_thumbnail_url($post->ID);
-	$a[1] = downlist_array();
-	$a[2] = get_the_category()[0]->cat_name;
-  $a[3] = get_the_category()[0]->count;
-	$a[4] = list_the_tags();
-  $a[5] = get_the_author();
-  return $a;
-}*/
-
-//restful api cookie认证
-add_action( 'wp_enqueue_scripts', function()
-{
-    wp_enqueue_script( 'wp-api' );
-    wp_enqueue_script( 'auth_rest', get_theme_file_uri( '/js/auth_rest.js' ));
-    wp_localize_script( 'auth_rest', 'wpApiSettings', array(
-        'root' => esc_url_raw( rest_url() ),
-        'nonce' => wp_create_nonce( 'wp_rest' )
-    ));
-} );
+add_action('template_redirect', 'templateRedirect');
 
 /*
  * 第二部分，前台
@@ -264,18 +187,6 @@ function default_attachment_display_settings() {
 	update_option( 'image_default_link_type', 'none' );
 	update_option( 'image_default_size', 'full' );
 }
-
-//2.1.2 获取第一张图片
-function get_first_img($content){
-    $pattern = '/<img[^>]*src=\"([^\"]+)\"[^>]*\/?>/si';
-    $matches = array();
-    if (preg_match_all($pattern, $content, $matches)) {
-        return '<div class="col-10 gamux-2-excerptimg"><img class="d-block w-100" src="' . $matches[1][0] . '" alt="1"></div>'; 
-    } 
-    else {
-       return "";
-    }
-  }
 
 //2.2 设置并获取文章阅读数
 function getPostViews($postID){
