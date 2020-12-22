@@ -51,11 +51,10 @@ function remove_screen_options() {//显示选项选项卡
 	return false;
 }
 add_filter('screen_options_show_screen', 'remove_screen_options');
-function wpse50723_remove_help($old_help, $screen_id, $screen){//帮助选项卡
-	$screen->remove_help_tabs();
-	return $old_help;
+function wpse50723_remove_help(){//移除帮助选项卡
+	get_current_screen()->remove_help_tab();
 }
-add_filter( 'contextual_help', 'wpse50723_remove_help', 999, 3 );
+add_filter( 'current_screen', 'wpse50723_remove_help');
 function gamux_remove_dashboard_widgets() {   
     global $wp_meta_boxes;    
     //删除 "快速发布" 模块  

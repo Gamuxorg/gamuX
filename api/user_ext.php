@@ -50,7 +50,7 @@
 	}
 
 	/**
-	 * 为users 用户信息添加的REST-API字段avatar
+	 * 为users 用户信息添加的REST-API字段avatar，和退出登陆链接logout_url
 	 *
 	 * @return string $link
 	 */
@@ -59,6 +59,11 @@
 			"get_callback" => function($args) {
 				$link = get_user_avatar($args['id']);
 				return $link;
+			}
+		));
+		register_rest_field("user", "logout_url", array(
+			"get_callback" => function($args) {
+				return wp_logout_url(home_url());
 			}
 		));
 	}

@@ -121,7 +121,7 @@ var game = new Vue({
         },
       }).then(function(response) {
 
-        const thisdate = that.curdate.split("T")[0] + " " + that.curdate.split("T")[1];
+        const thedate = that.curdate.split("T")[0] + " " + that.curdate.split("T")[1];
         var itemlist = {
           'id': response.data.id,
           'content': content,
@@ -129,7 +129,7 @@ var game = new Vue({
           'author_name': that.username,
           'children': [],
           'author': that.userid,
-          'date': thisdate,
+          'date': thedate,
           'parent': that.parentId,
           'author_avatar': that.useravatar,
         }
