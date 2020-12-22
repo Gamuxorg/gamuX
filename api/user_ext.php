@@ -63,7 +63,7 @@
 		));
 		register_rest_field("user", "logout_url", array(
 			"get_callback" => function($args) {
-				return wp_logout_url(home_url());
+				return html_entity_decode(wp_logout_url(home_url()));
 			}
 		));
 	}
