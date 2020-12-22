@@ -3,7 +3,7 @@
  * gameslist template
 */
 get_header(); ?>
-asd
+{{ postdata }}
 <section id="category">
     <el-card class="card" v-for="post in postdata" :key="post.id">
       <div class="pic">
