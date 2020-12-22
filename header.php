@@ -89,7 +89,9 @@
     <div id="avatar" v-else>
       <div class="header-avatar">
         <el-image :src="useravatar"></el-image>
-        <div class="username"><a :href="siteurl + '/wp-admin'">{{ username }}</a>,<></div>
+        <div class="username">
+          <a :href="siteurl + '/wp-admin'">{{ username }}</a> | <a :href="logout">退出</a>
+        </div>
       </div>      
     </div>
     <!--弹窗登录-->

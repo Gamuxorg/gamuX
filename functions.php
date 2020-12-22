@@ -151,7 +151,7 @@ function loadCustomTemplate($template) {
 }
 function templateRedirect() {
 	$basename = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
-	loadCustomTemplate(TEMPLATEPATH.'/gamux/'."/$basename.php");
+	loadCustomTemplate(TEMPLATEPATH.'/template/diy/'."/$basename.php");
 }
 add_action('template_redirect', 'templateRedirect');
 

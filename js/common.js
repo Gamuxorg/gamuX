@@ -10,6 +10,7 @@ var gamux = new Vue ({
     dialogloginVisible: false,
     siteurl: "",
     cururl: "",
+    logout: "",
   },
   methods: {
     getPostJson: async function(url) {
@@ -31,12 +32,13 @@ var gamux = new Vue ({
   mounted: async function() {
     this.getSiteUrl();
     try {
-      const userinfos = await this.getPostJson("/wp-json/wp/v2/users/me?_wpnonce=" + wpApiSettings.nonce);
+      const userinfos = await this.getPostJson(this.siteurl + "/wp-json/wp/v2/users/me?_wpnonce=" + wpApiSettings.nonce);
       const userinfo = userinfos.data;
       this.username = userinfo.name;
       this.userid = userinfo.id;
       this.islogin = 1;
       this.useravatar = userinfo.avatar;
+      this.logout = decodeURIComponent(userinfo.logout_url);
     }
     catch (error) {
       this.islogin = 0;
