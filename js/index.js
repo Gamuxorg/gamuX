@@ -7,11 +7,9 @@ var index = new Vue({
     postnum: 10,
     postdata: [],
     caturl: "",
+    siteurl: "",
   },
   methods: {
-    getCarUrl: function(url) {
-      return url;
-    },
     getCarHeight: function() {
       return this.$refs.carcol1.$el.clientHeight;
     },
@@ -41,10 +39,11 @@ var index = new Vue({
     }
   },
   mounted: async function(){
+    this.siteurl = gamux.siteurl;
     this.$nextTick(function(){
       this.carHeight = this.getCarHeight();
     });
-    const slidedatas = await this.getJsonComm('/wp-json/gamux/v1/images/mainslide/4');
+    const slidedatas = await this.getJsonComm(this.siteurl + '/wp-json/gamux/v1/images/mainslide/4');
     const slidedata = slidedatas.data;
     for(k=0;k<slidedata.length;k++) {
       this.items[k] = {"value": 0, "src": "", "link": ""};
@@ -54,7 +53,7 @@ var index = new Vue({
       this.$set(this.items, k , {"value": k, "src": slidedata[k]["imageSrc"], "link": slidedata[k]["postLink"]});
     }
 
-    const postdatas = await this.getJsonComm('wp-json/wp/v2/posts?per_page=10');
+    const postdatas = await this.getJsonComm(this.siteurl + 'wp-json/wp/v2/posts?per_page=10');
     for(i=0;i<postdatas.length;i++) {
       this.postdata[i] = postdatas[i];
       const a = this.postdata[i]["modified"];
@@ -72,8 +71,6 @@ var index = new Vue({
         that.carHeight = that.getCarHeight();
       }, 500);
     };
-  },
-  created: function() {
   },
   watch: {
     carHeight: function(val){

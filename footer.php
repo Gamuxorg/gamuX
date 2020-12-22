@@ -6,11 +6,13 @@
 <script crossorigin="anonymous" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" src="https://lib.baomitu.com/axios/0.20.0/axios.min.js"></script>
 <script src="<?php bloginfo('template_url'); ?>/js/common.js"></script>
 <?php if (is_home() || is_front_page()) { ?>
-    <script src="<?php bloginfo('template_url'); ?>/js/index.js"></script>
+	<script src="<?php bloginfo('template_url'); ?>/js/index.js"></script>
+<?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'gamelist') != false)){ ?>
+	<script src="<?php bloginfo('template_url'); ?>/js/category.js"></script>
 <?php } else if (is_single()) { ?>
-    <script crossorigin="anonymous" integrity="sha384-QUJ+ckWz1M+a7w0UfG1sEn4pPrbQwSxGm/1TIPyioqXBrwuT9l4f9gdHWLDLbVWI" src="https://lib.baomitu.com/quill/1.3.7/quill.min.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/vue-quill-editor.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/single.js"></script>
+  <script crossorigin="anonymous" integrity="sha384-QUJ+ckWz1M+a7w0UfG1sEn4pPrbQwSxGm/1TIPyioqXBrwuT9l4f9gdHWLDLbVWI" src="https://lib.baomitu.com/quill/1.3.7/quill.min.js"></script>
+  <script src="<?php bloginfo('template_url'); ?>/js/vue-quill-editor.js"></script>
+  <script src="<?php bloginfo('template_url'); ?>/js/single.js"></script>
 <?php } else { ?>
 
 <?php } ?>

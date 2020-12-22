@@ -55,7 +55,7 @@
           class="el-menu-vertical-demo">
           <el-menu-item index="1">
             <i class="el-icon-menu"></i>
-            <span slot="title">游戏列表</span>
+            <span slot="title"><a :href="siteurl + '/gamelist'">游戏列表</a></span>
           </el-menu-item>
           <el-menu-item index="2">
             <i class="el-icon-news"></i>
@@ -67,11 +67,11 @@
           </el-menu-item>
           <el-menu-item index="4">
             <i class="el-icon-star-on"></i>
-            <span slot="title">愿望清单</span>
+            <span slot="title"><a href="https://github.com/Gamuxorg/bbs/issues?q=is%3Aopen+is%3Aissue+label%3A%E8%AF%B7%E6%B1%82%E6%B8%B8%E6%88%8F" target="_blank">愿望清单</a></span>
           </el-menu-item>
           <el-menu-item index="5">
             <i class="el-icon-chat-line-square"></i>
-            <span slot="title">交流面板</span>
+            <span slot="title"><a href="https://github.com/Gamuxorg/bbs/issues" target="_blank">交流面板</a></span>
           </el-menu-item>
           <el-menu-item index="6">
             <i class="el-icon-milk-tea"></i>
