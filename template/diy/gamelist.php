@@ -3,7 +3,15 @@
  * gameslist template
 */
 get_header(); ?>
-<section>asd</section>
+
+<!--索引-->
+<section id="index">
+  <div class="category" v-for="cat in categories" :key="cat.id">
+    <button type="text" :id="cat.id" @click="clickCatJson($event)">{{ cat.name }}</button>
+  </div>
+</section>
+
+<!--列表-->
 <section id="category">
     <el-card class="card" v-for="post in postdata" :key="post.id">
       <div class="pic">
@@ -20,6 +28,19 @@ get_header(); ?>
         </div>
       </div>
     </el-card>
+</section>
+
+<!--翻页-->
+<section id="pagi">
+  <div class="block">
+    <el-pagination
+      @current-change="handleCurrentChange"
+      :current-page.sync="currentpage"
+      :page-size="20"
+      layout="total, prev, pager, next"
+      :total="total">
+    </el-pagination>
+  </div>
 </section>
 
 <?php get_footer(); ?>
