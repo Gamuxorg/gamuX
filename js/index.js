@@ -1,7 +1,7 @@
 var index = new Vue({
   el: '#section',
   data: {
-    items: [],
+    slidedata: [],
     carHeight: 0,
     wishlist: null,
     postnum: 10,
@@ -43,28 +43,15 @@ var index = new Vue({
     this.$nextTick(function(){
       this.carHeight = this.getCarHeight();
     });
+    //首页轮播
     const slidedatas = await this.getJsonComm(this.siteurl + '/wp-json/gamux/v1/images/mainslide/4');
-    const slidedata = slidedatas.data;
-    for(k=0;k<slidedata.length;k++) {
-      this.items[k] = {"value": 0, "src": "", "link": ""};
-      this.items[k]["src"] = slidedata[k]["imageSrc"];
-      this.items[k]["link"] = slidedata[k]["postLink"];
-      this.items[k]["value"] = Number(k);
-      this.$set(this.items, k , {"value": k, "src": slidedata[k]["imageSrc"], "link": slidedata[k]["postLink"]});
-    }
-
-    const postdatas = await this.getJsonComm(this.siteurl + 'wp-json/wp/v2/posts?per_page=10');
-    for(i=0;i<postdatas.length;i++) {
-      this.postdata[i] = postdatas[i];
-      const a = this.postdata[i]["modified"];
-      const b = a.split("T");
-      const c = b[0];
-      this.postdata[i]["modified"] = c;
-    }
-
+    this.slidedata = slidedatas.data;
+    //游戏上新
+    this.postdata = await this.getJsonComm(this.siteurl + 'wp-json/wp/v2/posts?per_page=10');
+    //需求清单
     const wishlistdata = await this.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues');
     this.wishlist = wishlistdata;
-
+    //文章高度与轮播高度一致
     const that = this;
     window.onresize = function(){
       calTime1 = setTimeout(function(){

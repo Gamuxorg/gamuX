@@ -14,15 +14,11 @@ var category = new Vue({
       return a.data;
     }
   },
-  mounted: async function() {
+  mounted: function() {
     this.siteurl = gamux.siteurl;
-    const postdatas = await this.getJson(this.siteurl + '/wp-json/wp/v2/posts?per_page=20');
-    for(i=0;i<postdatas.length;i++) {
-      this.postdata[i] = postdatas[i];
-      const a = this.postdata[i]["modified"];
-      const b = a.split("T");
-      const c = b[0];
-      this.postdata[i]["modified"] = c;
-    }
+    this.$nextTick( async function() {
+      this.postdata = await this.getJson(this.siteurl + '/wp-json/wp/v2/posts?per_page=20');
+    })
+
   },
 })

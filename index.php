@@ -6,10 +6,11 @@ get_header(); ?>
 <section id="carousel" ref="car">
 <el-row :gutter="10">
 
+  <!--首页轮播-->
   <el-col class="car-col-1" ref="carcol1" :xs="24" :sm="12" :md="12" :lg="10">
    <el-carousel class="car-car" :interval="5000" arrow="always" indicator-position="none">
-    <el-carousel-item v-for="item in items" :key="item.value">
-      <a :href=getCarUrl(item.link) target="_blank"><img :src=getCarUrl(item.src)></a>
+    <el-carousel-item v-for="item in slidedata" :key="item.id">
+      <a :href="item.postLink" target="_blank"><img :src="item.imageSrc"></a>
     </el-carousel-item>
    </el-carousel>
   </el-col>
@@ -52,7 +53,7 @@ get_header(); ?>
         </div>
         <div class="game-version-date">
           <div class="game-version">13.6.2.8</div>
-          <div class="game-date">{{ post.modified }}</div>  
+          <div class="game-date">{{ post.modified.split("T")[0] }}</div>  
         </div>
       </div>
     </el-card>

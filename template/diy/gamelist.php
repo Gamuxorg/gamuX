@@ -3,7 +3,7 @@
  * gameslist template
 */
 get_header(); ?>
-{{ postdata }}
+<section>asd</section>
 <section id="category">
     <el-card class="card" v-for="post in postdata" :key="post.id">
       <div class="pic">
@@ -16,7 +16,7 @@ get_header(); ?>
         </div>
         <div class="game-version-date">
           <div class="game-version">13.6.2.8</div>
-          <div class="game-date">{{ post.modified }}</div>  
+          <div class="game-date">{{ post.modified.split("T")[0] }}</div>  
         </div>
       </div>
     </el-card>
