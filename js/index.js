@@ -8,6 +8,7 @@ var index = new Vue({
     postdata: [],
     caturl: "",
     siteurl: "",
+    cateidlist: [],
   },
   methods: {
     getCarHeight: function() {
@@ -29,11 +30,25 @@ var index = new Vue({
       });
       return a.data;
     },
+    getCatJson: async function() {
+      const a = await axios({
+        method: 'get',
+        url: this.siteurl + '/wp-json/wp/v2/categories',
+        params: {
+          "parent": 112,
+        },
+      });
+      return a.data;
+    },
     getJsonComm: async function(url) {
       const a = await axios({
         method: 'get',
         url: url,
-        responseType: 'json',
+        params: {
+          "per_page": 12,
+          "page": 1,
+          "categories": this.cateidlist,
+        }
       });
       return a.data;
     }
@@ -44,10 +59,14 @@ var index = new Vue({
       this.carHeight = this.getCarHeight();
     });
     //首页轮播
+    const cate = await this.getCatJson();
+    for (var i = 0; i < cate.length; i++) {
+      this.cateidlist[i] = cate[i]["id"];
+    }
     const slidedatas = await this.getJsonComm(this.siteurl + '/wp-json/gamux/v1/images/mainslide/4');
     this.slidedata = slidedatas.data;
     //游戏上新
-    this.postdata = await this.getJsonComm(this.siteurl + 'wp-json/wp/v2/posts?per_page=10');
+    this.postdata = await this.getJsonComm(this.siteurl + 'wp-json/wp/v2/posts');
     //需求清单
     const wishlistdata = await this.getWishList('https://api.github.com/repos/Gamuxorg/bbs/issues');
     this.wishlist = wishlistdata;

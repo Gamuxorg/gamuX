@@ -7,33 +7,16 @@
 #inner-section>section {
   width:100%;
 }
-/*
- **********************区分线**********************************
-*/
-.underline {
-  height: 1.5rem;
-  margin: 1rem auto;
-  border-bottom: 2px dashed #409eff;
-  color:  #409eff;
-}
-.ul-left {
-  position: relative;
-  float: left;
-  height: 1.5rem;
-  line-height: 1.5rem;
-  font-weight: 700;
-}
-.ul-right {
-  position: relative;
-  float: right;
-  font-size: 12px;
-  height: 1.5rem;
-  line-height: 1.5rem;
-}
 
+.el-divider {
+  margin: 10px 0;
+}
 /*
  ***********************游戏卡片显示区域************************
 */
+#games-all-button {
+  font-weight: 700;
+}
 #category {
   display: grid;
 /*   
@@ -104,4 +87,7 @@
 }
 .game-date {
   color: darkgrey;
+}
+#pagi {
+  text-align: center;
 }

@@ -5,66 +5,78 @@ var category = new Vue({
     siteurl: "",
     currentpage: 1,
     total: 0,
-    categories: 0,
+    categories: [],
+    cateidlist: [],
+    thiscateid: 0,
+    param: 0,
   },
   methods: {
-    handleCurrentChange:  function(val) {
-      this.$nextTick( async function() {
-        if (this.categories == 0) {
-          this.getPostJson(val);
-        }
-        else {
-          this.getPostJson(val, this.categories);
-        }
-      });
+    refresh: function() {
+      location.reload(false);
     },
-    getCatJson: async function () {
-      let a = await axios({
-        method: 'get',
-        url: this.siteurl + "/wp-json/wp/v2/categories",
-        params: {
-          parent: 112,
-        },
-        responseType: 'json',
-      });
-      this.total = 0;
-      this.categories = a.data;
-      for (let i = 0; i < a.data.length; i++) {
-        this.total = this.total + (a.data)[i].count;
-      }
-    },
-    clickCatJson: async function (e) {
-      var par = "/" + e.currentTarget.id;
-      this.categories = e.currentTarget.id;
-      let a = await axios({
-        method: 'get',
-        url: this.siteurl + "/wp-json/wp/v2/categories" + par,
-        params: {
-          parent: 112,
-        },
-        responseType: 'json',
-      });
-      this.total = a.data.count;
-    },
-    getPostJson: async function(page,cate) {
-      let a = await axios({
+    clickCat: async function(e) {
+      this.thiscateid = e.currentTarget.id;
+      const a = await axios({
         method: 'get',
         url: this.siteurl + '/wp-json/wp/v2/posts',
         params: {
-          per_page: 20,
-          page: page,
-          categories: cate,
+          "per_page": 20,
+          "categories": [this.thiscateid],
         },
-        responseType: 'json',
+      });
+      this.postdata = a.data;
+      this.total = this.postdata.length;    
+    },
+    handleCurrentChange: async function (val) {
+      if (this.thiscateid == 0) {
+        var cat = this.cateidlist;
+      }
+      else {
+        var cat = this.thiscateid;
+      }
+      const a = await axios({
+        method: 'get',
+        url: this.siteurl + '/wp-json/wp/v2/posts',
+        params: {
+          "per_page": 20,
+          "page": val,
+          "categories": cat,
+        },
       });
       this.postdata = a.data;
     },
+    getCatJson: async function() {
+      const a = await axios({
+        method: 'get',
+        url: this.siteurl + '/wp-json/wp/v2/categories',
+        params: {
+          "parent": 112,
+        },
+      });
+      return a.data;
+    },
+    getPostJson: async function() {
+      const a = await axios({
+        method: 'get',
+        url: this.siteurl + '/wp-json/wp/v2/posts',
+        params: {
+          "per_page": 20,
+          "categories": this.cateidlist,
+        },
+      });
+      return a.data;
+    },
   },
-  mounted: function() {
+  mounted: async function() {
     this.siteurl = gamux.siteurl;
+    const cat = await this.getCatJson();
+    this.categories = cat;
+    for (var i = 0; i < cat.length; i++) {
+      this.cateidlist[i] = cat[i]['id'];
+      this.total = this.total + cat[i]['count'];
+    }
     this.$nextTick( async function() {
-      await this.getCatJson();
-      await this.getPostJson(1);
+      this.postdata = await this.getPostJson();
     })
 
   },

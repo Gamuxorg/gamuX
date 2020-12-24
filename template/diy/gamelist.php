@@ -6,11 +6,13 @@ get_header(); ?>
 
 <!--索引-->
 <section id="index">
-  <div class="category" v-for="cat in categories" :key="cat.id">
-    <button type="text" :id="cat.id" @click="clickCatJson($event)">{{ cat.name }}</button>
+  <div id="catenamelist">
+    <el-button type="text" id="games-all-button" @click="refresh">所有游戏</el-button>
+    <el-button type="text" v-for="cat in categories" :key="cat.id" :id="cat.id" @click="clickCat($event)">{{ cat.name }}</el-button>
   </div>
 </section>
 
+<el-divider></el-divider>
 <!--列表-->
 <section id="category">
     <el-card class="card" v-for="post in postdata" :key="post.id">
@@ -30,6 +32,7 @@ get_header(); ?>
     </el-card>
 </section>
 
+<el-divider></el-divider>
 <!--翻页-->
 <section id="pagi">
   <div class="block">
