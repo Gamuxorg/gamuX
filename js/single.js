@@ -151,7 +151,7 @@ var game = new Vue({
           }
         }
       }).catch(function(e) {
-        alert("评论失败，出错！" + e);
+        alert("评论失败，出错！请检查您的评论是否为空。");
         console.log(e);
       });
       this.$nextTick(function () {

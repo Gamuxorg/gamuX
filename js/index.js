@@ -36,6 +36,7 @@ var index = new Vue({
         url: this.siteurl + '/wp-json/wp/v2/categories',
         params: {
           "parent": 112,
+          "per_page": 100,
         },
       });
       return a.data;
