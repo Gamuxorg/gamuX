@@ -66,19 +66,6 @@ class Oauth2{
 		return true;
 	}
 
-	/**
-	 * 返回到当前页面或者首页，暂时没用
-	 *
-	 * @return string $redirect_url
-	 */
-	protected function get_redirect_url() : string {
-		if( is_home() )
-			$redirect_url = site_url();
-		else
-			$redirect_url = get_page_link();
-		return $redirect_url;
-	}
-
 	private function oauth_redirect() {}
 
 	private function request_access_token() {}

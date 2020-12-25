@@ -11,7 +11,6 @@ class Weibo_Oauth extends Oauth2{
 	const APPSECRET = "";
 	const STATE = "";					//用于防止CSRF的随机字符串
 	const REDIRECT_ROUTE = '/wp-json/gamux/v1/oauth/weibo';
-	const DEFAULT_EMAIL = "weibo@sina.com";
 
 	public $uid;		//weibo返回的uid
 	public $email;		//weibo返回的用户email
@@ -112,7 +111,7 @@ class Weibo_Oauth extends Oauth2{
 	private function register_newUser(array $data) : array {
 		$weibo_id = $data['id'];
 		// $email = $this->email;
-		$email = self::DEFAULT_EMAIL;
+		$email = $weibo_id . "@sina.com";
 		$name = $data['name'];
 		$avatar = $data['profile_image_url'];
 		$weibo_account = $weibo_id;

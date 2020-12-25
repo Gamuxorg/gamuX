@@ -11,7 +11,6 @@ class QQ_Oauth extends Oauth2 {
 	const APPSECRET = "";
 	const STATE = "";					//用于防止CSRF的随机字符串
 	const REDIRECT_ROUTE = '/wp-json/gamux/v1/oauth/qq';
-	const DEFAULT_EMAIL = "qq@qq.com";
 
 	public $openid;		//qq返回的openid，可唯一识别用户
 	public $unionid;	//qq返回的unionid，可唯一识别用户
@@ -106,7 +105,7 @@ class QQ_Oauth extends Oauth2 {
 	 */
 	private function register_newUser(array $data) : array {
 		$qq_id = $this->openid;
-		$email = self::DEFAULT_EMAIL;
+		$email = $qq_id . "@qq.com";
 		$name = $data['nickname'];
 		$avatar = $data['figureurl_2'];
 		$qq_account = hash('fnv164', $qq_id);		//openid太长，使用hash将其压缩为17位
