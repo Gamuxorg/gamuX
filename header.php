@@ -65,7 +65,7 @@
           </el-menu-item>
           <el-menu-item index="3">
             <i class="el-icon-document"></i>
-            <span slot="title">帮助文档</span>
+            <span slot="title"><a href="https://doc.appimage.cn/docs/home/">帮助文档</a></span>
           </el-menu-item>
           <el-menu-item index="4">
             <i class="el-icon-star-on"></i>
