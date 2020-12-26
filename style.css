@@ -70,6 +70,7 @@ a:active {
 #header-row,
 #header-col {
   height: auto;
+  width: 100%;
 }
 #site-logo a {
   text-decoration: none;
@@ -93,6 +94,9 @@ a:active {
   font-size: 1rem;
   height: 45px;
   line-height: 45px;
+}
+.el-menu-item>i {
+  margin-left: 20px;
 }
 .el-menu {
   border-right: none;

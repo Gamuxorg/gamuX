@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/index.css">
   <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'gamelist') != false)){ ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/category.css">
+  <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'newslist') != false)){ ?>
+    <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/news.css">
   <?php } elseif(is_search()){ ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/search.css">
   <?php } elseif(is_single()) { ?>
@@ -59,7 +61,7 @@
           </el-menu-item>
           <el-menu-item index="2">
             <i class="el-icon-news"></i>
-            <span slot="title">新闻资讯</span>
+            <span slot="title"><a :href="siteurl + '/newslist'">新闻资讯</a></span>
           </el-menu-item>
           <el-menu-item index="3">
             <i class="el-icon-document"></i>
@@ -67,7 +69,7 @@
           </el-menu-item>
           <el-menu-item index="4">
             <i class="el-icon-star-on"></i>
-            <span slot="title"><a href="https://github.com/Gamuxorg/bbs/issues?q=is%3Aopen+is%3Aissue+label%3A%E8%AF%B7%E6%B1%82%E6%B8%B8%E6%88%8F" target="_blank">愿望清单</a></span>
+            <span slot="title"><a href="https://github.com/Gamuxorg/bbs/issues/new/choose" target="_blank">愿望清单</a></span>
           </el-menu-item>
           <el-menu-item index="5">
             <i class="el-icon-chat-line-square"></i>

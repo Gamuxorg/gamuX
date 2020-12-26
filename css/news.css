@@ -1,0 +1,16 @@
+.el-divider {
+  margin: 10px 0;
+}
+.el-card__body {
+  padding: 10px;
+}
+p {
+  margin: 0;
+}
+.game-name>a {
+  font-size: 1.5rem;
+  color: #409eff;
+}
+.card+div {
+  margin-top: .5rem;
+}
