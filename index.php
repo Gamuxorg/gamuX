@@ -18,11 +18,11 @@ get_header(); ?>
   <el-col class="car-col-2" ref="carcol2" :xs="24" :sm="12" :md="12" :lg="9" :style="{height: carHeight + 'px'}">
 
   <?php 
-    query_posts("showposts=14"); if (have_posts()) : while (have_posts()) : the_post();
+    query_posts("showposts=14&category_name=news"); if (have_posts()) : while (have_posts()) : the_post();
   ?> 
     <div class="car-col2-second"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
   <?php  endwhile; endif; ?>
-
+  <?php wp_reset_query(); ?>
   </el-col>
 
   <el-col class="car-col-3" :xs="0" :sm="0" :md="0"  :lg="5">

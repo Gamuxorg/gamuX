@@ -1,3 +1,6 @@
+.el-divider {
+  margin: 10px 0;
+}
 .breadcrumb {
   border-bottom: 2px dashed #409eff;
 }
@@ -15,6 +18,20 @@
 }
 #post section {
   margin-top: .5rem;
+}
+#inner-section {
+  counter-reset: line;
+}
+pre,
+code {
+  border: solid 1px #409eff;
+  padding: 3px 10px;
+  border-left: 8px solid #409eff;
+  background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAmCAIAAACphTeFAAAAJElEQVRIx2N4RS5gGNU5qnNU56hOZJ2fyQWjOkd1juoc1YkMAKDL4lkok3p7AAAAAElFTkSuQmCC) repeat;
+  overflow-x: scroll;
+  letter-spacing: .3px;
+  line-height: 1.5rem;
+  background-size: 100% 3rem;
 }
 /*
  * 文章主区域
@@ -55,6 +72,10 @@ table .cell {
 }
 
 /* 评论 */
+.comment-head {
+  font-size: 1.5rem;
+  color: #409eff;
+}
 .comment-div+div {
   margin-top: .5rem;
 }
