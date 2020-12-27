@@ -105,10 +105,10 @@ class QQ_Oauth extends Oauth2 {
 	 */
 	private function register_newUser(array $data) : array {
 		$qq_id = $this->openid;
-		$email = $qq_id . "@qq.com";
 		$name = $data['nickname'];
 		$avatar = $data['figureurl_2'];
 		$qq_account = hash('fnv164', $qq_id);		//openid太长，使用hash将其压缩为17位
+		$email = $qq_account . "@qq.com";
 		$prefix = 'qq_';
 
 		$random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
