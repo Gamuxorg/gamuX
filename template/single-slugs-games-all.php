@@ -14,11 +14,13 @@ get_header(); ?>
       <div id="post-title">
         {{ postname }}
       </div>
+      <!-- 轮播图片，暂时注释
       <el-carousel :interval="4000" :type="imgtype" arrow="never">
         <el-carousel-item v-for="item in 4" :key="item">          
           <el-image fit="fit" src="https://media.st.dl.pinyuncloud.com/steam/apps/812140/ss_0ef33c0f230da6ebac94f5959f0e0a8bbc48cf8a.600x338.jpg?t=1602601042"></el-image>
         </el-carousel-item>
       </el-carousel>
+      -->
       <div id="post-intro" v-html="postcontent"></div>
     </section>
    
