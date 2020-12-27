@@ -78,6 +78,15 @@ add_action('wp_enqueue_scripts', 'my_init_method');
 /*
  * 1.3 增加wordpress功能
 **/
+//1.3.3 restful api cookie认证
+add_action( 'wp_enqueue_scripts', function()
+{
+    wp_enqueue_script( 'auth_rest', get_theme_file_uri());
+    wp_localize_script( 'auth_rest', 'wpApiSettings', array(
+        'root' => esc_url_raw( rest_url() ),
+        'nonce' => wp_create_nonce( 'wp_rest' )
+    ));
+} );
 
 //1.3.4 修改上传目录
 function slider_upload_dir($uploads) {
