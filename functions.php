@@ -10,11 +10,6 @@
 remove_action( 'wp_head', 'wp_generator' );
 remove_action( 'wp_head', 'wlwmanifest_link' );
 remove_action( 'wp_head', 'rsd_link' );
-//define( 'WP_POST_REVISIONS', 1);//只保存最近两次的版本修订
-//define( 'AUTOSAVE_INTERVAL', 30);//每30秒自动保存一次
-
-//1.1.2关闭rss
-//默认开启rss
 
 //1.1.3 禁止从s.w.org获取表情和头像
 function remove_dns_prefetch( $hints, $relation_type ) {
@@ -120,7 +115,7 @@ function get_thumbnail_url($id) {
   if($func)
     return $func[0];
   else
-    return "https://avatars3.githubusercontent.com/u/4121607";
+    return "https://media.st.dl.pinyuncloud.com/steam/apps/1069640/header.jpg?t=1599211966";
 }
 if (function_exists('add_theme_support')) {
   add_theme_support('post-thumbnails');
