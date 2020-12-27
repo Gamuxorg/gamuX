@@ -80,7 +80,7 @@ var game = new Vue({
     },
     //数据绑定
     goBack: function () {
-      window.location.href=this.caturl; 
+      window.location.href=this.siteurl + "/gamelist"; 
     },
     getPostJson: async function(url) {
       let a = await axios({

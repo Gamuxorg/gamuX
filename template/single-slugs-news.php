@@ -107,49 +107,12 @@ get_header(); ?>
     <section id="post-edit" v-if="islogin == 1">
       <a :href="editurl"><i class="el-icon-edit"></i>编辑</a>
       <a :href="contributeurl"><i class="el-icon-notebook-2"></i>投稿</a>
-      <el-button type="text" icon="el-icon-download" @click="dialogdownload = true">下载游戏</el-button>
     </section>
     <section id="post-edit" v-else>
       <el-button type="text" icon="el-icon-edit" @click="dialogloginVisible">编辑</el-button>
       <el-button type="text" icon="el-icon-notebook-2" @click="dialogloginVisible">投稿</el-button>
-      <el-button type="text" icon="el-icon-download" @click="dialogloginVisible">登录下载</el-button>
       <div class="clear"></div>
     </section>
-    <el-dialog id="download" :title="`下载链接·${downloadlist['message']}`" :visible.sync="dialogdownload">
-      <el-table :data="downloadlist.downloadList" :default-sort="{prop: 'version', order: 'descending'}" max-height="70vh">
-        <el-table-column
-          prop="version"
-          label="版本"
-          sortable>
-        </el-table-column>        
-        <el-table-column
-          prop="date"
-          label="日期"
-          sortable>
-        </el-table-column>
-        <el-table-column
-          prop="downloadCount"
-          label="下载量"
-          sortable>
-        </el-table-column>
-        <el-table-column
-          prop="volume"
-          label="容量"
-          sortable>
-        </el-table-column>
-        <el-table-column
-          prop="link"
-          label="下载">
-          <template slot-scope="scope">
-            <el-link :href="scope.row.link" type="primary" target="_blank">下载</el-link>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="comment"
-          label="备注">
-        </el-table-column>
-      </el-table>
-    </el-dialog>
 
     <!--标签-->
     <section id="post-tag">
