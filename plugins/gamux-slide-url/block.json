@@ -1,0 +1,21 @@
+{
+	"apiVersion": 2,
+	"name": "gamux/slide-url",
+	"title": "轮播图URL",
+	"category": "common",
+	"icon": "images-alt2",
+	"description": "Block written with ESNext standard and JSX support – build step required.",
+	"textdomain": "slide-url",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"content": {
+			"type": "string",
+			"source": "text",
+			"selector": "slide"
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css"
+}
