@@ -35,7 +35,6 @@ code {
 */
 #post-main {
   border-right: solid 1px #e6e6e6;
-  height: 100vh;
 }
 #post-title {
   font-size: 2rem;
@@ -43,6 +42,9 @@ code {
 }
 .el-carousel__item {
   text-align: center;
+}
+slide {
+  display: none;
 }
 #post-intro p {
   margin-top: .2rem;
@@ -107,6 +109,9 @@ table .cell {
 .comment-main>.comment-main-content {
   flex: auto;
   margin-bottom: .5rem;
+}
+.comment-main>.comment-main-content p {
+  overflow-wrap: anywhere;
 }
 .comment-main>.comment-main-info {
   flex: none;
@@ -232,6 +237,9 @@ table .cell {
 }
 .tag-content>a+a {
   margin-left: .5rem;
+}
+.el-timeline {
+  padding-inline-start: 25px;
 }
 #timeline .el-timeline-item__node {
   top: 2px;

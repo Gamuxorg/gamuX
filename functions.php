@@ -10,6 +10,9 @@
 remove_action( 'wp_head', 'wp_generator' );
 remove_action( 'wp_head', 'wlwmanifest_link' );
 remove_action( 'wp_head', 'rsd_link' );
+//修改修订数据
+define( 'WP_POST_REVISIONS', 1);//只保存最近两次的版本修订
+define( 'AUTOSAVE_INTERVAL', 30);//每30秒自动保存一次
 
 //1.1.3 禁止从s.w.org获取表情和头像
 function remove_dns_prefetch( $hints, $relation_type ) {
@@ -42,7 +45,7 @@ add_filter( 'show_admin_bar' , 'southbase_remove_admin_bar');
 
 //1.1.7移除仪表盘某些组件
 remove_action('welcome_panel', 'wp_welcome_panel');//欢迎面板
-function remove_screen_options() {//显示选项选项卡 
+function remove_screen_options() {//显示选项选项卡
 	return false;
 }
 add_filter('screen_options_show_screen', 'remove_screen_options');

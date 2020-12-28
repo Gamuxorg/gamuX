@@ -10,6 +10,7 @@ var game = new Vue({
     modifiedauthor: "gamux",
     caturl: 'goback',
     postcontent: "游戏内容加载中...",
+    postslide: "",
     siteurl: "https://www.linuxgame.cn",
     cururl: "",
     postid: 1,
@@ -196,17 +197,18 @@ var game = new Vue({
     this.cururl = gamux.cururl;
     //文章详情
     const urljson = await this.getPostJson(this.cururl);
-    const postid = urljson.headers.link.split(/[,;=>]/)[5];
+    const postid = urljson.headers.link.split(/[,;=>]/)[11];
     this.postid = postid;
     this.editurl = this.siteurl + "/wp-admin/post.php?post=" + postid + "postid'&action=edit";
     this.contributeurl = this.siteurl + "/wp-admin/post-new.php";
-    const postdataorigin = await this.getPostJson(this.siteurl + "/wp-json/wp/v2/posts/" + postid+"?_embed");
+    const postdataorigin = await this.getPostJson(this.siteurl + "/wp-json/wp/v2/posts/" + postid);
     const postdata = postdataorigin.data;
-    const postterm = postdata["_embedded"]["wp:term"][0];
-    this.catname = postterm[0].name;
-    this.caturl = postterm[0].link;
+    const postterm = postdata.exts.categories;
+    this.catname = postterm[0]["name"];
+//    this.caturl = postterm[0].link;
     this.postname = postdata.title.rendered;
-    this.postcontent = postdata.content.rendered;
+    this.postcontent = postdata.exts.content.body;
+    this.postslide = postdata.exts.content.slides;
 
     //下载链接
     this.downloadlist = postdata.exts.downloadList;
@@ -244,7 +246,7 @@ var game = new Vue({
     this.comments = comment.data;
     this.comnum = comment.data.length;
 
-    //侧边
+    //css
   },
   computed: {
     editor: function() {
