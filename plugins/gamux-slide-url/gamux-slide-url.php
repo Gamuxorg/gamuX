@@ -81,7 +81,8 @@ function gamux_register_template() {
 		array('core/paragraph', [
 			'align' => 'center',
 			'content' => '<strong class="has-medium-font-size" contenteditable="false">-----------------------------------文章正文---------------------------------------</strong>'
-		])
+		]),
+		array('core/paragraph', ['placeholder' => '开始正文'])
 	);
 	// $post_type_object->template_lock = "insert";
 }
