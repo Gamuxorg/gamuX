@@ -68,7 +68,7 @@ jQuery(document).ready(function() {
 	var gamux_buyurl_add = $("#gamux-buyurl-add");
 	var gamux_buyurl_del = $("#gamux-buyurl-del");
 	gamux_buyurl_add.on('click', function() {
-		gamux_buyurls.append('<div><input style="width: 100%;" name="buy_url[]" value=""></div>');
+		gamux_buyurls.append('<div><input style="width: 70%;" name="buy_url[]" value=""><input name="buy_store[]" style="width:15%" placeholder="商店名, 如Steam" value=""></div>');
 	});
 	gamux_buyurl_del.on('click', function() {
 		if($("#gamux-buyurls > div").size() > 1)

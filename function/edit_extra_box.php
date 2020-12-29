@@ -222,14 +222,18 @@ function extra_meta_box($post) {
 
 	//获取多个购买链接
 	$count = gamux_buyurl_count();	
-	$link_template = '<div><input style="width: 100%;" name="buy_url[]" value="buy_value"></div>';
+	$link_template = '<div><input style="width: 70%;" name="buy_url[]" value="buy_value"><input name="buy_store[]" style="width:15%" placeholder="商店名, 如Steam" value="buy_place"></div>';
 	$buyList = "";
 	if($count > 0) {
-		for($i=0; $i < $count; $i++)
-			$buyList .= str_replace("buy_value", get_post_meta( $post->ID, $buy_key.'_'.$i, true), $link_template);
+		for($i=0; $i < $count; $i++) {
+			$buyObj = json_decode(get_post_meta( $post->ID, $buy_key.'_'.$i, true));
+			$tmpLink = str_replace("buy_value", $buyObj->buy_url, $link_template);
+			$buyList .= str_replace("buy_place", $buyObj->buy_store, $tmpLink);
+		}
 	}
 	else {				//新文章，添加一个空的
-		$buyList .= str_replace("buy_value", "", $link_template);
+		$tmpLink = str_replace("buy_value", "", $link_template);
+		$buyList .= str_replace("buy_place", "", $tmpLink);
 	}
 	
 	$html =<<<str
@@ -275,13 +279,14 @@ function save_extra_meta_box( $post_id ) {
 	}
 
 	$buy_key = 'buy_url';
-	$buy_array = $_POST['buy_url'];
+	$buy_url_array = $_POST['buy_url'];
+	$buy_store_array = $_POST['buy_store'];
 	$peizhi_key = 'peizhi';
 	$peizhi_value = $_POST['peizhi'];
 	$bg_key = 'bg';
 	$bg_value = $_POST['bg'];
 
-	$uploadCount = count($buy_array);
+	$uploadCount = count($buy_url_array);
 	$dbCount = gamux_buyurl_count();
 	$diff = $dbCount - $uploadCount;
 	if($diff > 0) {									//用户删除了部分购买链接
@@ -289,7 +294,11 @@ function save_extra_meta_box( $post_id ) {
 			delete_post_meta( $post_id, $buy_key.'_'.$i);
 	}
 	for($i=0; $i < $uploadCount ;$i++) {
-		update_post_meta( $post_id, $buy_key.'_'.$i, $buy_array[$i]);
+		$buy_json = json_encode([
+			'buy_url' => $buy_url_array[$i],
+			'buy_store' => $buy_store_array[$i]
+		]);
+		update_post_meta( $post_id, $buy_key.'_'.$i, $buy_json);
 	}
 	update_post_meta( $post_id, $peizhi_key, $peizhi_value );
 	update_post_meta( $post_id, $bg_key, $bg_value );

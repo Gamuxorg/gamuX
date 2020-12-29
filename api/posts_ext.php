@@ -96,7 +96,7 @@
 	}
 
 	/**
-	 * 根据购买链接返回商店平台的类型，其他类型返回 "Etc"
+	 * 根据购买链接返回商店平台的类型，其他类型返回默认值，暂时弃用本函数
 	 *
 	 * @param string $link
 	 * @return string $store
@@ -129,12 +129,9 @@
 		$count = gamux_buyurl_count();	
 		$buyList = array();
 		for($i=0; $i < $count; $i++) {
-			$link = get_post_meta($id, 'buy_url_'.$i, true);
-			$store = buy_url_type($link);
-			array_push($buyList, [
-				"store" => $store,
-				"link" => $link
-			]);
+			$obj = json_decode(get_post_meta($id, 'buy_url_'.$i, true));
+			$obj->buy_store = empty($obj->buy_store) ? "购买/获取源码" : $obj->buy_store;	//商店为空时返回默认值
+			array_push($buyList, $obj);
 		}
 		return $buyList;
 	}
@@ -181,13 +178,12 @@
 			$slides_html = mb_substr($p, $pos_start, ($pos_end - $pos_start), $encodeing);
 
 			// 获取链接
-			preg_match_all('/<slide>.+?<\/slide>/', $slides_html, $matches);
+			preg_match_all('/<slide>.*?<\/slide>/', $slides_html, $matches);
 			foreach($matches[0] as $match) {
 				$image = strip_tags($match);
 				array_push($slides, $image);
 			}
 		
-
 			// 截取正文
 			$delimiter2 = '<!-- wp:paragraph {"placeholder":"开始正文"} -->';
 			$pos = mb_strpos($p, $delimiter2, 0, $encodeing);
