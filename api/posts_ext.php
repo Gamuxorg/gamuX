@@ -130,7 +130,8 @@
 		$buyList = array();
 		for($i=0; $i < $count; $i++) {
 			$obj = json_decode(get_post_meta($id, 'buy_url_'.$i, true));
-			$obj->buy_store = empty($obj->buy_store) ? "购买/获取源码" : $obj->buy_store;	//商店为空时返回默认值
+			if(!is_null($obj))
+				$obj->buy_store = empty($obj->buy_store) ? "购买/获取源码" : $obj->buy_store;	//商店为空时返回默认值
 			array_push($buyList, $obj);
 		}
 		return $buyList;
