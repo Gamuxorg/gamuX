@@ -50,7 +50,7 @@ var category = new Vue({
         method: 'get',
         url: this.siteurl + '/wp-json/wp/v2/categories',
         params: {
-          "parent": 112,
+          "parent": 256,
           "per_page": 100,
         },
       });
