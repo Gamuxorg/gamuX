@@ -69,7 +69,7 @@
 }
 .game-name,
 .game-version {
-  width: calc(var(--imgwidth) * 0.95 - 70px);
+  width: calc(var(--imgwidth) * 0.95 - 80px);
 }
 .game-version,
 .game-sort,
@@ -78,7 +78,7 @@
 }
 .game-sort,
 .game-date {
-  width: 70px;
+  width: 80px;
   text-align: right;
   font-size: .8rem;
 }
