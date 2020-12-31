@@ -132,6 +132,13 @@ a:active {
   color: #fff;
   font-weight: 700;
 }
+#avatar>.header-avatar>.el-image {
+  width: 64px;
+  height: 64px;
+  border: solid 1px darkgray;
+  border-radius: 100%;
+}
+
 
 .login-dialog .el-dialog__body {
   padding: 10px 0 20px 20%;
