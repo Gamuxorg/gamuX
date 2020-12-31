@@ -69,7 +69,7 @@ a:active {
 }
 #header-row,
 #header-col {
-  height: auto;
+  height: 300px;
   width: 100%;
 }
 #site-logo a {
