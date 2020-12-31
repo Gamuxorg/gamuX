@@ -186,8 +186,11 @@
 			}
 		
 			// 截取正文
-			$delimiter2 = '<!-- wp:paragraph {"placeholder":"开始正文"} -->';
-			$pos = mb_strpos($p, $delimiter2, 0, $encodeing);
+			$delimiter2 = <<<str
+-----------------------------------文章正文---------------------------------------</strong></p>
+<!-- /wp:paragraph -->
+str;			
+			$pos = mb_strpos($p, $delimiter2, 0, $encodeing) + mb_strlen($delimiter2) + 2;
 			$body = mb_substr($p, $pos, $len, $encodeing);
 		}
 
