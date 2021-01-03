@@ -168,11 +168,11 @@ get_header(); ?>
     <!--购买链接-->
     <section id="post-buy">
       <div class="post-buy-div" v-for="buy in buyurls">
-        <a :href="buy.link" target="_blank">
+        <a :href="buy.buy_url" target="_blank">
           <svg class="aliicon" aria-hidden="true">
             <use xlink:href="#icon-gamux-buy"></use>
           </svg>
-          {{ buy.store }}
+          {{ buy.buy_store }}
         </a>
       </div>
     </section>
