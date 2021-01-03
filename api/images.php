@@ -60,14 +60,23 @@
 				]);
 			}while(empty($post) or get_post_type($post[0]->ID) != 'post');			//如果offset是非游戏类别时会返回空
 
+			$post0 = new \stdClass();
+			$post0->id = $post[0]->ID;
+			$post0->imgs = [];
+
 			$content = $post[0]->post_content;
 			$imgCount = preg_match_all('/<img.*?\/?>/', $content, $imgs);
 			if($imgCount > 0) {
-				$post0 = new \stdClass();
-				$post0->id = $post[0]->ID;
 				$post0->imgs = $imgs[0];
-				return $post0;
 			}
+			$imgCount = preg_match_all('/<slide>.+?<\/slide>/', $content, $imgs);
+			if($imgCount > 0) {
+				foreach($imgs[0] as $img)
+    	    	    array_push($post0->imgs, $img);
+			}
+
+			if(isset($post0) and count($post0->imgs) > 0)
+				return $post0;
 			else
 				return NULL;			//有些游戏没有图片
 		}
@@ -86,6 +95,11 @@
 			if($count > 0) {
 				$tmp = substr($tmp[0][0], 5);				//删除src="
 				$tmp = substr($tmp, 0, strlen($tmp)-1);		//删除最后的"
+				return $tmp;
+			}
+			$count = preg_match_all('/http.+</', $imgs[$i], $tmp);
+			if($count > 0) {
+				$tmp = substr($tmp[0][0], 0, -1);		//删除<
 				return $tmp;
 			}
 			else
