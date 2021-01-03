@@ -13,6 +13,16 @@ var gamux = new Vue ({
     logout: "",
   },
   methods: {
+    openUnreadComment: function(url,num) {
+      this.$notify.info({
+        title: '未读评论',
+        duration: 3000,
+        message: '您有' + num + '条未读评论，点击查看',
+        onClick: function() {
+          window.location.href = url;
+        }
+      });
+    },
     getPostJson: async function(url) {
       let a = await axios({
         method: 'get',
@@ -44,5 +54,13 @@ var gamux = new Vue ({
       this.islogin = 0;
       console.log("未登录！");
     }
+    this.$nextTick(async function() {
+      if (this.islogin == 1) {
+        const userunread = await this.getPostJson(this.siteurl + "/wp-json/gamux/v1/comments/unread/" + this.userid);
+        if (userunread.data.unread > 0) {
+          this.openUnreadComment(userunread.data.redirect_url, userunread.data.unread);
+        }
+      }
+    });
   },
 });
