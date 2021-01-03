@@ -43,6 +43,7 @@
 				break;
 			case "qq":
 				$avatar = get_user_meta($uid, "qq_avatar", true);
+				break;
 			default:
 				$avatar = "";
 		}
