@@ -70,7 +70,7 @@ get_header(); ?>
       </div>
       <div class="comment-list text item">
       <?php
-      $comments = get_comments('status=approve&number=10&order=asc');
+      $comments = get_comments('status=approve&number=10');
       foreach($comments as $comment) :
       ?>
         <div class="comment-text">
