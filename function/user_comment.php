@@ -18,6 +18,7 @@ class Unread_comment {
 	private $comment_id;
 	private $post_id;
 	private $post_author;
+	private $post_editor;
 	private $parent_id;
 	private $parents;		//保存所有父级评论的数组
 
@@ -79,6 +80,24 @@ class Unread_comment {
 	}
 
 	/**
+	 * 当评论者与文章的修改者、作者不同时，向文章修改者添加提醒
+	 *
+	 * @return bool
+	 */
+	private function notify_postEditor() {
+		$uid = get_current_user_id();
+		$post = get_post($this->post_id);
+		$this->post_editor = get_post_meta($this->post_id, "_edit_last", true);
+		if(!empty($this->post_editor) and 
+						$this->post_editor != $uid and 
+						$this->post_editor != $this->post_author) {
+			$this->notify($this->post_editor);
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * 向所有父级评论添加提醒
 	 *
 	 * @return bool
@@ -86,7 +105,8 @@ class Unread_comment {
 	private function notify_parentCommentAuthors() {
 		if($this->get_parents($this->parent_id)) {		  		//has parent
 			foreach($this->parents as $parent) {
-				if($parent->author_id != $this->post_author)	//防止重复向文章作者提醒
+				if($parent->author_id != $this->post_author and 
+								$parent->author_id != $this->post_editor)	//防止重复向文章作者、修改者提醒
 					$this->notify($parent->author_id);
 			}
 			return true;
@@ -98,6 +118,7 @@ class Unread_comment {
 	// 添加未读评论提醒主函数
 	public function add_unread() {
 		$this->notify_postAuthor();
+		$this->notify_postEditor();
 		$this->notify_parentCommentAuthors();		
 	}
 
