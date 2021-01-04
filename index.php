@@ -47,8 +47,9 @@ get_header(); ?>
           <div class="game-sort"><el-button type="text"><a :href="'/gamelist?catid=' + (post.exts.categories)[0].cat_id">{{ (post.exts.categories)[0].name }}</a></el-button></div>
         </div>
         <div class="game-version-date">
-          <div class="game-version">13.6.2.8</div>
-          <div class="game-date">{{ post.modified.split("T")[0] }}</div>  
+          <div class="game-version" v-if="post['exts']['downloadList']['status'] == 0"> 版本信息获取异常 </div>
+          <div class="game-version" v-else>{{ post['exts']['downloadList']['downloadList'][0]['version'] }}</div>
+          <div class="game-date">{{ post.modified.split("T")[0] }}</div>
         </div>
       </div>
     </el-card>
