@@ -55,7 +55,7 @@ var gamux = new Vue ({
       console.log("未登录！");
     }
     this.$nextTick(async function() {
-      if (this.islogin == 1) {
+      if (this.islogin == 1 && this.cururl == this.siteurl) {
         const userunread = await this.getPostJson(this.siteurl + "/wp-json/gamux/v1/comments/unread/" + this.userid);
         if (userunread.data.unread > 0) {
           this.openUnreadComment(userunread.data.redirect_url, userunread.data.unread);
