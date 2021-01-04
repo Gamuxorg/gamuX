@@ -50,7 +50,12 @@ slide {
   margin-top: .2rem;
   margin-bottom: .2rem;
 }
-
+.wp-block-video {
+  text-align: center;
+}
+video {
+  width: 90%;
+}
 /* 下载 */
 .download-head {
   border-bottom: 1.5px solid gray;
