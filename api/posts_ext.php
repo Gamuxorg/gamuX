@@ -116,7 +116,7 @@
 			if(strstr($link, $url) != "")
 				return $store;
 		}
-		return "购买/获取源码";
+		return "购买游戏/获取源码";
 	}
 
 	/**
@@ -186,11 +186,11 @@
 			}
 		
 			// 截取正文
-			$delimiter2 = <<<str
+			$delimiter2 = <<<doc
 -----------------------------------文章正文---------------------------------------</strong></p>
-<!-- /wp:paragraph -->
-str;			
-			$pos = mb_strpos($p, $delimiter2, 0, $encodeing) + mb_strlen($delimiter2) + 2;
+<!-- /wp:paragraph -->\n\n
+doc;
+			$pos = mb_strpos($p, $delimiter2, 0, $encodeing) + mb_strlen($delimiter2, $encodeing);
 			$body = mb_substr($p, $pos, $len, $encodeing);
 		}
 

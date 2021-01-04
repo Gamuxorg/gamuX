@@ -108,7 +108,7 @@ class Unread_comment {
 	}
 }
 
-add_action("comment_post", function($comment_id) {
+add_action("wp_insert_comment", function($comment_id) {
 	$unreadCom = new Unread_comment($comment_id);
 	$unreadCom->add_unread();
 });
