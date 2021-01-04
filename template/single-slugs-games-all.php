@@ -166,7 +166,7 @@ get_header(); ?>
     </section>
 
     <!--购买链接-->
-    <section id="post-buy">
+    <section id="post-buy"  v-if="buyurls != null">
       <div class="post-buy-div" v-for="buy in buyurls">
         <a :href="buy.buy_url" target="_blank">
           <svg class="aliicon" aria-hidden="true">

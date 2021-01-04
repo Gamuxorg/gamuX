@@ -213,7 +213,12 @@ var game = new Vue({
     //下载链接
     this.downloadlist = postdata.exts.downloadList;
     //购买链接
-    this.buyurls = postdata.exts.buyUrls;
+    if (postdata.exts.buyUrls[0] == null) {
+      this.buyurls = null;
+    }
+    else {
+      this.buyurls = postdata.exts.buyUrls;
+    }
 
     //文章更新记录
     this.postdate = postdata.date.split("T")[0];
