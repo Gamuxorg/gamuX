@@ -79,7 +79,7 @@ get_header(); ?>
             <span class="reply-text">回复</span>
           </el-badge>
           <a href="<?php echo esc_url( get_comment_link($comment->comment_ID) ); ?>">
-            <?php echo  mb_strimwidth($comment->comment_content, 0, 50, '...'); ?>
+            <?php echo  mb_strimwidth(strip_tags($comment->comment_content), 0, 50, '...'); ?>
           </a>
         </div>
       <?php endforeach;?>
