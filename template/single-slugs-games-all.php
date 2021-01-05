@@ -15,7 +15,7 @@ get_header(); ?>
         {{ postname }}
       </div>
       <!-- 轮播图片 -->
-      <el-carousel :interval="4000" :type="imgtype" arrow="never">
+      <el-carousel :interval="4000" :type="imgtype" arrow="never" v-if="postslide.length > 0">
         <el-carousel-item v-for="(item,index) in postslide" :key="index">          
           <el-image fit="fit" :src="item"></el-image>
         </el-carousel-item>
