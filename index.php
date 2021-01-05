@@ -43,7 +43,7 @@ get_header(); ?>
       </div>
       <div class="game-info">
         <div class="game-name-sort">
-          <div class="game-name"><a :href="post.link">{{ post.title.rendered }}</a></div>
+          <div class="game-name"><a :href="post.link" v-html="post.title.rendered"></a></div>
           <div class="game-sort"><el-button type="text"><a :href="'/gamelist?catid=' + (post.exts.categories)[0].cat_id">{{ (post.exts.categories)[0].name }}</a></el-button></div>
         </div>
         <div class="game-version-date">

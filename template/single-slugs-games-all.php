@@ -11,9 +11,7 @@ get_header(); ?>
 <el-row id="post" :gutter="10">
   <el-col id="post-main" :xs="24" :sm="16" :md="16" :lg="18">
     <section class="game-content">
-      <div id="post-title">
-        {{ postname }}
-      </div>
+      <div id="post-title" v-html="postname"></div>
       <!-- 轮播图片 -->
       <el-carousel :interval="4000" :type="imgtype" arrow="never" v-if="postslide.length > 0">
         <el-carousel-item v-for="(item,index) in postslide" :key="index">          

@@ -98,13 +98,13 @@ header;
 			$body = "";
 			for($i = 0; $i < gamux_down_count(); $i++) { 
 				$durlName = down_var()['durl'].'_'.$i;
-				$durlValue = get_post_meta($post->ID, down_var()['durl'].'_'.$i, true);
+				$durlValue = get_post_meta($post->ID, $durlName, true);
 				$verName = down_var()['title'].'_'.$i;
-				$verValue = get_post_meta($post->ID, down_var()['title'].'_'.$i, true);
+				$verValue = get_post_meta($post->ID, $verName, true);
 				$commentName = down_var()['comment'].'_'.$i;
-				$commentValue = get_post_meta($post->ID, down_var()['comment'].'_'.$i, true);
+				$commentValue = get_post_meta($post->ID, $commentName, true);
 				$archName = down_var()['arch'].'_'.$i;
-				$archValue = get_post_meta($post->ID, down_var()['arch'].'_'.$i, true);
+				$archValue = get_post_meta($post->ID, $archName, true);
 
 				$link=<<<link
 				<div class="gamux-edit-upload-option">
