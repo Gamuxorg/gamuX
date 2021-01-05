@@ -24,8 +24,8 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [x] 增加更多登录方式(wechat/QQ等)
 * [x] 前端基于restful api实现更好的文章列表
 * [ ] 投稿时后台一键调取steam游戏数据
-* [ ] 独立的文档页、新闻页
-* [ ] 消息提示功能，有人@或回复消息，前端有提示
+* [X] 独立的文档页、新闻页
+* [X] 消息提示功能，有人@或回复消息，前端有提示
 * [x] 更精确的数据统计
 * [x] 更人性化的评论系统
 * [x] 兼容wordpress 5.x
@@ -38,3 +38,4 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [x] 限制非linux平台用户，只能获取网盘地址
 * [x] 下载链接中增加一栏“备注”
 * [ ] 优化搜索算法
+* [ ] 下载统计API

@@ -124,7 +124,7 @@ function get_thumbnail_url($id) {
   if($func)
     return $func[0];
   else
-    return "https://media.st.dl.pinyuncloud.com/steam/apps/1069640/header.jpg?t=1599211966";
+    return site_url() . "/wp-content/uploads/gamux_thumbnail.png";
 }
 if (function_exists('add_theme_support')) {
   add_theme_support('post-thumbnails');

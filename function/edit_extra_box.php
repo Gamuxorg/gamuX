@@ -298,6 +298,7 @@ function save_extra_meta_box( $post_id ) {
 			'buy_url' => $buy_url_array[$i],
 			'buy_store' => $buy_store_array[$i]
 		]);
+		$buy_json = str_replace("\\u", "\\\\u", $buy_json);		//防止wp写入数据库时删掉了UTF8转义符号
 		update_post_meta( $post_id, $buy_key.'_'.$i, $buy_json);
 	}
 	update_post_meta( $post_id, $peizhi_key, $peizhi_value );
