@@ -112,9 +112,13 @@ add_filter('upload_dir', 'slider_upload_dir');
 
 //1.3.5 增加和注销可上传类型
 add_filter('upload_mimes', 'custom_upload_mimes');
-function custom_upload_mimes ( $existing_mimes=array() ) {
-	$existing_mimes['xz'] = 'application/x-xz';
-	return $existing_mimes;
+function custom_upload_mimes ( $mime_types=array() ) {
+  $mime_types['webp'] = 'image/webp';
+  $unsetmimes = array('pdf', 'doc', 'docx', 'pot', 'ppt', 'pptx', 'pps', 'ppsx', 'xls', 'xlsx', 'xla', 'xlt', 'xlw', 'odt', 'odp', 'ods', 'odg', 'odc', 'odb', 'odf', 'psd', 'mp3', 'ra', 'ram', 'm4a', 'ogg', 'wav', 'mp4', 'm4v', 'mov', 'wmv', 'avi', 'mpg', 'ogv', '3gp', '3g2', 'key', 'wma', 'webm', 'flv', 'swf', 'asf', 'asx', 'divx', 'qt', 'mpeg', 'mpg', 'mpe', 'txt', 'c', 'cc', 'h', 'rtx', 'css', 'html', 'htm', 'rtf', 'js', 'wri', 'mdb', 'mpp', 'class', 'tar', 'zip', 'gz', 'gzip', 'exe', 'odt');
+  for ($i = 0; $i < count($unsetmimes); $i++) {
+    unset($mime_types[$unsetmimes[$i]]);
+  }
+	return $mime_types;
 }
 
 //1.3.6 获取特色图片的地址
