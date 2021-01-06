@@ -43,11 +43,11 @@ get_header(); ?>
       </div>
       <div class="game-info">
         <div class="game-name-sort">
-          <div class="game-name"><a :href="post.link">{{ post.title.rendered }}</a></div>
+          <div class="game-name"><a :href="post.link" v-html="post.title.rendered"></a></div>
           <div class="game-sort"><el-button type="text"><a :href="'/gamelist?catid=' + (post.exts.categories)[0].cat_id">{{ (post.exts.categories)[0].name }}</a></el-button></div>
         </div>
         <div class="game-version-date">
-          <div class="game-version" v-if="post['exts']['downloadList']['status'] == 0"> 版本信息获取异常 </div>
+          <div class="game-version" v-if="post['exts']['downloadList']['status'] != 1"> 版本信息获取异常 </div>
           <div class="game-version" v-else>{{ post['exts']['downloadList']['downloadList'][0]['version'] }}</div>
           <div class="game-date">{{ post.modified.split("T")[0] }}</div>
         </div>
@@ -75,8 +75,15 @@ get_header(); ?>
       foreach($comments as $comment) :
       ?>
         <div class="comment-text">
-          <div class="reply-game"><el-tag>dota2</el-tag></div>
-          <el-badge :value="11" :max="9" class="comment-reply item">
+          <div class="reply-game"><el-tag>
+            <?php $tmpTitle = get_post($comment->comment_post_ID)->post_title; 
+                  if(mb_strlen($tmpTitle) > 15)
+                    $tmpTitle = mb_substr($tmpTitle, 0, 14) . "...";
+                  echo $tmpTitle;
+                  unset($tmpTitle);
+            ?>
+          </el-tag></div>
+          <el-badge :value="0" :max="9" class="comment-reply item">
             <span class="reply-text">回复</span>
           </el-badge>
           <a href="<?php echo esc_url( get_comment_link($comment->comment_ID) ); ?>">

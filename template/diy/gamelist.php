@@ -21,11 +21,11 @@ get_header(); ?>
       </div>
       <div class="game-info">
         <div class="game-name-sort">
-          <div class="game-name"><a :href="post.link">{{ post.title.rendered }}</a></div>
+          <div class="game-name"><a :href="post.link" v-html="post.title.rendered"></a></div>
           <div class="game-sort"><el-button type="text"><a :href="siteurl + '/gamelist?catid=' + (post.exts.categories)[0].cat_id">{{ (post.exts.categories)[0].name }}</a></el-button></div>
         </div>
         <div class="game-version-date">
-          <div class="game-version" v-if="post['exts']['downloadList']['status'] == 0"> 版本信息获取异常 </div>
+          <div class="game-version" v-if="post['exts']['downloadList']['status'] != 1"> 版本信息获取异常 </div>
           <div class="game-version" v-else>{{ post['exts']['downloadList']['downloadList'][0]['version'] }}</div>
           <div class="game-date">{{ post.modified.split("T")[0] }}</div>  
         </div>

@@ -231,7 +231,7 @@ var game = new Vue({
     this.thumbnail = postdata.exts.thumbnail;
 
     //文章标签
-    this.taglist = postdata.exts.tagList;
+    this.taglist = postdata.exts.tagList ? postdata.exts.tagList : "无标签";  //空时后端返回false
 
     //日期    
     const getDate = new Date();
