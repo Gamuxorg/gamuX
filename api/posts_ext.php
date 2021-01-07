@@ -62,7 +62,8 @@
 					"date" => get_post_meta($id, $gamux_down['date'].'_'.$i, true),
 					// "fileSize" => remote_file_size(get_post_meta($id, $gamux_down['durl'].'_'.$i, true)),
 					"link" => get_post_meta($id, $gamux_down['durl'].'_'.$i, true),
-					"comment" => get_post_meta($id, $gamux_down['comment'].'_'.$i, true)
+					"comment" => get_post_meta($id, $gamux_down['comment'].'_'.$i, true),
+					"arch" => get_post_meta($id, $gamux_down['arch'].'_'.$i, true)
 				);
 				if(is_user_linux())
 					array_push($downloadList, $listItem);
@@ -112,7 +113,7 @@
 			"码云" => "gitee.com"
 		];
 
-		foreach ($types as $store => $url) {
+		foreach ($types as 	$store => $url) {
 			if(strstr($link, $url) != "")
 				return $store;
 		}
@@ -131,7 +132,9 @@
 		for($i=0; $i < $count; $i++) {
 			$obj = json_decode(get_post_meta($id, 'buy_url_'.$i, true));
 			if(!is_null($obj))
-				$obj->buy_store = empty($obj->buy_store) ? "购买/获取源码" : $obj->buy_store;	//商店为空时返回默认值
+				$obj->buy_store = empty($obj->buy_store) ? "" : $obj->buy_store;	//商店为空时返回""
+			else
+				$obj->buy_store = utf8_decode($obj->buy_store);
 			array_push($buyList, $obj);
 		}
 		return $buyList;
@@ -188,7 +191,7 @@
 			// 截取正文
 			$delimiter2 = <<<doc
 -----------------------------------文章正文---------------------------------------</strong></p>
-<!-- /wp:paragraph -->\n\n
+<!-- /wp:paragraph -->
 doc;
 			$pos = mb_strpos($p, $delimiter2, 0, $encodeing) + mb_strlen($delimiter2, $encodeing);
 			$body = mb_substr($p, $pos, $len, $encodeing);
