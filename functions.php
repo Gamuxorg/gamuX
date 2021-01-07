@@ -111,15 +111,25 @@ function slider_upload_dir($uploads) {
 add_filter('upload_dir', 'slider_upload_dir');
 
 //1.3.5 增加和注销可上传类型
-add_filter('upload_mimes', 'custom_upload_mimes');
-function custom_upload_mimes ( $mime_types=array() ) {
+function custom_upload_mimes(array $mime_types) {
   $mime_types['webp'] = 'image/webp';
-  $unsetmimes = array('pdf', 'doc', 'docx', 'pot', 'ppt', 'pptx', 'pps', 'ppsx', 'xls', 'xlsx', 'xla', 'xlt', 'xlw', 'odt', 'odp', 'ods', 'odg', 'odc', 'odb', 'odf', 'psd', 'mp3', 'ra', 'ram', 'm4a', 'ogg', 'wav', 'mp4', 'm4v', 'mov', 'wmv', 'avi', 'mpg', 'ogv', '3gp', '3g2', 'key', 'wma', 'webm', 'flv', 'swf', 'asf', 'asx', 'divx', 'qt', 'mpeg', 'mpg', 'mpe', 'txt', 'c', 'cc', 'h', 'rtx', 'css', 'html', 'htm', 'rtf', 'js', 'wri', 'mdb', 'mpp', 'class', 'tar', 'zip', 'gz', 'gzip', 'exe', 'odt');
-  for ($i = 0; $i < count($unsetmimes); $i++) {
-    unset($mime_types[$unsetmimes[$i]]);
+  $unset_types = array('pdf', 'doc', 'docx', 'pot', 'ppt', 'pptx', 'pps', 'ppsx', 'xls', 'xlsx', 'xla', 'xlt', 'xlw', 'odt', 'odp', 'ods', 'odg', 'odc', 'odb', 'odf', 'psd', 'mp3', 'ra', 'ram', 'm4a', 'ogg', 'wav', 'mp4', 'm4v', 'mov', 'wmv', 'avi', 'mpg', 'ogv', '3gp', '3g2', 'key', 'wma', 'webm', 'flv', 'swf', 'asf', 'asx', 'divx', 'qt', 'mpeg', 'mpg', 'mpe', 'txt', 'c', 'cc', 'h', 'rtx', 'css', 'html', 'htm', 'rtf', 'js', 'wri', 'mdb', 'mpp', 'class', 'tar', 'zip', 'gz', 'gzip', 'exe', 'odt');
+  foreach($unset_types as $type) {
+    unset($mime_types[$type]);
   }
 	return $mime_types;
 }
+add_filter('mime_types', 'custom_upload_mimes');
+
+// 显示webp图片缩略图
+function add_webp_displayable_image($result, $path) {
+  $info = @getimagesize($path);
+  if($info['mime'] == 'image/webp') {
+      $result = true;
+  }
+  return $result;
+}
+add_filter('file_is_displayable_image', 'add_webp_displayable_image', 10, 2);
 
 //1.3.6 获取特色图片的地址
 function get_thumbnail_url($id) {
