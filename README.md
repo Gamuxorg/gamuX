@@ -1,5 +1,5 @@
 # gamuX
-
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 linuxgame.cn下一代主题，框架基于wordpress5.x，后端使用php 7.x，前端使用Vuejs。
 
 ## 体验
