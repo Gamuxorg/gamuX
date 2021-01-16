@@ -25,8 +25,9 @@ get_header(); ?>
           <div class="game-sort"><el-button type="text"><a :href="siteurl + '/gamelist?catid=' + (post.exts.categories)[0].cat_id">{{ (post.exts.categories)[0].name }}</a></el-button></div>
         </div>
         <div class="game-version-date">
-          <div class="game-version" v-if="post['exts']['downloadList']['status'] != 1"> 版本信息获取异常 </div>
-          <div class="game-version" v-else>{{ post['exts']['downloadList']['downloadList'][0]['version'] }}</div>
+          <!-- 无版本号则返回一个默认值 -->
+          <div class="game-version" v-if="post['exts']['version'] == ''"> ver1.0 </div>
+          <div class="game-version" v-else>{{ post['exts']['version'] }}</div>
           <div class="game-date">{{ post.modified.split("T")[0] }}</div>  
         </div>
       </div>

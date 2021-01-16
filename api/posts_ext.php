@@ -97,6 +97,24 @@
 	}
 
 	/**
+	 * 获取游戏版本号，给首页和游戏列表用，不做下载链接中的检查
+	 *
+	 * @param $id 文章的id
+	 * @return string $version
+	 */
+	function get_versionInfo($id) {
+		$count = gamux_down_count();
+		$gamux_down = down_var();
+		$version = "";
+
+		if($count > 0) {				//有下载链接, 返回第一个的版本号
+			$i = 0;
+			$version = get_post_meta($id, $gamux_down['title'].'_'.$i, true);
+		}
+		return $version;
+	}
+
+	/**
 	 * 根据购买链接返回商店平台的类型，其他类型返回默认值，暂时弃用本函数
 	 *
 	 * @param string $link
@@ -234,6 +252,7 @@ doc;
 					"modAuthorName" => get_the_modified_author(),
 					"tagList" => get_the_tag_list(),
 					"sysRequirements" => get_post_meta($args['id'], 'peizhi', true),
+					"version" => get_versionInfo($args['id'])
 				);
 			}
 		));
