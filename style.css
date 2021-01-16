@@ -100,6 +100,11 @@ a:active {
 .el-menu {
   border-right: none;
 }
+div#beian {
+  align-self: flex-end;
+  margin-bottom: 15%;
+  display: inline-flex;
+}
 #techfrom {
   display: inline-flex;
   margin-bottom: 1rem;

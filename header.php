@@ -127,12 +127,14 @@
       </div>
     </el-dialog>
 
+    <div id="beian">
+      <a href="https://beian.miit.gov.cn/" target="_blank"><?php echo get_option( 'zh_cn_l10n_icp_num' );?></a>
+    </div>
     <div id="techfrom">
       <span class="wplogo"><img src="<?php bloginfo('template_url'); ?>/img/wplogo.png"></span>
       <span class="vuelogo"><img src="<?php bloginfo('template_url'); ?>/img/vuelogo.png"></span>
       <span class="elementlogo"><i class="el-icon-eleme"></i></span>
     </div>
-    <div id="beian"><a href="https://beian.miit.gov.cn/" target="_blank"><?php echo get_option( 'zh_cn_l10n_icp_num' );?></a></div>
   </div>
 </header>
 <div id="section">
