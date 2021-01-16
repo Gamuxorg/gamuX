@@ -133,11 +133,6 @@ get_header(); ?>
           sortable>
         </el-table-column>
         <el-table-column
-          prop="downloadCount"
-          label="下载量"
-          sortable>
-        </el-table-column>
-        <el-table-column
           prop="volume"
           label="容量"
           sortable>
@@ -150,8 +145,18 @@ get_header(); ?>
           </template>
         </el-table-column>
         <el-table-column
+          prop="arch"
+          label="架构"
+          sortable>
+        </el-table-column>
+        <el-table-column
           prop="comment"
           label="备注">
+        </el-table-column>
+        <el-table-column
+          prop="downloadCount"
+          label="下载量"
+          sortable>
         </el-table-column>
       </el-table>
     </el-dialog>
