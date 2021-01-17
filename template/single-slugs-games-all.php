@@ -138,25 +138,20 @@ get_header(); ?>
           sortable>
         </el-table-column>
         <el-table-column
-          prop="link"
-          label="下载">
-          <template slot-scope="scope">
-            <el-link :href="scope.row.link" type="primary" target="_blank">下载</el-link>
-          </template>
-        </el-table-column>
-        <el-table-column
           prop="arch"
           label="架构"
           sortable>
         </el-table-column>
         <el-table-column
-          prop="comment"
-          label="备注">
+          prop="link"
+          label="下载">
+          <template slot-scope="scope">
+            <el-link :href="scope.row.link" type="primary" target="_blank" @click="clickDownload">下载</el-link>
+          </template>
         </el-table-column>
         <el-table-column
-          prop="downloadCount"
-          label="下载量"
-          sortable>
+          prop="comment"
+          label="备注">
         </el-table-column>
       </el-table>
     </el-dialog>
