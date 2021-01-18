@@ -84,7 +84,7 @@ get_header(); ?>
                   unset($tmpTitle);
             ?>
           </el-tag></div>
-          <el-badge :value="0" :max="9" class="comment-reply item">
+          <el-badge :value=<?php echo get_comments_number($comment->comment_post_ID) ?> :max="9" class="comment-reply item">
             <span class="reply-text">回复</span>
           </el-badge>
           <a href="<?php echo esc_url( get_comment_link($comment->comment_ID) ); ?>">

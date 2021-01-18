@@ -58,7 +58,6 @@
 			for($i = 0; $i < $count; $i++) {
 				$listItem = array(
 					"version" => get_post_meta($id, $gamux_down['title'].'_'.$i, true),
-					"downloadCount" => 0,
 					"date" => get_post_meta($id, $gamux_down['date'].'_'.$i, true),
 					// "fileSize" => remote_file_size(get_post_meta($id, $gamux_down['durl'].'_'.$i, true)),
 					"link" => get_post_meta($id, $gamux_down['durl'].'_'.$i, true),
@@ -131,7 +130,7 @@
 			"码云" => "gitee.com"
 		];
 
-		foreach ($types as 	$store => $url) {
+		foreach ($types as $store => $url) {
 			if(strstr($link, $url) != "")
 				return $store;
 		}

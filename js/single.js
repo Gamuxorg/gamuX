@@ -81,8 +81,8 @@ var game = new Vue({
         method: 'get',
         url: "https://kr.linuxgame.cn:8088/download_counting.php",
         params: {
-          "post_id": this.post_id,
-        },
+          "post_id": this.post_id
+        }
       });
     },
     dialogloginVisible: function() {
