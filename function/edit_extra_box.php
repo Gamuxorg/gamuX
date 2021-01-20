@@ -13,7 +13,8 @@ function down_var() {
 		"title"  => "dtitle",
 		"date"   => "ddate",
 		"comment"  => "dcomment",
-		"arch"   => "darch"
+		"arch"   => "darch",
+		"history" => "editHistorys"
 	);
 	return $gamux_down;
 }
@@ -317,3 +318,25 @@ function add_extra_meta_box() {
 	);
 }
 add_action( 'add_meta_boxes', '\Gamux\add_extra_meta_box' );
+
+/**
+ * 记录修改历史
+ *
+ * @param $post_id
+ * @return void
+ */
+function save_edit_historys($post_id) {
+	if(empty($_POST))
+		return;
+	$historys = get_post_meta($post_id, down_var()["history"], true);
+	$historys = !empty($historys) ? $historys : [];
+
+	$history = new \stdClass;
+	$history->user_id = $_POST['user_ID'];
+	$history->post_modified = date_create('now', new \DateTimeZone('Asia/Shanghai'))->format('Y-m-d H:i:s');	
+	$history->post_modified_gmt = date_create('now', new \DateTimeZone('UTC'))->format('Y-m-d H:i:s');	
+	array_push($historys, $history);
+	
+	update_post_meta($post_id, down_var()["history"], $historys);
+}
+add_action('save_post', '\Gamux\save_edit_historys');

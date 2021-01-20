@@ -178,6 +178,27 @@
 	}
 
 	/**
+	 * 获取文章修订历史
+	 *
+	 * @return array
+	 */
+	function get_editHistorys($post_id) : array {
+		$historys = get_post_meta($post_id, down_var()["history"], true);
+		$historys = !empty($historys) ? $historys : [];
+		if(!empty($historys)) {
+			foreach($historys as $history) {				//根据用户ID添加用户名
+				$user_name = get_user_by("ID", $history->user_id)->data->display_name;
+				$history->user_name = $user_name;
+			}
+		}
+
+		return [
+			"historys" => $historys,
+			"count" => count($historys)
+		];
+	}
+
+	/**
 	 * 将文章中的轮播图和正文分开返回
 	 *
 	 * @param $id
@@ -251,7 +272,8 @@ doc;
 					"modAuthorName" => get_the_modified_author(),
 					"tagList" => get_the_tag_list(),
 					"sysRequirements" => get_post_meta($args['id'], 'peizhi', true),
-					"version" => get_versionInfo($args['id'])
+					"version" => get_versionInfo($args['id']),
+					"editHistorys" => get_editHistorys($args['id'])
 				);
 			}
 		));
