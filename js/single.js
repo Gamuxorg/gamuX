@@ -79,8 +79,11 @@ var game = new Vue({
     clickDownload: async function(a) {
       axios({
         method: 'get',
-        url: "https://kr.linuxgame.cn:8088/download_counting.php?post_id="+ this.postid,
+        url: "https://kr.linuxgame.cn:8088/download_counting.php",
         responseType: 'json',
+        params: {
+          post_id: this.postid,
+        }
       });
       window.open(a);
     },
