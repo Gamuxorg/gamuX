@@ -146,7 +146,7 @@ get_header(); ?>
           prop="link"
           label="下载">
           <template slot-scope="scope">
-            <el-link :href="scope.row.link" type="primary" target="_blank" @click.prevent="clickDownload">下载</el-link>
+            <el-button type="text" @click="clickDownload(scope.row.link)">下载</el-button>
           </template>
         </el-table-column>
         <el-table-column

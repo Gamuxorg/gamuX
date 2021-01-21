@@ -76,14 +76,13 @@ var game = new Vue({
     dialogdownload: false,
   },
   methods: {
-    clickDownload: function() {
+    clickDownload: async function(a) {
       axios({
         method: 'get',
-        url: "https://kr.linuxgame.cn:8088/download_counting.php",
-        params: {
-          "post_id": this.post_id
-        }
+        url: "https://kr.linuxgame.cn:8088/download_counting.php?post_id="+ this.postid,
+        responseType: 'json',
       });
+      window.open(a);
     },
     dialogloginVisible: function() {
       gamux.$refs.login.$el.click();
