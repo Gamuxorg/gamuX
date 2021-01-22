@@ -238,7 +238,7 @@ var game = new Vue({
     this.activities[0].timestamp = modifieddate;
     this.activities[2].author = postdata.exts.authorName;
     this.activities[0].author = postdata.exts.modAuthorName;
-    this.activities[1].content = '期间一共更新了' + postdata["_links"]["version-history"][0]["count"] + '次';
+    this.activities[1].content = '期间一共更新了' + (postdata["exts"]["editHistorys"]["historys"]).length + '次';
     this.thumbnail = postdata.exts.thumbnail;
 
     //文章标签
