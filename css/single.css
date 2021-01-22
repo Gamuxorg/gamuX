@@ -53,8 +53,8 @@ slide {
 .wp-block-video {
   text-align: center;
 }
-.wp-block-video>video {
-  width: 85%;
+.wp-block-video video {
+  width: 85%!important;
 }
 /* 下载 */
 .download-head {
