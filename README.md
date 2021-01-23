@@ -37,5 +37,5 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [x] 下载链接支持多cpu平台
 * [x] 限制非linux平台用户，只能获取网盘地址
 * [x] 下载链接中增加一栏“备注”
-* [ ] 优化搜索算法
+* [ ] 实现搜索功能，并优化搜索算法
 * [ ] 下载统计API
