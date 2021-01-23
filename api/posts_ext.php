@@ -207,17 +207,17 @@
 	function get_content($id) : array {
 		$p = get_post($id)->post_content;
 		$len = mb_strlen($p);
-		$encodeing = "UTF-8";
+		$encoding = "UTF-8";
 		$body = "";
 
 		// 截取轮播图
 		$slides = [];
 		$delimiter_start = '<!-- wp:gamux/slide-url -->';
 		$delimiter_end = '<!-- /wp:gamux/slide-url -->';
-		$pos_start = mb_strpos($p, $delimiter_start, 0, $encodeing);
-		$pos_end = mb_strrpos($p, $delimiter_end, 0, $encodeing) + mb_strlen($delimiter_end);
+		$pos_start = mb_strpos($p, $delimiter_start, 0, $encoding);
+		$pos_end = mb_strrpos($p, $delimiter_end, 0, $encoding) + mb_strlen($delimiter_end);
 		if($pos_start !== false and $pos_end !== false) {		//是否使用了轮播图、正文分离的版式
-			$slides_html = mb_substr($p, $pos_start, ($pos_end - $pos_start), $encodeing);
+			$slides_html = mb_substr($p, $pos_start, ($pos_end - $pos_start), $encoding);
 
 			// 获取链接
 			preg_match_all('/<slide>.*?<\/slide>/', $slides_html, $matches);
@@ -231,8 +231,8 @@
 -----------------------------------文章正文---------------------------------------</strong></p>
 <!-- /wp:paragraph -->
 doc;
-			$pos = mb_strpos($p, $delimiter2, 0, $encodeing) + mb_strlen($delimiter2, $encodeing);
-			$body = mb_substr($p, $pos, $len, $encodeing);
+			$pos = mb_strpos($p, $delimiter2, 0, $encoding) + mb_strlen($delimiter2, $encoding);
+			$body = mb_substr($p, $pos, $len, $encoding);
 		}
 
 		return [

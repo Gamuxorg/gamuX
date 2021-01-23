@@ -319,6 +319,8 @@ function add_extra_meta_box() {
 }
 add_action( 'add_meta_boxes', '\Gamux\add_extra_meta_box' );
 
+/*--------------------------------其他功能-----------------------------------------*/
+
 /**
  * 记录修改历史
  *
