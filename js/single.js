@@ -10,7 +10,7 @@ var game = new Vue({
     modifiedauthor: "gamux",
     caturl: 'goback',
     postcontent: "游戏内容加载中...",
-    postslide: "",
+    postslide: ['1'],
     siteurl: "https://www.linuxgame.cn",
     cururl: "",
     postid: 1,
@@ -202,6 +202,10 @@ var game = new Vue({
       a.style.display= 'none';
       this.replyTextarea = "";
     },
+  },
+  components: {
+    'carousel-3d': Carousel3d.Carousel3d,
+    'slide': Carousel3d.Slide
   },
   mounted: async function() {
     this.siteurl = gamux.siteurl;

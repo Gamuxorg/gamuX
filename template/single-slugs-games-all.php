@@ -6,19 +6,17 @@ get_header(); ?>
 
 <div class="breadcrumb">
   <el-page-header :title="catname" @back="goBack" :content="postdate">
-</div>
-
+</div>  
 <el-row id="post" :gutter="10">
   <el-col id="post-main" :xs="24" :sm="16" :md="16" :lg="18">
     <section class="game-content">
       <div id="post-title" v-html="postname"></div>
       <!-- 轮播图片 -->
-      <el-carousel :interval="4000" :type="imgtype" arrow="never" v-if="postslide.length > 0">
-        <el-carousel-item v-for="(item,index) in postslide" :key="index">          
-          <el-image fit="fit" :src="item"></el-image>
-        </el-carousel-item>
-      </el-carousel>
-      
+      <carousel-3d :disable3d="true" :startIndex="0" :count="postslide.length" :space="485" :height="268" :width="480" :clickable="false" :controls-visible="true">
+        <slide v-for="(slide, i) in postslide" :index="i">
+          <img fit="fit" :src="slide">
+        </slide>
+      </carousel-3d>  
       <div id="post-intro" v-html="postcontent"></div>
     </section>
    
