@@ -12,7 +12,7 @@ get_header(); ?>
     <section class="game-content">
       <div id="post-title" v-html="postname"></div>
       <!-- 轮播图片 -->
-      <carousel-3d :disable3d="true" :startIndex="0" :count="postslide.length" :space="485" :height="268" :width="480" :clickable="false" :controls-visible="true">
+      <carousel-3d :disable3d="true" :startIndex="0" :count="postslide.length" :space="485" :height="268" :width="480" :clickable="false" :controls-visible="true" v-if="postslide.length > 0">
         <slide v-for="(slide, i) in postslide" :index="i">
           <img fit="fit" :src="slide">
         </slide>
