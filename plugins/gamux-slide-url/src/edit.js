@@ -36,17 +36,29 @@ const BACKGROUND_COLORS = {
     green: '#e9fbe5'
 };
 
+
+// toggleImgDisplay.bind(this);
+
 export default function Edit( { 
     attributes,
 	setAttributes,
 	insertBlocksAfter,
 	isSelected } ) {
+    var toggleImgDisplay = () => {
+        this.parentNode.parentNode.previousSibling.style.display=(attributes.content=="") ? "none" : "block";
+    }
+
     return (
         <div { ...useBlockProps() } >
+            <figure class="wp-block-image size-large">
+                <img src={ attributes.content } alt=""/>
+            </figure>
             <TextControl 
                 value={ attributes.content }
-                onChange={ ( val ) => setAttributes( { content: val } ) }
-            />  
+                onChange={ function(val) { 
+                    setAttributes( { content: val } );
+                } }
+            />
             <Button 
                 isSecondary 
                 isSmall

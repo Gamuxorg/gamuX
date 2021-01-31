@@ -68,7 +68,7 @@ get_header(); ?>
     <el-card class="comment-card box-card">
       <div slot="header" class="commment-header clearfix">
         <span>游戏评论</span>
-        <el-button style="float: right; padding: 3px 0" type="text">更多评论</el-button>
+        <el-button style="float: right; padding: 3px 0" type="text"><a href='<?php echo site_url("/wp-admin/edit-comments.php") ?>'>更多评论</a></el-button>
       </div>
       <div class="comment-list text item">
       <?php
@@ -100,7 +100,7 @@ get_header(); ?>
     <el-card class="wish-card box-card">
       <div slot="header" class="wish-header clearfix">
         <span>愿望清单</span>
-        <el-button style="float: right; padding: 3px 0" type="text">更多评论</el-button>
+        <el-button style="float: right; padding: 3px 0" type="text" >更多评论</el-button>
       </div>
       <div class="wish-lists text item">
         <div class="wish-text" v-for="wish in wishlist">

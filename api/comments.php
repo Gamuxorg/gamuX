@@ -44,7 +44,7 @@ class Comments {
 		$newComment->author_name = $comment->comment_author;
 		$newComment->author_avatar = get_user_avatar($comment->user_id);
 		$newComment->date = $comment->comment_date;
-		$newComment->content = $comment->comment_content;
+		$newComment->content = nl2br($comment->comment_content);
 		$newComment->parent = $comment->comment_parent;
 		$newComment->children = array();
 		if($level == 1) {

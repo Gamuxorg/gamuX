@@ -19,11 +19,10 @@ git clone https://github.com/Gamuxorg/gamuX.git
 ## todo list
 
 * [x] vuejs实现的前端
-* [ ] 完全重实现的后台（主要是文章编辑界面）
 * [x] 重写github登录（检查登录错误、出现重号的问题）
 * [x] 增加更多登录方式(wechat/QQ等)
 * [x] 前端基于restful api实现更好的文章列表
-* [ ] 投稿时后台一键调取steam游戏数据
+* [x] 投稿时后台一键调取steam游戏数据
 * [X] 独立的文档页、新闻页
 * [X] 消息提示功能，有人@或回复消息，前端有提示
 * [x] 更精确的数据统计
@@ -39,3 +38,4 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [x] 下载链接中增加一栏“备注”
 * [ ] 实现搜索功能，并优化搜索算法
 * [ ] 下载统计API
+* [ ] 完全重实现的后台（主要是文章编辑界面）

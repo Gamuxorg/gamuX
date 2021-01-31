@@ -215,3 +215,10 @@ doc2;
 		return $content;
 }
 add_filter('content_save_pre', '\Gamux\filter_slides_delimiter');
+
+// 将<slide></slide>标签添加到允许使用的HTML标签中，防止被过滤
+function add_allowed_tag_slide($tags) {
+    $tags['slide'] = array();
+    return $tags;
+}
+add_filter('wp_kses_allowed_html', '\Gamux\add_allowed_tag_slide');

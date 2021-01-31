@@ -273,7 +273,8 @@ doc;
 					"tagList" => get_the_tag_list(),
 					"sysRequirements" => get_post_meta($args['id'], 'peizhi', true),
 					"version" => get_versionInfo($args['id']),
-					"editHistorys" => get_editHistorys($args['id'])
+					"editHistorys" => get_editHistorys($args['id']),
+					"background" => get_post_meta($args['id'], 'bg', true)
 				);
 			}
 		));
