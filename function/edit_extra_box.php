@@ -20,8 +20,12 @@ function down_var() {
 }
 
 //获取可用的下载链接数量
-function gamux_down_count() : int {
+function gamux_down_count($post_id = '') : int {
 	global $wpdb, $post;
+	if(empty($post)) {
+		$post = new \stdClass;
+		$post->ID = $post_id;
+	}
 	$sql = "SELECT COUNT(meta_id) AS count FROM ".$wpdb->prefix."postmeta WHERE post_id = ".$post->ID." AND meta_key REGEXP 'downurl'";
 	return $wpdb->get_var($sql);
 }

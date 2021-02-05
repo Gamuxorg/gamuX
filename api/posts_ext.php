@@ -102,7 +102,7 @@
 	 * @return string $version
 	 */
 	function get_versionInfo($id) {
-		$count = gamux_down_count();
+		$count = gamux_down_count($id);
 		$gamux_down = down_var();
 		$version = "";
 
@@ -244,15 +244,19 @@ doc;
 	/**
 	 * 添加和注册各个字段
 	 * 
+	 * 添加 content 字段，返回文章正文、轮播图
 	 * 添加 thumbnail 字段，返回缩略图链接
 	 * 添加 images 字段，返回所有图片
 	 * 添加 downloadList 字段，返回所有的下载链接
-	 * 添加 INT postViews 字段，返回文章阅读数
 	 * 添加 buyUrl 字段，返回购买链接
+	 * 添加 categories 字段，返回分类目录
 	 * 添加 authorName 字段，返回作者
 	 * 添加 modAuthorName 字段，返回修改作者
 	 * 添加 tagList 字段，返回文章标签列表
 	 * 添加 sysRequirements 字段，返回配置信息
+	 * 添加 version 字段，返回版本信息
+	 * 添加 editHistorys 字段，返回修改历史
+	 * 添加 background 字段，返回背景图片
 	 * @return void
 	 */
 	function add_post_ext() {
@@ -265,7 +269,6 @@ doc;
 					"thumbnail" => get_thumbnail_url($args['id']),
 					"images" => get_all_imgs($args['content']['raw']),
 					"downloadList" => get_downloadList($args['id']),
-					"postViews" => (int)getPostViews($args['id']),
 					"buyUrls" => get_buy_urls($args['id']),
 					"categories" => get_categories($args['categories']),
 					"authorName" => get_the_author(),

@@ -104,4 +104,16 @@ add_action('rest_api_init', function () {
 	));	
 });
 
+// 搜索API
+// route: wp-json/gamux/v1/search
+// 查询参数请参考WP REST-API search部分文档
+include("search_ext.php");
+add_action('rest_api_init', function () {
+	register_rest_route( 'gamux/v1', '/search(/?)', array(
+		'methods' => 'GET',
+		'callback' => '\Gamux\search_post',
+		'permission_callback' => "__return_true"
+	));	
+});
+
 ?>

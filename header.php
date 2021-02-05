@@ -53,7 +53,6 @@
       <el-col id="header-col">
         <el-menu
           id="left-menu"
-          default-active="2"
           class="el-menu-vertical-demo">
           <el-menu-item index="1">
             <i class="el-icon-menu"></i>
