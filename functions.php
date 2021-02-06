@@ -138,7 +138,7 @@ function get_thumbnail_url($id) {
   if($func)
     return $func[0];
   else
-    return site_url() . "/wp-content/uploads/gamux_thumbnail.png";
+    return "https://gitee.com/gamux/tuchuang/raw/master/gamux.org/gamux_thumbnail.png";
 }
 if (function_exists('add_theme_support')) {
   add_theme_support('post-thumbnails');

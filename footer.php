@@ -11,6 +11,8 @@
 	<script src="<?php bloginfo('template_url'); ?>/js/category.js"></script>
 <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'newslist') != false)){ ?>
 	<script src="<?php bloginfo('template_url'); ?>/js/news.js"></script>
+<?php } elseif(strpos($_SERVER['REQUEST_URI'], 'search') != false){ ?>
+	<script src="<?php bloginfo('template_url'); ?>/js/search.js"></script>  
 <?php } else if (is_single()) { ?>
   <script crossorigin="anonymous" integrity="sha384-QUJ+ckWz1M+a7w0UfG1sEn4pPrbQwSxGm/1TIPyioqXBrwuT9l4f9gdHWLDLbVWI" src="https://lib.baomitu.com/quill/1.3.7/quill.min.js"></script>
   <script src="<?php bloginfo('template_url'); ?>/js/vue-quill-editor.js"></script>
