@@ -14,3 +14,6 @@ p {
 .card+div {
   margin-top: .5rem;
 }
+.el-form-item {
+  margin-bottom: 0;
+}
