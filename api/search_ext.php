@@ -29,8 +29,12 @@
 				"modified" => get_post($post["id"])->post_modified
 			);	
 		}
-		$response->set_data($data);
-		return ($data);
+
+		$response->set_data([
+			"data" => $data,
+			"count" => count($data)
+		]);
+		return ($response);
 	}
 
 ?>
