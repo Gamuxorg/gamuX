@@ -25,8 +25,8 @@ get_header(); ?>
         <div class="game-name-sort">
           <div class="game-name"><a :href="post.url">{{post.title}}</a></div>
           <div class="game-sort">
-            <span></span>
-            <span></span>
+            <span>{{ post.exts.cats[0].name }}</span>
+            <span>{{ post.exts.modified }}</span>
           </div>
         </div>
       </div>

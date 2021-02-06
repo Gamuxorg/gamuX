@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/index.css">
   <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'gamelist') != false)){ ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/category.css">
-  <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'newslist') != false)){ ?>
+  <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'newslist') != false) or (strpos($_SERVER['REQUEST_URI'], 'search') != false)){ ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/news.css">
   <?php } elseif(is_search()){ ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/search.css">
@@ -45,7 +45,7 @@
     <div id="site-logo"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">GAMUX</a></div>
     <div>
       <el-form action="search" method="get" class="demo-form-inline">
-        <el-input type="text" id="header-search" name="s" size="small" suffix-icon="el-icon-search"></el-input>
+          <input type="text" placeholder="请输入搜索内容" id="header-search" name="s" size="small">
       </el-form>
     </div>
 

@@ -83,11 +83,16 @@ a:active {
   font-weight: 700;
   font-family: 'Roboto', sans-serif;
 }
-#header-search {
+#header-search,
+#header-search:active,
+#header-search:focus {
   width: 160px;
   border-top: hidden;
   border-left: hidden;
   border-right: hidden;
+  outline: none;
+  border-bottom-color: darkgray;
+  border-bottom-width: 1px;
 }
 #left-menu>li.el-menu-item{
   font-size: 1rem;
