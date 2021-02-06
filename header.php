@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh_CN">
+<html lang="en_US">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
@@ -44,9 +44,9 @@
   <div id="header-div">
     <div id="site-logo"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">GAMUX</a></div>
     <div>
-      <el-input type="text" placeholder="请输入内容" id="header-search" name="headersearch" value="" size="small" suffix-icon="el-icon-search">
-      <submit>
-      </el-input>
+      <el-form action="search" method="get" class="demo-form-inline">
+        <el-input type="text" id="header-search" name="s" size="small" suffix-icon="el-icon-search"></el-input>
+      </el-form>
     </div>
 
     <el-row id="header-row">

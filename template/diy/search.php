@@ -2,6 +2,7 @@
 /*
  * gameslist template
 */
+if (!defined('ABSPATH')) exit;
 get_header(); ?>
 
 <!--索引-->
@@ -10,6 +11,7 @@ get_header(); ?>
     <el-form-item>
       <el-input v-model="formInline.input" placeholder="搜索一下"></el-input>
     </el-form-item>
+    <el-form-item>
       <el-button type="primary" @click="onSubmit">查询</el-button>
     </el-form-item>
   </el-form>
@@ -23,8 +25,8 @@ get_header(); ?>
         <div class="game-name-sort">
           <div class="game-name"><a :href="post.url">{{post.title}}</a></div>
           <div class="game-sort">
-            <span>{{post.exts.cats[0].name}}</span>
-            <span>{{post.exts.modified}}</span>
+            <span></span>
+            <span></span>
           </div>
         </div>
       </div>
