@@ -29,18 +29,6 @@ add_action( 'rest_api_init', function () {
 	));
 });
 
-add_action('rest_api_init', function () {
-	register_rest_route( 'gamux/v1', '/test', array(
-		'methods' => 'GET',
-		'callback' => function(WP_REST_Request $request){
-			
-			wp_die(new \WP_Error(500, "致命错误"));
-			// return 0;
-		},
-		'permission_callback' => "__return_true"
-	));	
-});
-
 //获取评论，输入post_id，调用get_comments
 //route: wp-json/gamux/v1/comments/(?P<post>\d+)
 include("comments.php");
@@ -113,6 +101,20 @@ add_action('rest_api_init', function () {
 		'methods' => 'GET',
 		'callback' => '\Gamux\search_post',
 		'permission_callback' => "__return_true"
+	));	
+});
+
+// 下载统计信息API
+// route: wp-json/gamux/v1/download
+include("get_download_count.php");
+add_action('rest_api_init', function () {
+	register_rest_route( 'gamux/v1', '/download(/?)', array(
+		'methods' => 'GET',
+		'callback' => '\Gamux\get_download_count',
+		'permission_callback' => function() {		//需要限制请求
+			return true;
+			// return current_user_can("manage_options");
+		}
 	));	
 });
 
