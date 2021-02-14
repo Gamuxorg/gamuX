@@ -260,3 +260,6 @@ include('function/user_comment.php');
 
 //添加user额外字段avatar，用户头像链接
 include('api/user_ext.php');
+
+// 添加下载统计菜单项
+include('function/download_statistics.php');
