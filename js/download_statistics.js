@@ -12,9 +12,11 @@ function get_download_overall() {
         else {
             var postTitleArr = new Array;
             var postDownCountArr = new Array;
+            var total = 0;
             for(id in response.data) {
                 postTitleArr.push(response.data[id].title);
                 postDownCountArr.push(response.data[id].count);
+                total += response.data[id].count;
             }
 
             // clear previous echart instance
@@ -31,6 +33,10 @@ function get_download_overall() {
                     data: postTitleArr
                 },
                 yAxis: {},
+                title: {
+                    text: "总下载量: " + total,
+                    left: "center"
+                },
                 series: [{
                     name: '下载量',
                     type: 'bar',
@@ -54,6 +60,77 @@ function get_download_overall() {
             //清除错误信息
             $("#download_overall_error_msg").text("");
         }
+    });
+}
+
+// 获取年度统计数据
+function get_download_yearly() { 
+    var year = document.getElementById("download_yearly_year");
+    if(!year.checkValidity()) {
+        $("#download_yearly_error_msg").text(year.validationMessage);
+        setTimeout(()=>$("#download_yearly_error_msg").text(""), 2200);
+        return;
+    }
+    year = year.value;
+
+    $.get("https://kr.linuxgame.cn:8088/get_download_data.php?action=yearly&post_id=0&para=" + year, "", function(response) {
+        if(response.code != 0) {
+            $("#download_yearly_error_msg").text(response.message);
+            setTimeout(()=>$("#download_yearly_error_msg").text(""), 2200);
+        }
+        else {
+            var postTitleArr = new Array;
+            var total = 0;
+            // remove entry whose value == 0 
+            for(i = 0; i < response.data.length; i++) {
+                if(response.data[i].value > 0) {
+                    postTitleArr.push(response.data[i].name);
+                    total += response.data[i].value;
+                }
+                else {
+                    response.data.splice(i, 1);
+                    i--;
+                }
+            }
+
+            // clear previous echart instance
+            var dom = document.getElementById("download_yearly");
+            if(dom.hasAttribute("_echarts_instance_")) {
+                dom.removeAttribute("_echarts_instance_");
+                dom.innerHTML = "";
+            }
+
+            var chart = echarts.init(dom, 'dark');
+            var option = {
+                tooltip: {},
+                title: {
+                    text: year + "年下载量: " + total,
+                    left: "center"
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 10,
+                    data: postTitleArr
+                },
+                series: [{
+                    name: '月下载量',
+                    type: 'pie',
+                    radius: '58%',
+                    center: ['50%', '50%'],
+                    data: response.data,
+                    label: {
+                        position: "inner"
+                    },
+                    labelLine: {
+                        show: false
+                    }
+                }]
+            };
+            chart.setOption(option);
+            //清除错误信息
+            $("#download_yearly_error_msg").text("");
+        }
+        cc=response;
     });
 }
 
@@ -87,9 +164,11 @@ function get_download_monthly() {
             //准备数据
             var postTitleArr = new Array;
             var postDownCountArr = new Array;
+            var total = 0;
             for(id in response.data) {
                 postTitleArr.push(response.data[id].title);
                 postDownCountArr.push(response.data[id].count);
+                total += response.data[id].count;
             }
 
             // clear previous echart instance
@@ -102,7 +181,7 @@ function get_download_monthly() {
             var chart = echarts.init(dom, 'light');
             var option = {
                 title: {
-                    text: (year+"-"+mon),
+                    text: (year+"-"+mon) + ": " + total,
                     left: "center"
                 },
                 tooltip: {},
@@ -153,9 +232,11 @@ function get_download_daily() {
             //准备数据
             var postTitleArr = new Array;
             var postDownCountArr = new Array;
+            var total = 0;
             for(id in response.data) {
                 postTitleArr.push(response.data[id].title);
                 postDownCountArr.push(response.data[id].count);
+                total += response.data[id].count;
             }
 
             // clear previous echart instance
@@ -168,7 +249,7 @@ function get_download_daily() {
             var chart = echarts.init(dom, 'light');
             var option = {
                 title: {
-                    text: date,
+                    text: date + ": " + total,
                     left: "center"
                 },
                 tooltip: {},

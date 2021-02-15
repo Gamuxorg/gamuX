@@ -14,6 +14,12 @@
 <label id="download_overall_error_msg" style="font-size:12pt;color:orange"> </label><br>
 <input type='button' value='GET' onclick='get_download_overall()'>
 
+<h2>年度统计</h2>
+<div id='download_yearly' style='width:70%;height:400px'> </div><br>
+<label id="download_yearly_error_msg" style="font-size:12pt;color:orange"> </label><br>
+<input id="download_yearly_year" value="2020" type="number" min="2000" max="2099" step="1" required placeholder="年" style="width:7%">
+<input type='button' value='GET' onclick='get_download_yearly()'>
+
 <h2>月度统计</h2>
 <div id='download_monthly' style='width:100%;height:300px'> </div><br>
 <label id="download_monthly_error_msg" style="font-size:12pt;color:orange"> </label><br>
@@ -24,7 +30,7 @@
 <h2>单日统计</h2>
 <div id='download_daily' style='width:100%;height:300px'> </div><br>
 <label id="download_daily_error_msg" style="font-size:12pt;color:orange"> </label><br>
-<input id="download_daily_date" type="date" required placeholder="日期">
+<input id="download_daily_date" type="date" required placeholder="yyyy-MM-dd">
 <input type='button' value='前一日' onclick='download_daily_prev()'>
 <input type='button' value='后一日' onclick='download_daily_next()'>
 <input type='button' value='GET' onclick='get_download_daily()'>

@@ -8,7 +8,7 @@
 	 */
 	function get_post_titles() {
 		global $wpdb;
-		$sql = "SELECT ID, post_title FROM " . $wpdb->prefix . "posts WHERE post_type = 'post' AND post_status = 'publish';";
+		$sql = "SELECT ID, post_title FROM " . $wpdb->prefix . "posts WHERE post_type = 'post' AND post_status = 'publish' ORDER BY ID;";
 		return $wpdb->get_results($sql);		
 	}
 
@@ -26,18 +26,18 @@
 			$posts_title = \Gamux\get_post_titles();
 			// mapping id and post_title
 			foreach($response['data'] as $key => $value) {
-				while($i < count($posts_title)) {
-					if($key == $posts_title[$i]->ID) {
-						array_push($data, [
-							"ID" => $posts_title[$i]->ID,
-							"title" => $posts_title[$i]->post_title,
-							"count" => (int)$value
-						]);
-						break;
-					}
+				while($i < count($posts_title) && $key > $posts_title[$i]->ID) {
 					$i++;
 				}
+				if($i < count($posts_title) && $key == $posts_title[$i]->ID) {
+					array_push($data, [
+						"ID" => $posts_title[$i]->ID,
+						"title" => $posts_title[$i]->post_title,
+						"count" => (int)$value
+					]);
+				}
 			}
+
 			// insert sort by count
 			$max = count($data);
 			$i = 1;

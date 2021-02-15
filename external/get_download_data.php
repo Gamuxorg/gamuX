@@ -83,15 +83,38 @@
 	}
 
 	// 获取所有文章某个月的下载量
-	function get_monthly_all_singleMon($mon) {
+	function get_monthly_all_singleMon(string $yearMon) {
 		global $redis;
 		$overall = get_overall_all();
 		krsort($overall, SORT_NATURAL);
 		$result = [];
 		foreach($overall as $id => $value) {
-			$count = $redis->zScore((new TbName($id))->mon, $mon);
+			$count = $redis->zScore((new TbName($id))->mon, $yearMon);
 			if($count)
 				$result[$id] = $count;
+		}
+		return $result;
+	}
+
+	// 按月份获取所有文章的年度下载量
+	function get_yearly_all(string $year) {
+		global $redis;
+		$overall = get_overall_all();
+		krsort($overall, SORT_NATURAL);
+		$result = [];
+		for($i=1; $i <= 12; $i++) {
+			$mon = ($i < 10) ? '0'.$i : $i;
+			$yearMon = "$year-$mon";
+
+			// 计算单月所有文章下载量
+			$monthlyCount = 0;
+			foreach($overall as $id => $value) 
+				$monthlyCount += $redis->zScore((new TbName($id))->mon, $yearMon);
+
+			array_push($result, [
+				"name" => $i . "月",
+				"value" => $monthlyCount
+			]);
 		}
 		return $result;
 	}
@@ -127,6 +150,7 @@
 	}
 
 	header("Content-Type: application/json");
+	header("Access-Control-Allow-Origin: *");
 	// 接受3个查询参数：action, post_id, para
 	// 其中para为可选的
 	if(!isset($_GET['post_id'])) {
@@ -155,6 +179,15 @@
 			break;
 		case "postall":
 			$result = get_post_all();
+			break;
+		case "yearly":
+			if(empty($para)) {
+				echo json_encode(down_error(-3, "?para not provided"));
+				exit(-3);
+			}
+			if($id == 0) {	
+				$result = get_yearly_all($para);
+			}
 			break;
 		case "monthly":
 			if(empty($para)) {
