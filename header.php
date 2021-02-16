@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/index.css">
   <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'gamelist') != false)){ ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/category.css">
-  <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'newslist') != false) or (strpos($_SERVER['REQUEST_URI'], 'search') != false)){ ?>
+  <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'newslist') != false)){ ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/news.css">
   <?php } elseif(is_search()){ ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/search.css">

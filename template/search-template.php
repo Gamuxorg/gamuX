@@ -1,6 +1,6 @@
 <?php 
 /*
- * gameslist template
+ * Template Name: 搜索
 */
 if (!defined('ABSPATH')) exit;
 get_header(); ?>

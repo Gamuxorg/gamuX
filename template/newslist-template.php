@@ -1,6 +1,6 @@
 <?php 
 /*
- * gameslist template
+ * Template Name: 新闻列表
 */
 get_header(); ?>
 

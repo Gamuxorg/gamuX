@@ -1,6 +1,6 @@
 <?php 
 /*
- * gameslist template
+ * Template Name: 游戏列表
 */
 get_header(); ?>
 
