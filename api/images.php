@@ -1,84 +1,69 @@
 <?php
 	namespace Gamux;
+
 	/**
 	 * 获取首页的轮播图片，按照上个月下载量排名
 	 * 目前暂时先返回随机的图片
 	 * 
 	 */
 	class MainSlidePic {
-		const MaxRetryTime = 1000;	//防止无限循环
-
-		private $postMaxId;
-		private $post_offsetUsedCount;
-		public $post_offsetUsed;		//已经使用或判定无效的文章offset
+		private $postTitles;		//post ID和title
 		public $posts;				//返回 postLink + src
 
 		public function __construct() {
-			$this->postMaxId = wp_get_recent_posts([
-				'numberposts' => 1, 
-				'post_status' => 'publish'
-			])[0]['ID'];							//获取文章中最大的ID
-			$this->post_offsetUsedCount = 0;
-			$this->post_offsetUsed = array();
 			$this->posts = array();
+			$this->postTitles = get_post_titles();
 		}
 
 		/**
-		 * 返回一个不重复的随机的文档下标
+		 * 返回一个不重复的随机的文档ID
 		 *
-		 * @return mixed $offset || false 
+		 * @return mixed $id || false 
 		 */
-		private function randOffset() : int {
-			$retry = 0;
-			do {
-				$offset = random_int(1, $this->postMaxId);
-				if($retry++ > self::MaxRetryTime)				//防止无限循环
-					return false;
-			}while(in_array($offset, $this->post_offsetUsed));
-			
-			array_push($this->post_offsetUsed, $offset);
-			$this->post_offsetUsedCount++;
-			return $offset;
+		private function randID() : int {
+			if(count($this->postTitles) > 0)
+				$index = random_int(0, count($this->postTitles) -1);
+			else
+				return false;
+
+			$id = $this->postTitles[$index]->ID;
+			array_splice($this->postTitles, $index, 1);
+			return $id;
 		}
 
 		/**
-		 * 获取一个游戏内的所有图片
+		 * 随机获取一个游戏内的所有图片
 		 *
 		 * @return mixed $post0 || false
 		 */
 		private function newImages() {
 			do {
-				if(($offset = $this->randOffset()) === false) {
-					return false;
+				if(($id = $this->randID()) === false) {
+					continue;
 				}
 				$post = get_posts([
+					'include' => [$id],
 					'numberposts'=> 1,
-					'offset'=> $offset,
 					'category'=> [
 						256, 112					//只获取游戏类别
 					]
 				]);
-			}while(empty($post) or get_post_type($post[0]->ID) != 'post');			//如果offset是非游戏类别时会返回空
+			}while(empty($post));					//如果id是非游戏类别时会返回空
 
 			$post0 = new \stdClass();
 			$post0->id = $post[0]->ID;
 			$post0->imgs = [];
 
 			$content = $post[0]->post_content;
-			$imgCount = preg_match_all('/<img.*?\/?>/', $content, $imgs);
-			if($imgCount > 0) {
-				$post0->imgs = $imgs[0];
-			}
 			$imgCount = preg_match_all('/<slide>.+?<\/slide>/', $content, $imgs);
 			if($imgCount > 0) {
-				foreach($imgs[0] as $img)
-    	    	    array_push($post0->imgs, $img);
+				$post0->imgs = $imgs[0];
 			}
 
 			if(isset($post0) and count($post0->imgs) > 0)
 				return $post0;
 			else
-				return NULL;			//有些游戏没有图片
+				return false;			//有些游戏没有图片
 		}
 		
 		/**
@@ -91,12 +76,6 @@
 			$arrLen = count($imgs);
 			$i = random_int(0, $arrLen-1);
 			
-			$count = preg_match_all('/src=\".*?\"/', $imgs[$i], $tmp);
-			if($count > 0) {
-				$tmp = substr($tmp[0][0], 5);				//删除src="
-				$tmp = substr($tmp, 0, strlen($tmp)-1);		//删除最后的"
-				return $tmp;
-			}
 			$count = preg_match_all('/http.+</', $imgs[$i], $tmp);
 			if($count > 0) {
 				$tmp = substr($tmp[0][0], 0, -1);		//删除<
@@ -112,16 +91,15 @@
 		 * @param int $picNum
 		 * @return array $posts || false
 		 */
-		public function getImageSrcs($picNum = 4) : array {
+		public function getImageSrcs($picNum = 4) {
 			$i = 0;
 			while($i < $picNum) {
+				// 随机获取一个游戏内的所有图片
 				do {
 					$post = $this->newImages();
-					if(!is_array($post))
-						if($post === false)
-							return false;
-				}while(is_null($post));
+				}while($post === false);
 
+				// 从上面获取的游戏内随机选取一张的图片的URL
 				$src = $this->imageSrc($post->imgs);
 				if($src === false) 
 					continue;

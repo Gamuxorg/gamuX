@@ -112,7 +112,7 @@ str;
 			$url = $imageData->path_thumbnail;
 			$slides = $slides . str_replace('@placeholder', $url, self::slide_template) . "\n\n";
 		}
-		$slides = $slides = $slides . self::delimiter_end . "\n\n";
+		$slides = $slides . self::delimiter_end . "\n\n";
 
 		$content = wp_kses_post(wpautop($steamData->detailed_description)) . "\n\n";
 

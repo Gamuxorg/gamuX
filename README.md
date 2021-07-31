@@ -1,5 +1,5 @@
 # gamuX
-[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)  
 linuxgame.cn下一代主题，框架基于wordpress5.x，后端使用php 7.x，前端使用Vuejs。
 
 ## 体验
@@ -8,7 +8,7 @@ linuxgame.cn下一代主题，框架基于wordpress5.x，后端使用php 7.x，�
 git clone https://github.com/Gamuxorg/gamuX.git
 ```
 
-将文件夹放在wordpress的wp-content/themes里,在wordpress的后台切换主题即可。
+将文件夹放在wordpress的wp-content/themes里，plugins文件夹的内容拷贝到wp-content/plugins，在wordpress的后台启用gamux-slide-url插件、切换主题即可。
 
 在线体验地址为<http://next.linuxgame.cn>
 

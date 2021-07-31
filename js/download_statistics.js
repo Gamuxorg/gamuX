@@ -119,7 +119,8 @@ function get_download_yearly() {
                     center: ['50%', '50%'],
                     data: response.data,
                     label: {
-                        position: "inner"
+                        position: "inner",
+                        formatter: '{b}\n{c}'
                     },
                     labelLine: {
                         show: false
