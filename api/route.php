@@ -118,19 +118,27 @@ add_action('rest_api_init', function () {
 	));	
 });
 
-
-// 分类信息API，扩展的内置的API，依然可以使用内置API的查询参数
-// route: wp-json/gamux/v1/categories
+// 分类信息API，扩展的内置的API
+// route: wp-json/gamux/v1/categories(/?P<catid>\d+)
+// 查询参数请参考WP REST-API categories部分文档
 include("categories.php");
 add_action('rest_api_init', function () {
-	register_rest_route( 'gamux/v1', '/categories(/?)', array(
+	register_rest_route( 'gamux/v1', '/categories(/?|/(?P<catid>\d+))', array(
 		'methods' => 'GET',
-		'callback' => function() {
-			return \Gamux\get_the_categories();
-		},
+		'callback' => '\Gamux\get_the_categories',
 		'permission_callback' => function() {
 			return true;
-		}
+		},
+		'args' => array(
+			'catid' => array(
+				'validate_callback' => function($param, $request, $key) {
+					if(!empty($param))
+						return is_numeric($param);
+					else
+						return true;
+				}
+			)
+		)
 	));	
 });
 
