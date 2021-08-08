@@ -6,26 +6,30 @@ class Categories {
 	const games_all_term_taxonomy_id = 256;
 
 	public $actual_count;					//保存news_all 和 games_all两个分类的真实文章数量
-	public $catParents;						//保存每个分类的父母分类id
 	public $posts;							//保存每篇文章的所有分类
+	private $catParents;					//保存每个分类的父母分类id
+	private $categories;					//保存所有文章的ID和term_taxonomy_id
+
 
 	public function __construct() {
 		$this->actual_count = array(
 			self::news_all_term_taxonomy_id => 0,
 			self::games_all_term_taxonomy_id => 0
 		);
+		$this->get_categories();
+		$this->get_catParents();
 	}
 
 	/**
 	 * 获取所有文章的ID和term_taxonomy_id
 	 *
-	 * @return array
+	 * @return void
 	 */
 	private function get_categories() {
 		global $wpdb;
 		$post_ids = "SELECT ID FROM " . $wpdb->prefix . "posts WHERE post_type = 'post' AND post_status = 'publish' ORDER BY ID";
 		$sql = "SELECT object_id AS ID, term_taxonomy_id FROM wp_term_relationships WHERE object_id IN ($post_ids) ORDER BY ID";
-		return $wpdb->get_results($sql);		
+		$this->categories = $wpdb->get_results($sql);
 	}
 
 	/**
@@ -50,7 +54,6 @@ class Categories {
 	 * @return void
 	 */
 	private function calc_parent_type(array $posts) {
-		$this->get_catParents();
 		$catParents = $this->catParents;
 
 		foreach($posts as $post) {
@@ -85,7 +88,7 @@ class Categories {
 	 * @return array $actual_count
 	 */
 	public function get_actual_count() : array {
-		$term_taxonomy_ids = $this->get_categories();
+		$term_taxonomy_ids = $this->categories;
 
 		// 将属于同一个post的 term_taxonomy_id 合并到同一个数组成员
 		$posts = array();
@@ -107,7 +110,7 @@ class Categories {
 	 * @return array $cat_poist_ids[int] = string
 	 */
 	public function get_category_posts() :array {
-		$term_taxonomy_ids = $this->get_categories();
+		$term_taxonomy_ids = $this->categories;
 		$catParents = $this->catParents;
 
 		$cat_post_ids = [];
@@ -140,6 +143,12 @@ class Categories {
 					}
 				}
 			}
+		}
+
+		// 删除最后一个逗号
+		foreach($cat_post_ids as &$post_ids) {
+			if(!empty($post_ids)) 
+				$post_ids = substr($post_ids, 0, strlen($post_ids) - 1);
 		}
 		
 		return $cat_post_ids;
