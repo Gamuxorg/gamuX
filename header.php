@@ -19,12 +19,12 @@
 		?>
 	</title>
 	<link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/logo.ico">
-  <link crossorigin="anonymous" integrity="sha384-O56yuCW/A5HUnuYx7ap1CJOXGXqaD3BxgKS9EDLgNUpNIE2BY7KsLJ+H5yr+CXpf" href="https://lib.baomitu.com/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
+  <link crossorigin="anonymous" integrity="sha512-WYzwsHxfl8+qirF4V9ZyFULDBwxvm1kuCHlSd1F57JwALyQMxeq7j1blj4Y7pmP9r0tVMk7GYUI5xLDB7QIZCA==" href="//lib.baomitu.com/element-ui/2.15.3/theme-chalk/index.min.css" rel="stylesheet">
   <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/style.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <?php if(is_single()) { ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/single.css">
-    <link crossorigin="anonymous" integrity="sha384-Cr4NirNGPwhXoUPml2HA5PmMExeUuxM/oxUMDhMdSzUi9udHL+hdgDZZpq/2rOrp" href="https://lib.baomitu.com/quill/1.3.7/quill.snow.min.css" rel="stylesheet">
+    <link crossorigin="anonymous" integrity="sha384-Cr4NirNGPwhXoUPml2HA5PmMExeUuxM/oxUMDhMdSzUi9udHL+hdgDZZpq/2rOrp" href="//lib.baomitu.com/quill/1.3.7/quill.snow.min.css" rel="stylesheet">
   <?php } elseif(is_home()) { ?>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/index.css">
   <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'gamelist') != false)){ ?>
