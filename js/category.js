@@ -61,7 +61,7 @@ var category = new Vue({
             if (this.CURRENTID == 256) {
                 var handleCurrentChange_param = {
                     "per_page": 20,
-                    "include": this.POSTLIST.slice(20 * (this.CURRENTPAGE - 1), this.CURRENTPAGE * 20 - 1).join(',')
+                    "include": this.POSTLIST.slice(20 * (this.CURRENTPAGE - 1), this.CURRENTPAGE * 20).join(',')
                 }
             } else {
                 var handleCurrentChange_param = {
@@ -85,6 +85,7 @@ var category = new Vue({
                 method: 'get',
                 url: this.SITEURL + '/wp-json/wp/v2/categories',
                 params: {
+                    "per_page": 100,
                     "parent": 256
                 },
             });
@@ -107,7 +108,7 @@ var category = new Vue({
             if (this.CURRENTID == 256) {
                 var getPostJson_param = {
                     "per_page": 20,
-                    "include": this.POSTLIST.slice(20 * (this.CURRENTPAGE - 1), this.CURRENTPAGE * 20 - 1).join(',')
+                    "include": this.POSTLIST.slice(20 * (this.CURRENTPAGE - 1), this.CURRENTPAGE * 20).join(',')
                 }
             } else {
                 var getPostJson_param = {
@@ -154,6 +155,7 @@ var category = new Vue({
             this.CATSHOW = true;
             this.PAGISHOW = true;
         });
+        console.log(this.POSTDATA);
     },
 
 })
