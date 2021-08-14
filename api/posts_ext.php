@@ -96,6 +96,26 @@
 	}
 
 	/**
+	 * 获取游戏配置，切分成最低配置和推荐配置两部分
+	 *
+	 * @param $id 文章的id
+	 * @return array 
+	 */
+	function get_sysRequirements($id) : array {
+		$peizhi = get_post_meta($args['id'], 'peizhi', true),
+
+		preg_match("/最低配置.+(?=\n推荐配置)/s", $peizhi, $matches);
+		$minimum = $matches[0];
+		preg_match("/推荐配置.+/s", $peizhi, $matches);
+		$recommended = $matches[0];
+
+		return [
+			"minimum" => $minimum,
+			"recommended" => $recommended
+		];
+	}
+
+	/**
 	 * 获取游戏版本号，给首页和游戏列表用，不做下载链接中的检查
 	 *
 	 * @param $id 文章的id
@@ -274,7 +294,7 @@ doc;
 					"authorName" => get_the_author(),
 					"modAuthorName" => get_the_modified_author(),
 					"tagList" => get_the_tag_list(),
-					"sysRequirements" => get_post_meta($args['id'], 'peizhi', true),
+					"sysRequirements" => get_sysRequirements($args['id']),
 					"version" => get_versionInfo($args['id']),
 					"editHistorys" => get_editHistorys($args['id']),
 					"background" => get_post_meta($args['id'], 'bg', true)
