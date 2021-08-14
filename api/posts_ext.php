@@ -102,12 +102,22 @@
 	 * @return array 
 	 */
 	function get_sysRequirements($id) : array {
-		$peizhi = get_post_meta($args['id'], 'peizhi', true),
+		$peizhi = get_post_meta($id, 'peizhi', true);
 
 		preg_match("/最低配置.+(?=\n推荐配置)/s", $peizhi, $matches);
-		$minimum = $matches[0];
+		$minimum = isset($matches[0]) ? $matches[0] : "";
+		if(empty($minimum)) {
+			preg_match("/最低配置.+(?=推荐配置)/s", $peizhi, $matches);
+			$minimum = isset($matches[0]) ? $matches[0] : "";
+		}
+		// 只有最低配置
+		if(empty($minimum)) {
+			preg_match("/最低配置.+/s", $peizhi, $matches);
+			$minimum = isset($matches[0]) ? $matches[0] : "";
+		}
+
 		preg_match("/推荐配置.+/s", $peizhi, $matches);
-		$recommended = $matches[0];
+		$recommended = isset($matches[0]) ? $matches[0] : "";
 
 		return [
 			"minimum" => $minimum,
