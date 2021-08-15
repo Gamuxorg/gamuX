@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 			download_link_index+'" class="gamux-up-input" /><input type="text" placeholder="版本说明" name="dtitle_'+download_link_index+
 			'" class="gamux-text-input extra-text-input" />'+
 			'<input type="text" placeholder="备注" name="dcomment_'+download_link_index+'" class="gamux-upload-comment">'+
-			'<select name="darch_'+download_link_index+'" class="gamux-upload-arch" data="0"><option selected disabled>CPU架构</option><option>i386</option><option>amd64</option><option>armel</option><option>armhf</option><option>arm64</option><option>mips</option><option>mipsel</option><option>mips64</option><option>mips64el</option><option>powerpc</option><option>ppc64</option><option>ppc64el</option><option>riscv32</option><option>riscv64</option><option>s390x</option><option>sw64</option></select>'+
+			'<select name="darch_'+download_link_index+'" class="gamux-upload-arch" data="0"><option selected disabled>CPU架构</option><option>i386</option><option>amd64</option><option>arm64</option><option>mips64el</option><option>riscv64</option><option>sw64</option></select>'+
 			'<button type="button" class="gamux-up-button">上传</button><button type="button" class="gamux-upload-delete">-</button></div>');  
 	}); 
 	

@@ -103,21 +103,42 @@
 	 */
 	function get_sysRequirements($id) : array {
 		$peizhi = get_post_meta($id, 'peizhi', true);
+		$minimum = "";
+		$recommended = "";
 
-		preg_match("/最低配置.+(?=\n推荐配置)/s", $peizhi, $matches);
-		$minimum = isset($matches[0]) ? $matches[0] : "";
-		if(empty($minimum)) {
-			preg_match("/最低配置.+(?=推荐配置)/s", $peizhi, $matches);
-			$minimum = isset($matches[0]) ? $matches[0] : "";
+		if(!empty($peizhi)) {
+			// 中文
+			if(preg_match("/Minimum:/i", $peizhi) == 0) {
+				preg_match("/最低配置.+(?=推荐配置|建议配置)/s", $peizhi, $matches);
+				$minimum = isset($matches[0]) ? $matches[0] : "";
+				// 只有最低配置
+				if(empty($minimum)) {
+					preg_match("/最低配置.+/s", $peizhi, $matches);
+					$minimum = isset($matches[0]) ? $matches[0] : "";
+				}
+				$minimum = str_replace("\r\n\r\n", "\r\n", $minimum);
+				
+				preg_match("/(推荐配置|建议配置).+/s", $peizhi, $matches);
+				$recommended = isset($matches[0]) ? $matches[0] : "";
+			}
+			// 英文
+			else {
+				preg_match("/Minimum:.+(?=Recommended)/si", $peizhi, $matches);
+				$minimum = isset($matches[0]) ? $matches[0] : "";
+				// 只有最低配置
+				if(empty($minimum)) {
+					preg_match("/Minimum:.+/si", $peizhi, $matches);
+					$minimum = isset($matches[0]) ? $matches[0] : "";
+				}
+				$minimum = str_replace("\r\n\r\n", "\r\n", $minimum);
+				
+				preg_match("/Recommended:.+/si", $peizhi, $matches);
+				$recommended = isset($matches[0]) ? $matches[0] : "";
+			}
+			// 非steam获取、手动写的配置
+			if(empty($minimum) and empty($recommended))
+				$minimum = $peizhi;
 		}
-		// 只有最低配置
-		if(empty($minimum)) {
-			preg_match("/最低配置.+/s", $peizhi, $matches);
-			$minimum = isset($matches[0]) ? $matches[0] : "";
-		}
-
-		preg_match("/推荐配置.+/s", $peizhi, $matches);
-		$recommended = isset($matches[0]) ? $matches[0] : "";
 
 		return [
 			"minimum" => $minimum,
