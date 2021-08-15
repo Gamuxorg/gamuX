@@ -46,7 +46,7 @@
 			
 	}
 	else {
-		echo curl_error;
+		echo curl_error($curl);
 	}
 
 	curl_close($curl);

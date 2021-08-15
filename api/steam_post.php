@@ -97,7 +97,7 @@ str;
 	 * @return json
 	 */
 	private function request_steam_content($appid) {
-		return file_get_contents("https://next.linuxgame.cn/steam_header.php?appid=$appid");
+		return file_get_contents("https://www.linuxgame.cn/steam_header.php?appid=$appid");
 	}
 
 	/**
