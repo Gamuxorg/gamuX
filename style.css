@@ -63,7 +63,7 @@ a:active {
   min-height: 590px;
   display: grid;
   grid-template-columns: none;
-  grid-template-rows: 5rem 2rem 18rem 7rem auto 2rem;
+  grid-template-rows: 5rem 18rem 7rem auto 2rem 2rem;
   justify-items: center;
   align-items: center;
 }

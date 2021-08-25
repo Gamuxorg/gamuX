@@ -136,6 +136,7 @@ var category = new Vue({
             catdata = await this.getPostJson_gamux();
             //json中获取的posts的值是一个字符串，需要转化为数组
             let postlistr = catdata.posts;
+            console.log(postlistr);
             this.POSTLIST = postlistr.split(",");
             //数组倒序，将新文章排在旧文章前面
             this.POSTLIST = this.POSTLIST.reverse();

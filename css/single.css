@@ -33,12 +33,15 @@ code {
 /*
  * 文章主区域
 */
-#post-main {
-  border-right: solid 1px #e6e6e6;
-}
 #post-title {
   font-size: 2rem;
   font-weight: 700;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+}
+#post-carousel {
+  margin: 10px 0;
 }
 .el-carousel__item {
   text-align: center;
