@@ -220,9 +220,11 @@ add_action( 'admin_enqueue_scripts', '\Gamux\add_download_box_script' );
 function extra_meta_box($post) {
 	wp_nonce_field( 'rating_nonce_action', 'rating_nonce_name' );
 	$buy_key = 'buy_url';
-	$peizhi_key = 'peizhi';
+	$peizhi_min_key = 'peizhi_min';
+	$peizhi_rec_key = 'peizhi_rec';
 	$bg_key = 'bg';
-	$peizhi_value = get_post_meta( $post->ID, $peizhi_key, true);
+	$peizhi_min_value = get_post_meta( $post->ID, $peizhi_min_key, true);
+	$peizhi_rec_value = get_post_meta( $post->ID, $peizhi_rec_key, true);
 	$bg_value = get_post_meta( $post->ID, $bg_key, true);
 
 	//获取多个购买链接
@@ -252,8 +254,9 @@ function extra_meta_box($post) {
 	</div>
 	<label>背景图片，输入http(s)开头的url即可</label>
 	<input style="width: 100%;" name="bg" id="bg" value="$bg_value">
-	<label>运行配置</label>
-	<textarea name="peizhi" id="peizhi" style="width: 100%;" rows = "10">$peizhi_value</textarea>
+	<label>运行配置</label><br>
+	<textarea name="peizhi_min" id="peizhi_min" style="width: 48%;" rows="10" placeholder="最低配置">$peizhi_min_value</textarea>
+	<textarea name="peizhi_rec" id="peizhi_rec" style="width: 48%;margin-left:1%;" rows="10" placeholder="推荐配置">$peizhi_rec_value</textarea>
 str;
 	echo $html;
 }
@@ -286,8 +289,10 @@ function save_extra_meta_box( $post_id ) {
 	$buy_key = 'buy_url';
 	$buy_url_array = $_POST['buy_url'];
 	$buy_store_array = $_POST['buy_store'];
-	$peizhi_key = 'peizhi';
-	$peizhi_value = $_POST['peizhi'];
+	$peizhi_min_key = 'peizhi_min';
+	$peizhi_min_value = $_POST[$peizhi_min_key];
+	$peizhi_rec_key = 'peizhi_rec';
+	$peizhi_rec_value = $_POST[$peizhi_rec_key];
 	$bg_key = 'bg';
 	$bg_value = $_POST['bg'];
 
@@ -306,7 +311,8 @@ function save_extra_meta_box( $post_id ) {
 		$buy_json = str_replace("\\u", "\\\\u", $buy_json);		//防止wp写入数据库时删掉了UTF8转义符号
 		update_post_meta( $post_id, $buy_key.'_'.$i, $buy_json);
 	}
-	update_post_meta( $post_id, $peizhi_key, $peizhi_value );
+	update_post_meta( $post_id, $peizhi_min_key, $peizhi_min_value );
+	update_post_meta( $post_id, $peizhi_rec_key, $peizhi_rec_value );
 	update_post_meta( $post_id, $bg_key, $bg_value );
 }
 add_action( 'save_post', '\Gamux\save_extra_meta_box' );
