@@ -137,11 +137,9 @@ str;
 	 * 修正配置字段中的HTML标签
 	 *
 	 * @param string $minimum
-	 * @param string $recommended
-	 * @return $str3
+	 * @return string $str3
 	 */
-	private function fix_peizhi(string $minimum, string $recommended) {
-		$str = $minimum . "\n\n" . $recommended;
+	private function fix_peizhi(string $str) : string {
 		$str2 = str_replace("<br>", "\n", $str);
 		$str3 = sanitize_textarea_field($str2);
 		return $str3;
@@ -226,7 +224,8 @@ str;
 		// 配置信息
 		$minimum = isset($steamData->linux_requirements->minimum) ? $steamData->linux_requirements->minimum : "";
 		$recommended = isset($steamData->linux_requirements->recommended) ? $steamData->linux_requirements->recommended : "";
-		$peizhi = $this->fix_peizhi($minimum, $recommended);
+		$peizhi_min = $this->fix_peizhi($minimum);
+		$peizhi_rec = $this->fix_peizhi($recommended);
 
 		// 移除轮播修正钩子
 		remove_filter('content_save_pre', '\Gamux\filter_slides_delimiter');
@@ -241,7 +240,8 @@ str;
 			'post_category '		=> $cats,
 			'meta_input'			=> [
 				'buy_url_0' => $buy_json,
-				'peizhi' 	=> $peizhi,
+				'peizhi_min' 	=> $peizhi_min,
+				'peizhi_rec' 	=> $peizhi_rec,
 				'bg'		=> $steamData->background,
 			]
 		]);
