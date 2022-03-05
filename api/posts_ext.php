@@ -102,8 +102,8 @@
 	 * @return array 
 	 */
 	function get_sysRequirements($id) : array {
-		$minimum = get_post_meta($id, 'peizhi_min', true);;
-		$recommended = get_post_meta($id, 'peizhi_rec', true);;
+		$minimum = get_post_meta($id, 'peizhi_min', true);
+		$recommended = get_post_meta($id, 'peizhi_rec', true);
 
 		return [
 			"minimum" => $minimum,
@@ -120,11 +120,15 @@
 	function get_versionInfo($id) {
 		$count = gamux_down_count($id);
 		$gamux_down = down_var();
+		$ver = "";
 		$version = "";
 
-		if($count > 0) {				//有下载链接, 返回第一个的版本号
-			$i = 0;
-			$version = get_post_meta($id, $gamux_down['title'].'_'.$i, true);
+		if($count > 0) {				//有下载链接, 返回最新的版本号
+			for($i = 0; $i < $count; $i++) {
+				$ver = get_post_meta($id, $gamux_down['title'].'_'.$i, true);
+				if(strcmp($ver, $version) > 0)			//比较方法可能有点问题-_-||
+					$version = $ver;
+			}
 		}
 		return $version;
 	}

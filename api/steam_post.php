@@ -136,7 +136,7 @@ str;
 	/**
 	 * 修正配置字段中的HTML标签
 	 *
-	 * @param string $minimum
+	 * @param string $str
 	 * @return string $str3
 	 */
 	private function fix_peizhi(string $str) : string {
