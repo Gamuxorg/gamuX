@@ -71,8 +71,8 @@ add_action( 'rest_api_init', function () {
 	));
 });
 
-// 根据Steam appid 拉取Steam游戏信息，创建一篇文章，带上GET查询参数?post_id时更新对应文章
-// route: wp-json/gamux/v1/steam/(?P<appid>\d+)?post_id=\d*
+// 根据Steam appid 拉取Steam游戏信息，创建一篇文章，带上GET查询参数?post_id时更新对应文章, use_win跳过支持linux平台检查
+// route: wp-json/gamux/v1/steam/(?P<appid>\d+)?post_id=\d*&use_win=bool
 include("steam_post.php");
 add_action('rest_api_init', function () {
 	register_rest_route( 'gamux/v1', '/steam/(?P<appid>\d+)', array(

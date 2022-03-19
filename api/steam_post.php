@@ -44,11 +44,13 @@ str;
 
 	public $appid;
 	public $postID;
+	public $use_win;
 	public $siteCats;
 
-	public function __construct($appid, $postID) {
+	public function __construct($appid, $postID, $use_win) {
 		$this->appid = $appid;
 		$this->postID = $postID;
+		$this->use_win = $use_win;
 		$this->siteCats = [						//这里的name更多的是为了能够match到Steam的分类，和数据库中的不一致
 			// steam 标签
 			// [ "id" => 256, "name" => "游戏" ],
@@ -198,16 +200,21 @@ str;
 	 */
 	public function new_post() {
 		$appid = $this->appid;
+		$requirement_key = "linux_requirements";
 
 		$json = $this->request_steam_content($appid);
-		if($json != -1) {
+		if(!empty($json) and $json != false) {
 			$steamData = json_decode($json)->$appid->data;
 		}
 		else
 			return $this->exceptions(-1, "Failed to fetch Steam post content, please try again later.");
 
-		if($steamData->platforms->linux == false)
-			return $this->exceptions(-2, "The Game doesn't not support Linux platform.");
+		if($steamData->platforms->linux !== true) {
+			if(!empty($this->use_win))
+				$requirement_key = "pc_requirements";
+			else
+				return $this->exceptions(-2, "The Game doesn't not support Linux platform.");
+		}
 
 		$content = $this->fix_content($steamData, $appid);
 		
@@ -222,8 +229,8 @@ str;
 		$buy_json = str_replace("\\u", "\\\\u", $buy_json);		//防止wp写入数据库时删掉了UTF8转义符号
 
 		// 配置信息
-		$minimum = isset($steamData->linux_requirements->minimum) ? $steamData->linux_requirements->minimum : "";
-		$recommended = isset($steamData->linux_requirements->recommended) ? $steamData->linux_requirements->recommended : "";
+		$minimum = isset($steamData->$requirement_key->minimum) ? $steamData->$requirement_key->minimum : "";
+		$recommended = isset($steamData->$requirement_key->recommended) ? $steamData->$requirement_key->recommended : "";
 		$peizhi_min = $this->fix_peizhi($minimum);
 		$peizhi_rec = $this->fix_peizhi($recommended);
 
@@ -274,7 +281,8 @@ str;
 	 */
 	function steam_init($args) {
 		$post_id = isset($_GET['post_id']) ? $_GET['post_id'] : '';
-		$steam = new Steam($args->get_param('appid'), $post_id);
+		$use_win = isset($_GET['use_win']) ? $_GET['use_win'] : '';
+		$steam = new Steam($args->get_param('appid'), $post_id, $use_win);
 		$ret = $steam->new_post();
 
 		if(is_numeric($ret)) {
