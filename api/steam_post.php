@@ -210,7 +210,7 @@ str;
 			return $this->exceptions(-1, "Failed to fetch Steam post content, please try again later.");
 
 		if($steamData->platforms->linux !== true) {
-			if(!empty($this->use_win))
+			if($this->use_win == "true")
 				$requirement_key = "pc_requirements";
 			else
 				return $this->exceptions(-2, "The Game doesn't not support Linux platform.");
