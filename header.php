@@ -43,6 +43,11 @@
 <header id="header">
   <div id="header-div">
     <div id="site-logo"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">GAMUX</a></div>
+    <div>
+      <el-form action="search" method="get" class="demo-form-inline">
+          <input type="text" placeholder="请输入搜索内容" id="header-search" name="s" size="small">
+      </el-form>
+    </div>
 
     <el-row id="header-row">
       <el-col id="header-col">
@@ -76,7 +81,7 @@
         </el-menu>
       </el-col>
     </el-row>
-    <!--login-->
+  
     <div id="avatar" v-if="islogin == 0">
       <div class="block avatar-inner">
         <el-button class="login-button" type="text" ref="login" @click="dialogloginVisible = true">点击登录</el-button>
@@ -90,7 +95,8 @@
         </div>
       </div>      
     </div>
-    <!--login-alert-->
+
+    <!--弹窗登录-->
     <el-dialog title="网站登录" class="login-dialog" :visible.sync="dialogloginVisible">
       <div class="github-login login-dialog-list">        
         <a href="<?php echo \Gamux\github_login_url(); ?>">
@@ -120,16 +126,26 @@
         </a>
       </div>
     </el-dialog>
-    <!--search-->
-    <div id="search-header">
-      <el-form action="search" method="get" class="demo-form-inline">
-          <input type="text" placeholder="请输入搜索内容" id="header-search" name="s" size="small">
-      </el-form>
-    </div>
 
-    <div id="beian">
-      <!-- <a href="https://beian.miit.gov.cn/" target="_blank"><?php echo get_option( 'zh_cn_l10n_icp_num' );?></a> -->
-    </div>
+    <!--弹窗添加新游戏-->
+    <el-dialog title="添加新游戏" class="create-dialog" :visible.sync="createVisible">
+      <div class="create-manual create-new">
+        <a href="<?php echo esc_url( site_url( '/' ) ).'wp-admin/post-new.php' ?>">
+          <el-button type="primary">
+            手动创建新游戏
+          </el-button>
+        </a>
+      </div>
+      <div class="create-steam create-new">
+        <el-input placeholder="steam游戏的数字ID" v-model="steamid" class="create-input">
+          
+            <el-button slot="append" @click="createSteam()">自动创建</el-button>
+
+        </el-input>
+      </div>
+    </el-dialog>
+
+    <div id="yuliu"></div>
     <div id="techfrom">
       <span class="wplogo"><img src="<?php bloginfo('template_url'); ?>/img/wplogo.png"></span>
       <span class="vuelogo"><img src="<?php bloginfo('template_url'); ?>/img/vuelogo.png"></span>

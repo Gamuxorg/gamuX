@@ -7,7 +7,7 @@ get_header(); ?>
 <el-row :gutter="10">
 
   <!--首页轮播-->
-  <el-col class="car-col-1" ref="carcol1" :xs="24" :sm="12" :md="12" :lg="10">
+  <el-col class="car-col-1" ref="carcol1" :xs="24" :sm="10" :md="10" :lg="10">
    <el-carousel class="car-car" :interval="5000" arrow="always" indicator-position="none">
     <el-carousel-item v-for="item in slidedata" :key="item.id">
       <a :href="item.postLink" target="_blank"><img :src="item.imageSrc"></a>
@@ -15,7 +15,7 @@ get_header(); ?>
    </el-carousel>
   </el-col>
 
-  <el-col class="car-col-2" ref="carcol2" :xs="24" :sm="12" :md="12" :lg="9" :style="{height: carHeight + 'px'}">
+  <el-col class="car-col-2" ref="carcol2" :xs="24" :sm="10" :md="10" :lg="9" :style="{height: carHeight + 'px'}">
 
   <?php 
     query_posts("showposts=14&category_name=news"); if (have_posts()) : while (have_posts()) : the_post();
@@ -25,8 +25,16 @@ get_header(); ?>
   <?php wp_reset_query(); ?>
   </el-col>
 
-  <el-col class="car-col-3" :xs="0" :sm="0" :md="0"  :lg="5">
-  123
+  <el-col class="car-col-3" :xs="24" :sm="4" :md="4"  :lg="5" :style="{height: carHeight + 'px'}">
+    <div class="car-col3-first">
+      现有游戏：206
+    </div>
+    <div class="car-col3-second">
+      <hr class="car-col3-second-hr" />
+    </div>
+    <div class="car-col3-third">
+      <el-button class="car-col3-third-button" ref="create" type="text" @click="createVisible()" >添加新游戏</el-button>
+    </div>
   </el-col>
 
 </el-row>

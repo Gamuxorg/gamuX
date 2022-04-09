@@ -1,181 +1,251 @@
 :root {
-  --imgbase: 110;
-  --imgheight: calc(var(--imgbase) * 1px);
-  --imgwidth: calc(var(--imgbase) * 324 / 151 * 1px);
+    --imgbase: 110;
+    --imgheight: calc(var(--imgbase) * 1px);
+    --imgwidth: calc(var(--imgbase) * 324 / 151 * 1px);
 }
+
 #inner-section>div,
 #inner-section>section {
-  width:100%;
+    width: 100%;
 }
+
+
 /*
  **********************区分线**********************************
 */
+
 .underline {
-  height: 1.5rem;
-  margin: 1rem auto;
-  border-bottom: 2px dashed #409eff;
-  color:  #409eff;
-}
-.ul-left {
-  position: relative;
-  float: left;
-  height: 1.5rem;
-  line-height: 1.5rem;
-  font-weight: 700;
-}
-.ul-right {
-  position: relative;
-  float: right;
-  font-size: 12px;
-  height: 1.5rem;
-  line-height: 1.5rem;
+    height: 1.5rem;
+    margin: 1rem auto;
+    border-bottom: 2px dashed #409eff;
+    color: #409eff;
 }
 
+.ul-left {
+    position: relative;
+    float: left;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+}
+
+.ul-right {
+    position: relative;
+    float: right;
+    font-size: 12px;
+    height: 1.5rem;
+    line-height: 1.5rem;
+}
+
+
 /*
- ***********************轮播/新闻显示区域************************
+ ***********************轮播/新闻/新建显示区域************************
 */
+
 .car-car>.el-carousel__container {
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.17%;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.17%;
 }
+
 .car-car img {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
+
 .car-col-2 {
-  overflow-y: hidden;
+    overflow-y: hidden;
 }
+
 .car-col2-first,
 .car-col2-second {
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
 .car-col2-first {
-  height: 2rem;
-  line-height: 2rem;
+    height: 2rem;
+    line-height: 2rem;
 }
+
 .car-col2-first a {
-  color: #1989fa;
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-decoration: none;
+    color: #1989fa;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
 }
+
 .car-col2-second a {
-  color: dimgray;
-  text-decoration: none;
+    color: dimgray;
+    text-decoration: none;
 }
+
+.car-col-3 {
+    display: grid;
+    grid-template-rows: 65% 5% 30%;
+    justify-items: center;
+    align-items: center;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #1989fa;
+    border-radius: 2%;
+    background-color: #1989fa;
+    color: #ffffff;
+}
+
+.car-col3-first {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.car-col3-second {
+    width: 100%;
+}
+
+.car-col3-second-hr {
+    border: 0;
+    border-top: 2px dashed #ffffff;
+}
+
+.car-col3-third span {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
 
 /*
  ***********************游戏卡片显示区域************************
 */
+
 #cards {
-  display: grid;
-/*   
+    display: grid;
+    /*   
  * 图片尺寸为宽*高，但el-card还有1px的border，需要宽+2px
 */
-  grid-template-columns: repeat(auto-fill, calc(var(--imgwidth) + 2px));
-  grid-gap: 20px 30px;
-  justify-content: space-evenly;
-  justify-items: center;
-  margin: 0;
+    grid-template-columns: repeat(auto-fill, calc(var(--imgwidth) + 2px));
+    grid-gap: 20px 30px;
+    justify-content: space-evenly;
+    justify-items: center;
+    margin: 0;
 }
+
 #cards .el-card__body {
-  padding: 0;
+    padding: 0;
 }
+
 #cards>.card {
-  border-radius: 5px;
-  box-shadow: 5px 3px 10px 2px rgba(0,0,0,.1);
+    border-radius: 5px;
+    box-shadow: 5px 3px 10px 2px rgba(0, 0, 0, .1);
 }
+
 #cards>.card:hover {
-  border: 1px solid dodgerblue;
-  box-shadow: 3px 2px 6px 0px rgba(30,144,255,.5);  
+    border: 1px solid dodgerblue;
+    box-shadow: 3px 2px 6px 0px rgba(30, 144, 255, .5);
 }
+
 .pic {
-  height: var(--imgheight);
+    height: var(--imgheight);
 }
+
 .pic img {
-  width: var(--imgwidth);
-  height: var(--imgheight);
+    width: var(--imgwidth);
+    height: var(--imgheight);
 }
+
 .game-info {
-  padding: 2px 0;
-  width: var(--imgwidth);
+    padding: 2px 0;
+    width: var(--imgwidth);
 }
+
 .game-name-sort,
 .game-version-date {
-  width: calc(var(--imgwidth) * 0.95);
-  height: 1.2rem;
-  line-height: 1.2rem;
-  margin: 0 auto;
-  overflow: hidden;
+    width: calc(var(--imgwidth) * 0.95);
+    height: 1.2rem;
+    line-height: 1.2rem;
+    margin: 0 auto;
+    overflow: hidden;
 }
+
 .game-name,
 .game-version,
 .game-sort,
 .game-date {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
 }
+
 .game-name,
 .game-version {
-  width: calc(var(--imgwidth) * 0.95 - 80px);
+    width: calc(var(--imgwidth) * 0.95 - 80px);
 }
+
 .game-version,
 .game-sort,
 .game-date {
-  font-size: .8rem;
+    font-size: .8rem;
 }
+
 .game-sort,
 .game-date {
-  width: 80px;
-  text-align: right;
-  font-size: .8rem;
+    width: 80px;
+    text-align: right;
+    font-size: .8rem;
 }
+
 .game-sort>button {
-  padding: 0;
+    padding: 0;
 }
+
 .game-date {
-  color: darkgrey;
+    color: darkgrey;
 }
+
 
 /*
  ***************************杂货铺******************************
 */
+
 .comment-card>div {
-  padding: 4px 8px;
+    padding: 4px 8px;
 }
+
 .comment-text {
-  min-height: 1.2rem;
-  padding-top: 0.3rem;
-  border-bottom: 1px dotted #333333;
+    min-height: 1.2rem;
+    padding-top: 0.3rem;
+    border-bottom: 1px dotted #333333;
 }
+
 .comment-text .reply-game {
-  float: left;
-  margin-right: 3px;
-  margin-top: -3px;
+    float: left;
+    margin-right: 3px;
+    margin-top: -3px;
 }
+
 .comment-text .el-tag {
-  height: 1.3rem;
-  line-height: 1.3rem;
-  padding: 0 2px;
+    height: 1.3rem;
+    line-height: 1.3rem;
+    padding: 0 2px;
 }
+
 .comment-text a {
-  text-decoration: none;
-  font-size: 0.9rem;
+    text-decoration: none;
+    font-size: 0.9rem;
 }
+
 .comment-reply {
-  font-size: 0.7rem;
-  margin-right: 0.5rem;
+    font-size: 0.7rem;
+    margin-right: 0.5rem;
 }
+
 .comment-reply>.el-badge__content {
-  height: 10px;
-  font-size: 0.5rem;
-  padding: 1px 3px;
-  line-height: 10px;
-  background-color: #efc9ffc9;
+    height: 10px;
+    font-size: 0.5rem;
+    padding: 1px 3px;
+    line-height: 10px;
+    background-color: #efc9ffc9;
 }

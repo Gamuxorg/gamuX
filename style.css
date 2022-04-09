@@ -13,186 +13,246 @@ Text Domain: gamuX
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 */
-html,body {
-  margin: 0;
-  padding: 0;
+
+html,
+body {
+    margin: 0;
+    padding: 0;
 }
+
 .clear {
-  clear: both;
+    clear: both;
 }
+
 #container {
-  display: flex;
-  height: 100vh;
+    display: flex;
+    height: 100vh;
 }
+
 .aliicon {
-    width: 1em; 
+    width: 1em;
     height: 1em;
     vertical-align: -0.15em;
     fill: currentColor;
     overflow: hidden;
 }
+
 a:link,
 a:visited,
 a:hover,
 a:active {
-  text-decoration: none;
-  color: unset;
+    text-decoration: none;
+    color: unset;
 }
+
+
 /**
  * 头部
  */
+
 @media screen and (max-width: 614px) {
     #header {
         display: none;
     }
 }
+
 @media screen and (min-width: 615px) {
     #header {
         display: block;
     }
 }
+
 #header {
-  height: 100vh;
-  border-right: solid 1px #e6e6e6;
-  box-shadow: 1px 0 1px 1px rgba(230,230,230,0.2);
-  overflow: hidden;
-  width: 200px;
+    height: 100vh;
+    border-right: solid 1px #e6e6e6;
+    box-shadow: 1px 0 1px 1px rgba(230, 230, 230, 0.2);
+    overflow: hidden;
+    width: 200px;
 }
+
 #header-div {
-  height: 100vh;
-  min-height: 590px;
-  display: grid;
-  grid-template-columns: none;
-  grid-template-rows: 5rem 18rem 7rem auto 2rem 2rem;
-  justify-items: center;
-  align-items: center;
+    height: 100vh;
+    min-height: 590px;
+    display: grid;
+    grid-template-columns: none;
+    grid-template-rows: 5rem 2rem 18rem 7rem auto 3rem;
+    justify-items: center;
+    align-items: center;
 }
+
 #header-row,
 #header-col {
-  width: 100%;
+    width: 100%;
 }
+
 #site-logo a {
-  text-decoration: none;
-  color: #409eff;
+    text-decoration: none;
+    color: #409eff;
 }
+
 #techfrom {
-  align-self: flex-end; 
+    align-self: flex-end;
 }
-#site-logo  {
-  font-size: 2.5rem;
-  font-weight: 700;
-  font-family: 'Roboto', sans-serif;
+
+#site-logo {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
 }
+
 #header-search,
 #header-search:active,
 #header-search:focus {
-  width: 160px;
-  border-top: hidden;
-  border-left: hidden;
-  border-right: hidden;
-  outline: none;
-  border-bottom-color: darkgray;
-  border-bottom-width: 1px;
-}
-#left-menu>li.el-menu-item{
-  font-size: 1rem;
-  height: 45px;
-  line-height: 45px;
-}
-.el-menu-item>i {
-  margin-left: 20px;
-}
-.el-menu {
-  border-right: none;
-}
-div#beian {
-  align-self: flex-end;
-  margin-bottom: 15%;
-  display: inline-flex;
-}
-#techfrom {
-  display: inline-flex;
-  margin-bottom: 1rem;
-}
-#techfrom span {
-  margin: 0 0.5rem;
-  width: 1.6rem;
-  height: 1.6rem;
-  border-radius: 50%;
-  border: 2px solid gray;
-}
-#techfrom img {
-  width: 1.6rem;
-  height: 1.6rem;
-}
-.elementlogo>i {
-  font-size: 1.6rem;
-  color: gray;
-}
-/* logined */
-#avatar {
-  text-align: center;
-  width: 100%;
-}
-.avatar-inner {
-  background-color: #409eff;
-}
-.login-button span {
-  color: #fff;
-  font-weight: 700;
-}
-#avatar>.header-avatar>.el-image {
-  width: 64px;
-  height: 64px;
-  border: solid 1px darkgray;
-  border-radius: 100%;
+    width: 160px;
+    border-top: hidden;
+    border-left: hidden;
+    border-right: hidden;
+    outline: none;
+    border-bottom-color: darkgray;
+    border-bottom-width: 1px;
 }
 
+#left-menu>li.el-menu-item {
+    font-size: 1rem;
+    height: 45px;
+    line-height: 45px;
+}
+
+.el-menu-item>i {
+    margin-left: 20px;
+}
+
+.el-menu {
+    border-right: none;
+}
+
+div#beian {
+    align-self: flex-end;
+    margin-bottom: 15%;
+    display: inline-flex;
+}
+
+#techfrom {
+    display: inline-flex;
+    margin-bottom: .5rem;
+}
+
+#techfrom span {
+    margin: 0 0.5rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    border: 2px solid gray;
+}
+
+#techfrom img {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.elementlogo>i {
+    font-size: 1.6rem;
+    color: gray;
+}
+
+
+/* logined */
+
+#avatar {
+    text-align: center;
+    width: 100%;
+}
+
+.avatar-inner {
+    background-color: #409eff;
+}
+
+.login-button span {
+    color: #fff;
+    font-weight: 700;
+}
+
+#avatar>.header-avatar>.el-image {
+    width: 64px;
+    height: 64px;
+    border: solid 1px darkgray;
+    border-radius: 100%;
+}
 
 .login-dialog .el-dialog__body {
-  padding: 10px 0 20px 20%;
+    padding: 10px 0 20px 20%;
 }
+
 .login-dialog>.el-dialog {
-  width: 20rem;
-  margin-top: 20vh!important;
+    width: 20rem;
+    margin-top: 20vh!important;
 }
+
 .login-dialog .el-dialog__title {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
 }
+
 .login-dialog-list {
-  width: 80%;
-  margin: 15px 0;
+    width: 80%;
+    margin: 15px 0;
 }
+
 .login-dialog-list .aliicon {
-  margin-right: .3rem;
+    margin-right: .3rem;
 }
+
 .login-dialog-list button {
-  text-align: left;
+    text-align: left;
 }
+
 .login-dialog-list button span {
-  font-size: 1.1rem;
+    font-size: 1.1rem;
 }
+
 .login-dialog-list a,
 .login-dialog-list button {
-  width: 100%;
+    width: 100%;
 }
+
+
+/* create new post */
+
+.create-dialog .el-dialog {
+    width: 20rem;
+}
+
+.create-new {
+    padding-bottom: .7rem;
+}
+
+.create-manual .el-button {
+    width: 100%;
+}
+
+.create-dialog .el-dialog__body {
+    padding: 0 .7rem;
+}
+
 
 /**
  * 主区域
  *
  */
+
 #section {
-  flex-grow: 1;
-  overflow-y: scroll;
-  display: block;
-  width: min-content;
+    flex-grow: 1;
+    overflow-y: scroll;
+    display: block;
+    width: min-content;
 }
 
 #inner-section {
-  position: relative;
-  width: 98%;
-  margin: 1rem auto;
+    position: relative;
+    width: 98%;
+    margin: 1rem auto;
 }
+
+
 /**
  * 底部
  */
