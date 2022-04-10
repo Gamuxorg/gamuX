@@ -2,6 +2,12 @@
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)  
 linuxgame.cn下一代主题，框架基于wordpress5.x，后端使用php 7.x，前端使用Vuejs。
 
+## 依赖
+需要安装并启用以下php扩展
+```shell
+pecl installl propro raphf pecl_http
+```
+
 ## 体验
 
 ```shell
@@ -9,8 +15,6 @@ git clone https://github.com/Gamuxorg/gamuX.git
 ```
 
 将文件夹放在wordpress的wp-content/themes里，plugins文件夹的内容拷贝到wp-content/plugins，在wordpress的后台启用gamux-slide-url插件、切换主题即可。
-
-在线体验地址为<http://next.linuxgame.cn>
 
 ## 贡献
 
@@ -28,7 +32,7 @@ git clone https://github.com/Gamuxorg/gamuX.git
 * [x] 更精确的数据统计
 * [x] 更人性化的评论系统
 * [x] 兼容wordpress 5.x
-* [ ] 优化后台数据库表
+* [ ] ~~优化后台数据库表~~
 * [ ] 编写网站的隐私政策
 * [x] 修复github用户获取昵称不正确bug，当前部分用户显示为github_xxxx
 * [x] 轮播和文章中的图片进行分离，专门为轮播图片在后台增加上传模块（只贴url即可）

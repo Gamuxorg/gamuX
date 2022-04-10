@@ -16,7 +16,7 @@ var gamux = new Vue({
     },
     methods: {
         createSteam: function() {
-            window.open(gamux.siteurl + "/wp-json/gamux/v1/steam/" + this.steamid);
+            window.open(gamux.siteurl + "/wp-json/gamux/v1/steam/" + this.steamid + "?_wpnonce=" + wpApiSettings.nonce);
         },
         openUnreadComment: function(url, num) {
             this.$notify.info({
