@@ -76,7 +76,7 @@
           </el-menu-item>
           <el-menu-item index="6">
             <i class="el-icon-milk-tea"></i>
-            <span slot="title">打赏本站</span>
+            <span slot="title"><a :href="siteurl + '/donate-gamux-cash'" target="_blank">打赏本站</a></span>
           </el-menu-item>   
         </el-menu>
       </el-col>
