@@ -58,6 +58,8 @@ var game = new Vue({
             size: 'large'
         }],
         comments: [],
+        equipmin: '',
+        equiprecom: '',
         comnum: 0,
         parentId: 0,
         rootparent: 0,
@@ -218,6 +220,10 @@ var game = new Vue({
         this.postname = postdata.title.rendered;
         this.postcontent = postdata.exts.content.body;
         this.postslide = postdata.exts.content.slides;
+
+        //配置
+        this.equipmin = postdata.exts.sysRequirements.minimum;
+        this.equiprecom = postdata.exts.sysRequirements.recommended;
 
         //下载链接
         this.downloadlist = postdata.exts.downloadList;

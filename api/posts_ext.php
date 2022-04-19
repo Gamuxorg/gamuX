@@ -102,8 +102,8 @@
 	 * @return array 
 	 */
 	function get_sysRequirements($id) : array {
-		$minimum = get_post_meta($id, 'peizhi_min', true);
-		$recommended = get_post_meta($id, 'peizhi_rec', true);
+		$minimum = nl2br(get_post_meta($id, 'peizhi_min', true));
+		$recommended = nl2br(get_post_meta($id, 'peizhi_rec', true));
 
 		return [
 			"minimum" => $minimum,

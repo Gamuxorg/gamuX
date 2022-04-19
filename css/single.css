@@ -74,6 +74,25 @@ slide {
     width: 85%!important;
 }
 
+.game-equipment {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: top;
+    background-color: #1989fa;
+    color: lavenderblush;
+}
+
+.game-equipment div {
+    font-size: 1rem;
+    display: inline;
+    line-height: 1.5rem;
+    padding: .5rem;
+}
+
+.game-equipment-min {
+    border-right: 2px dashed #ffffff;
+}
+
 
 /* 下载 */
 

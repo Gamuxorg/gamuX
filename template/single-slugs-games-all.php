@@ -21,7 +21,11 @@ get_header(); ?>
     <section class="game-content">
       <div id="post-intro" v-html="postcontent"></div>
     </section>
-   
+    <section class="game-equipment">
+      <div class="game-equipment-min" v-html=equipmin></div>
+      <div class="game-equipment-recom" v-html=equiprecom></div>
+    </section>
+
     <!--评论-->
     <el-divider></el-divider>
     <section class="post-commit"  v-if="comnum > 0">
