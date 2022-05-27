@@ -18,7 +18,7 @@
 	 * @return array $response
 	 */
 	function get_download_count() {
-		$response = json_decode(file_get_contents("https://kr.linuxgame.cn:8088/get_download_data.php?" . $_SERVER["QUERY_STRING"]), true);
+		$response = json_decode(file_get_contents("https://www.linuxgame.cn/get_download_data.php?" . $_SERVER["QUERY_STRING"]), true);
 		if($response['code'] == 0) {
 			$data = array();
 			ksort($response['data']);

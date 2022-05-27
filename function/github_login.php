@@ -167,7 +167,7 @@ class Github_Oauth extends Oauth2{
 		$current_user = get_currentuserinfo();
 		$id = $current_user->ID;
 		$github_id = get_user_meta($id, 'github_id', true);
-		$avatar = 'https://kr.linuxgame.cn:8088/git_avatar.php?id='. $github_id;
+		$avatar = "https://avatars2.githubusercontent.com/u/$github_id?v=3";
 		$name = $current_user->display_name;
 		return array($name, $avatar);
 	}

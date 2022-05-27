@@ -73,7 +73,7 @@ function get_download_yearly() {
     }
     year = year.value;
 
-    $.get("https://kr.linuxgame.cn:8088/get_download_data.php?action=yearly&post_id=0&para=" + year, "", function(response) {
+    $.get("https://www.linuxgame.cn/get_download_data.php?action=yearly&post_id=0&para=" + year, "", function(response) {
         if(response.code != 0) {
             $("#download_yearly_error_msg").text(response.message);
             setTimeout(()=>$("#download_yearly_error_msg").text(""), 2200);
@@ -306,7 +306,7 @@ function get_download_data() {
     }
     var action = $("#download_action").val();
     
-    $.get("https://kr.linuxgame.cn:8088/get_download_data.php?post_id=" + post_id + "&action=" + action, "", function(response) {
+    $.get("https://www.linuxgame.cn/get_download_data.php?post_id=" + post_id + "&action=" + action, "", function(response) {
         if(response.code != 0) {
             $("#download_data_error_msg").text(response.message);
             setTimeout(()=>$("#download_data_error_msg").text(""), 2200);
