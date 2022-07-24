@@ -27,7 +27,7 @@ get_header(); ?>
 
   <el-col class="car-col-3" :xs="24" :sm="4" :md="4"  :lg="5" :style="{height: carHeight + 'px'}">
     <div class="car-col3-first">
-      现有游戏：206
+      现有游戏：{{ gamecount }}
     </div>
     <div class="car-col3-second">
       <hr class="car-col3-second-hr" />

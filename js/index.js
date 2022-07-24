@@ -10,6 +10,7 @@ var index = new Vue({
         siteurl: "",
         cateidlist: [],
         steamid: 0,
+        gamecount: 0
     },
     methods: {
         createVisible: function() {
@@ -49,6 +50,13 @@ var index = new Vue({
             });
             return a.data;
         },
+        getCatGamesJson: async function() {
+            const a = await axios({
+                method: 'get',
+                url: this.siteurl + '/wp-json/gamux/v1/categories/256',
+            });
+            return a.data;
+        },
         getJsonComm: async function(url) {
             const a = await axios({
                 method: 'get',
@@ -67,6 +75,9 @@ var index = new Vue({
         this.$nextTick(function() {
             this.carHeight = this.getCarHeight();
         });
+        //游戏数量
+        const cateGames = await this.getCatGamesJson();
+        this.gamecount = cateGames.count;
         //首页轮播
         const cate = await this.getCatJson();
         for (var i = 0; i < cate.length; i++) {
