@@ -1,5 +1,6 @@
 <?php
 	namespace Gamux;
+	include_once("oauth2_config.php");
 /**
  * class Oauth2
  * 第三方登录的通用父类
@@ -66,7 +67,27 @@ class Oauth2{
 		return true;
 	}
 
-	private function oauth_redirect() {}
+	// 保存用户登录前最后访问的页面
+	public static function save_url() {
+		session_start();
+		$_SESSION['gamux_last_visit'] = $_GET['path'];
+		echo 1;
+	}
+
+	// 需要客户端重新发起请求，以获取session中保存的最后访问页面链接
+	public static function oauth_redirect() {
+		wp_safe_redirect(site_url() . '/wp-json/gamux/v1' . '/oauth/redirect2');
+		exit(0);
+	}
+
+	// 重定向到最后访问的页面
+	public static function oauth_redirect2() {
+		session_start();
+		$url = site_url();
+		if(!empty($_SESSION['gamux_last_visit']))
+			$url = $url . $_SESSION['gamux_last_visit'];
+		wp_safe_redirect($url);
+	}
 
 	private function request_access_token() {}
 

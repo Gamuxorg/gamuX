@@ -84,7 +84,7 @@
   
     <div id="avatar" v-if="islogin == 0">
       <div class="block avatar-inner">
-        <el-button class="login-button" type="text" ref="login" @click="dialogloginVisible = true">点击登录</el-button>
+        <el-button class="login-button" type="text" ref="login" @click="dialogloginVisible = true; saveCurrentUrl();">点击登录</el-button>
       </div>
     </div>
     <div id="avatar" v-else>

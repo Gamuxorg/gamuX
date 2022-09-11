@@ -43,6 +43,14 @@ var gamux = new Vue({
             this.siteurl = wwwpath.substring(0, pos);
             this.cururl = wwwpath;
         },
+        // 保存登录前最后访问的页面地址
+        saveCurrentUrl: async function() {
+            axios({
+                method: 'get',
+                url: this.siteurl + "/wp-json/gamux/v1/oauth/save_url?path=" + document.location.pathname,
+                responseType: 'json',
+            });
+        },
     },
     mounted: async function() {
         this.getSiteUrl();

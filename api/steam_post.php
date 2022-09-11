@@ -119,6 +119,7 @@ str;
 		$slides = self::delimiter_start . "\n\n";
 		foreach($steamData->screenshots as $imageData) {
 			$url = $imageData->path_thumbnail;
+			$url = str_replace("cdn.akamai.steamstatic.com", "media.st.dl.eccdnx.com", $url);	// 使用国内的CDN
 			$slides = $slides . str_replace('@placeholder', $url, self::slide_template) . "\n\n";
 		}
 		$slides = $slides . self::delimiter_end . "\n\n";
@@ -203,7 +204,10 @@ str;
 		$requirement_key = "linux_requirements";
 
 		$json = $this->request_steam_content($appid);
-		if(!empty($json) and $json != false) {
+		if($json == -1) {
+			return $this->exceptions(-1, "Failed to fetch Steam post content, maybe the game is not available now.");
+		}
+		else if(!empty($json) and $json != false) {
 			$steamData = json_decode($json)->$appid->data;
 		}
 		else

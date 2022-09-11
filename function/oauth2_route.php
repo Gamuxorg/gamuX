@@ -24,3 +24,19 @@ add_action('rest_api_init', function () {
 		'permission_callback' => '__return_true'
 	));
 });
+
+add_action('rest_api_init', function () {
+	register_rest_route( 'gamux/v1', '/oauth/save_url', array(
+		'methods' => 'GET',
+		'callback' => '\Gamux\Oauth2::save_url',
+		'permission_callback' => '__return_true'
+	));
+});
+
+add_action('rest_api_init', function () {
+	register_rest_route( 'gamux/v1', '/oauth/redirect2', array(
+		'methods' => 'GET',
+		'callback' => '\Gamux\Oauth2::oauth_redirect2',
+		'permission_callback' => '__return_true'
+	));
+});

@@ -16,29 +16,15 @@
 	}
 
 	/**
-	 * 检查链接是否网盘链接
-	 * @TODO 完善网盘链接
+	 * 检查链接是否网盘链接, 通过判断是否是站内的下载链接来进行
 	 * 
 	 * @return bool
 	 */
 	function is_netdisk_link(string $link) {
-		$netdiskHost = array(
-			"baidu.com",
-			"weiyun.com",
-			"189.cn",
-			"yandex.com",
-			"jianguoyun.com",
-			"onedrive.com",
-			"huawei.com",
-			"lanzou.com",
-			"ctfile.com"
-		);
-		foreach($netdiskHost as $host) {
-			$ret = preg_match("/$host/i", $link);
-			if($ret)
-				return true;
-		}
-		return false;
+		if(strstr($link, "linuxgame.cn/download"))
+			return false;
+		else
+			return true;
 	}
 	
 	/**

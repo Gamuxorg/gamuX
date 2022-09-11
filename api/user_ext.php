@@ -36,7 +36,7 @@
 		switch($type) {
 			case "github":
 				$github_id = get_user_meta($uid, 'github_id', true);
-				$avatar = "https://avatars2.githubusercontent.com/u/$github_id?v=3";
+				$avatar = "https://www.linuxgame.cn/git_avatar.php?id=$github_id";
 				break;
 			case "weibo":
 				$avatar = get_user_meta($uid, "weibo_avatar", true);

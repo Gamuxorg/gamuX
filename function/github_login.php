@@ -7,15 +7,7 @@
  * 
  */
 class Github_Oauth extends Oauth2{
-	const APPID = "";		//请填入github的appid
-	const APPSECRET = "";	//请填入github的appsecret
-	const STATE = "ggggaaaa";					//用于防止CSRF的随机字符串
 	const REDIRECT_ROUTE = '/wp-json/gamux/v1/oauth/github';
-
-	//完成所有步骤后，重定向回主页
-	private function oauth_redirect() {
-		wp_redirect(site_url());		//记得改回wp_safe_redirect  HTTPS
-	}
 
 	/**
 	 * 使用github返回的code请求access_token
@@ -24,15 +16,15 @@ class Github_Oauth extends Oauth2{
 	 */
 	private function request_access_token() {
 		//防止CSRF攻击
-		$this->check_csrf(self::STATE);
+		$this->check_csrf(Oauth\GITHUB_STATE);
 
 		$request_url = "https://github.com/login/oauth/access_token";
 		$data = array(
-			'client_id' => self::APPID,
-			'client_secret' => self::APPSECRET,
+			'client_id' => Oauth\GITHUB_APPID,
+			'client_secret' => Oauth\GITHUB_APPSECRET,
 			'code' => $this->code,
 			'redirect_uri' => site_url() . self::REDIRECT_ROUTE,
-			'state' => self::STATE
+			'state' => Oauth\GITHUB_STATE
 		);
 		//发送POST请求
 		$response = wp_remote_post($request_url, array(
@@ -158,16 +150,16 @@ class Github_Oauth extends Oauth2{
 	 * @return string $url
 	 */
 	function github_login_url() : string {
-		$url = 'https://github.com/login/oauth/authorize?client_id=' . Github_Oauth::APPID . '&scope=user&state=' . Github_Oauth::STATE . '&redirect_uri='. site_url() . Github_Oauth::REDIRECT_ROUTE;
+		$url = 'https://github.com/login/oauth/authorize?client_id=' . Oauth\GITHUB_APPID . '&scope=read:user&state=' . Oauth\GITHUB_STATE . '&redirect_uri='. site_url() . Github_Oauth::REDIRECT_ROUTE;
 		return $url;
 	}
 
 	//用户已登录，返回前端所需的github头像和用户名
 	function get_avatar_info() {
-		$current_user = get_currentuserinfo();
+		$current_user = wp_get_current_user();
 		$id = $current_user->ID;
 		$github_id = get_user_meta($id, 'github_id', true);
-		$avatar = "https://avatars2.githubusercontent.com/u/$github_id?v=3";
+		$avatar = 'https://www.linuxgame.cn/git_avatar.php?id='. $github_id;
 		$name = $current_user->display_name;
 		return array($name, $avatar);
 	}

@@ -7,18 +7,10 @@
  * 
  */
 class Weibo_Oauth extends Oauth2{
-	const APPID = "";
-	const APPSECRET = "";
-	const STATE = "";					//用于防止CSRF的随机字符串
 	const REDIRECT_ROUTE = '/wp-json/gamux/v1/oauth/weibo';
 
 	public $uid;		//weibo返回的uid
 	public $email;		//weibo返回的用户email
-
-	//完成所有步骤后，重定向回主页
-	private function oauth_redirect() {
-		wp_safe_redirect(site_url());
-	}
 
 	/**
 	 * 使用weibo返回的code请求access_token和uid
@@ -26,10 +18,13 @@ class Weibo_Oauth extends Oauth2{
 	 * @return bool
 	 */
 	private function request_access_token() {
-		$this->check_csrf(self::STATE);
+		$this->check_csrf(Oauth\WEIBO_STATE);
 
 		//发送POST请求
-		$request_url = "https://api.weibo.com/oauth2/access_token?client_id=" . self::APPID . "&client_secret=" . self::APPSECRET . "&grant_type=authorization_code&redirect_uri=" . site_url() . self::REDIRECT_ROUTE . "&code=" . $this->code;
+		$request_url = "https://api.weibo.com/oauth2/access_token?client_id=" . Oauth\WEIBO_APPID .
+						"&client_secret=" . Oauth\WEIBO_APPSECRET . 
+						"&grant_type=authorization_code&redirect_uri=" . site_url() . 
+						self::REDIRECT_ROUTE . "&code=" . $this->code;
 		$response = wp_remote_post($request_url);
 		
 		$output = $this->check_response_error($response, $target = "access_token");
@@ -203,7 +198,7 @@ class Weibo_Oauth extends Oauth2{
 
 	// 返回前端所需的登录URL
 	function weibo_login_url() {
-		$url = "https://api.weibo.com/oauth2/authorize?client_id=" . Weibo_Oauth::APPID . "&state=" . Weibo_Oauth::STATE . "&response_type=code&redirect_uri=" . site_url() . Weibo_Oauth::REDIRECT_ROUTE;
+		$url = "https://api.weibo.com/oauth2/authorize?client_id=" . Oauth\WEIBO_APPID . "&state=" . Oauth\WEIBO_STATE . "&response_type=code&redirect_uri=" . site_url() . Weibo_Oauth::REDIRECT_ROUTE;
 		return $url;
 	}
 

@@ -7,18 +7,10 @@
  * 
  */
 class QQ_Oauth extends Oauth2 {
-	const APPID = "";
-	const APPSECRET = "";
-	const STATE = "";					//用于防止CSRF的随机字符串
 	const REDIRECT_ROUTE = '/wp-json/gamux/v1/oauth/qq';
 
 	public $openid;		//qq返回的openid，可唯一识别用户
 	public $unionid;	//qq返回的unionid，可唯一识别用户
-
-	//完成所有步骤后，重定向回主页
-	private function oauth_redirect() {
-		wp_safe_redirect(site_url());
-	}
 
 	/**
 	 * 使用qq返回的code请求access_token
@@ -26,10 +18,13 @@ class QQ_Oauth extends Oauth2 {
 	 * @return bool
 	 */
 	private function request_access_token() {
-		$this->check_csrf(self::STATE);
+		$this->check_csrf(Oauth\QQ_STATE);
 
 		//发送GET请求
-		$request_url = "https://graph.qq.com/oauth2.0/token?client_id=" . self::APPID . "&client_secret=" . self::APPSECRET . "&grant_type=authorization_code&redirect_uri=" . site_url() . self::REDIRECT_ROUTE . "&code=" . $this->code;
+		$request_url = "https://graph.qq.com/oauth2.0/token?client_id=" . Oauth\QQ_APPID . 
+						"&client_secret=" . Oauth\QQ_APPSECRET . 
+						"&grant_type=authorization_code&redirect_uri=" . site_url() . 
+						self::REDIRECT_ROUTE . "&code=" . $this->code;
 		$response = wp_remote_get($request_url);
 		$this->check_response_error($response, $target = "access_token");
 
@@ -75,7 +70,7 @@ class QQ_Oauth extends Oauth2 {
 	private function request_user_info() {
 		$token = $this->token;
 		$openid = $this->openid;
-		$url = "https://graph.qq.com/user/get_user_info?access_token={$token}&oauth_consumer_key=" . self::APPID . "&openid={$openid}";
+		$url = "https://graph.qq.com/user/get_user_info?access_token={$token}&oauth_consumer_key=" . Oauth\QQ_APPID . "&openid={$openid}";
 		//发送GET请求
 		$response = wp_remote_get($url);
 		$output = $this->check_response_error($response, $target = "user_info");
@@ -183,7 +178,7 @@ class QQ_Oauth extends Oauth2 {
 
 	// 返回前端所需的登录URL
 	function qq_login_url() {
-		$url = "https://graph.qq.com/oauth2.0/authorize?client_id=" . QQ_Oauth::APPID . "&state=" . QQ_Oauth::STATE . "&response_type=code&redirect_uri=" . site_url() . QQ_Oauth::REDIRECT_ROUTE;
+		$url = "https://graph.qq.com/oauth2.0/authorize?client_id=" . Oauth\QQ_APPID . "&state=" . Oauth\QQ_STATE . "&response_type=code&redirect_uri=" . site_url() . QQ_Oauth::REDIRECT_ROUTE;
 		return $url;
 	}
 
