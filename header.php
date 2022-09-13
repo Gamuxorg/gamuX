@@ -72,7 +72,7 @@
           </el-menu-item>
           <el-menu-item index="5">
             <i class="el-icon-chat-line-square"></i>
-            <span slot="title"><a href="https://github.com/Gamuxorg/bbs/issues" target="_blank">交流面板</a></span>
+            <span slot="title"><a href="https://github.com/Gamuxorg/bbs/discussions" target="_blank">交流面板</a></span>
           </el-menu-item>
           <el-menu-item index="6">
             <i class="el-icon-milk-tea"></i>
@@ -84,7 +84,7 @@
   
     <div id="avatar" v-if="islogin == 0">
       <div class="block avatar-inner">
-        <el-button class="login-button" type="text" ref="login" @click="dialogloginVisible = true; saveCurrentUrl();">点击登录</el-button>
+        <el-button class="login-button" type="text" ref="login" @click="dialogloginVisible = true">点击登录</el-button>
       </div>
     </div>
     <div id="avatar" v-else>

@@ -6,6 +6,7 @@
 <script crossorigin="anonymous" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" src="https://lib.baomitu.com/axios/0.20.0/axios.min.js"></script>
 <script src="<?php bloginfo('template_url'); ?>/js/common.js"></script>
 <?php if (is_home() || is_front_page()) { ?>
+  <script src="https://cdn.jsdelivr.net/npm/graphql.js@0.6.6/graphql.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/js/index.js"></script>
 <?php } elseif(is_category() or (strpos($_SERVER['REQUEST_URI'], 'gamelist') != false)){ ?>
 	<script src="<?php bloginfo('template_url'); ?>/js/category.js"></script>

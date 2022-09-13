@@ -76,7 +76,7 @@ get_header(); ?>
     <el-card class="comment-card box-card">
       <div slot="header" class="commment-header clearfix">
         <span>游戏评论</span>
-        <el-button style="float: right; padding: 3px 0" type="text"><a href='<?php echo site_url("/wp-admin/edit-comments.php") ?>'>更多评论</a></el-button>
+        <el-button style="float: right; padding: 3px 0" type="text"><a href='<?php echo site_url("/wp-admin/edit-comments.php") ?>' target="_blank">更多评论</a></el-button>
       </div>
       <div class="comment-list text item">
       <?php
@@ -105,14 +105,14 @@ get_header(); ?>
   </el-col>
 
   <el-col class="gro-col-2" ref="grocol2" :xs="24" :sm="12" :md="12" :lg="10">
-    <el-card class="wish-card box-card">
+    <el-card class="comment-card wish-card box-card">
       <div slot="header" class="wish-header clearfix">
         <span>愿望清单</span>
-        <el-button style="float: right; padding: 3px 0" type="text" >更多评论</el-button>
+        <el-button style="float: right; padding: 3px 0" type="text"><a href="https://github.com/Gamuxorg/bbs/discussions" target="_blank">查看更多</a></el-button>
       </div>
       <div class="wish-lists text item">
         <div class="wish-text" v-for="wish in wishlist">
-          <div class="wish-title"><a :href="wish.html_url" target="_blank">{{ wish.title }}</a></div>
+          <div class="wish-title"><a :href="wish.url" target="_blank">{{ wish.title }}</a></div>
         </div>
       </div>
     </el-card>
