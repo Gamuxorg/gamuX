@@ -26,9 +26,7 @@ var index = new Vue({
         getWishList: async function() {
             var graph = graphql("https://api.github.com/graphql", {
                 headers: {
-                    "Authorization": "Bearer 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",
-                    "Accept": "application/vnd.github.v4.idl",
-                    "GraphQL-Features": "discussions_api"
+                    "Authorization": "Bearer ",
                 },
                 asJSON: true
             });
