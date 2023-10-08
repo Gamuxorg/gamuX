@@ -12,7 +12,13 @@
 	 * @return string
 	 */
 	function get_user_login_type($uid) : string {
-		$login_name = get_userdata($uid)->get("user_login");
+		if($uid > 0 and !empty($uid)) {
+			$uid = (int)($uid);
+			$user = \get_userdata($uid);
+		}
+		else
+			return "null";
+		$login_name = $user->get("user_login");
 		$type_prefix = [
 			"github" => "/^github_/",
 			"weibo" => "/^weibo_/",

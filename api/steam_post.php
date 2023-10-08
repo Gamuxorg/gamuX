@@ -204,10 +204,7 @@ str;
 		$requirement_key = "linux_requirements";
 
 		$json = $this->request_steam_content($appid);
-		if($json == -1) {
-			return $this->exceptions(-1, "Failed to fetch Steam post content, maybe the game is not available now.");
-		}
-		else if(!empty($json) and $json != false) {
+		if(!empty($json) and $json != false) {
 			$steamData = json_decode($json)->$appid->data;
 		}
 		else
@@ -239,7 +236,7 @@ str;
 		$peizhi_rec = $this->fix_peizhi($recommended);
 
 		// 移除轮播修正钩子
-		remove_filter('content_save_pre', '\Gamux\filter_slides_delimiter');
+		// remove_filter('content_save_pre', '\Gamux\filter_slides_delimiter');
 
 		$postID = wp_insert_post([
 			'ID'					=> $this->postID,		//当提供了ID时更新现有文章
