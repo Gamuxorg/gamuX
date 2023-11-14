@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     gamux轮播图URL区块
  * Description:     Block written with ESNext standard and JSX support – build step required.
- * Version:         1.1.0
+ * Version:         1.2.0
  * Author:          hyh19962008@Github
  * License:         GPL-3.0
  * License URI:     https://www.gnu.org/licenses/gpl-3.0.html
@@ -180,12 +180,12 @@ function filter_slides_delimiter($content) {
 		$pos_slide_start = mb_strpos($content, $delimiter_slide_start, 0, $encoding);
 		$pos_slide_end = mb_strrpos($content, $delimiter_slide_end, 0, $encoding) + mb_strlen($delimiter_slide_end);
 		if($pos_slide_start !== false and $pos_slide_end !== false) {		
-			$delimiter_content_start = <<<doc1
+			$delimiter_content_start = <<<'doc1'
 <!-- wp:paragraph {"align":"center"} -->
 <p class="has-text-align-center"><strong class="has-medium-font-size" contenteditable="false">----------------------------------轮播图片---------------------------------------</strong></p>
 <!-- /wp:paragraph -->
 doc1;
-			$delimiter_content_end = <<<doc2
+			$delimiter_content_end = <<<'doc2'
 <!-- wp:paragraph {"align":"center"} -->
 <p class="has-text-align-center"><strong class="has-medium-font-size" contenteditable="false">-----------------------------------文章正文---------------------------------------</strong></p>
 <!-- /wp:paragraph -->

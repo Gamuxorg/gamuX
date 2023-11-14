@@ -48,6 +48,22 @@ export default function Edit( {
         this.parentNode.parentNode.previousSibling.style.display=(attributes.content=="") ? "none" : "block";
     }
 
+    const onOpenMediauploader = (e) => {
+		e.preventDefault();
+        var uploader_1 = wp.media( {
+            title: 'Upload Image',
+            button: {
+                text: '选择'
+            },
+            multiple: false
+        }).on( 'select', () => {
+            var media = uploader_1.state().get('selection').first().toJSON();
+            setAttributes( { content: media.url } );
+        }).on( 'error', ( errorMessage ) => {
+            console.error( 'Upload Error: ', errorMessage );
+        }).open();
+    };
+
     return (
         <div { ...useBlockProps() } >
             <figure class="wp-block-image size-large">
@@ -59,6 +75,13 @@ export default function Edit( {
                     setAttributes( { content: val } );
                 } }
             />
+            <Button 
+                isSecondary 
+                isSmall
+                className="addSlideImage-botton"
+                onClick={ onOpenMediauploader }>
+                    上传本地图片
+            </Button>
             <Button 
                 isSecondary 
                 isSmall
