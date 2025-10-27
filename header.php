@@ -19,7 +19,7 @@
 		?>
 	</title>
 	<link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/logo.ico">
-  <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/element-ui/2.15.3/theme-chalk/index.min.css" type="text/css" rel="stylesheet" />
+  <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.3/theme-chalk/index.min.css" type="text/css" rel="stylesheet" />
   <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/style.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <?php if(is_single()) { ?>
