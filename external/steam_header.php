@@ -17,7 +17,7 @@
 		'Accept-Language:zh'
 	]);
 	header_remove("Content-Type");
-	header("Content-Type : application/json");
+	header("Content-Type:application/json");	// header里不能有空格，php不认
 	
 	$response = curl_exec($curl);
 	if(curl_errno($curl) == 0) {
