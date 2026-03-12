@@ -71,6 +71,17 @@ var index = new Vue({
                     "categories": this.cateidlist,
                 }
             });
+            for (var i = 0; i < a.data.length; i++) {
+                // 展示时不显示"ARM架构"分类
+                if (a.data[i].exts.categories.length > 1) {
+                    for (var j = 0; j < a.data[i].exts.categories.length; j++) {
+                        if (a.data[i].exts.categories[j].cat_id == 441) {
+                            a.data[i].exts.categories.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+            }
             return a.data;
         }
     },

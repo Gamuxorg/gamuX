@@ -41,6 +41,19 @@ var category = new Vue({
             }
             return queryParsec;
         },
+        removeARMCategory: function(a) {
+            for (var i = 0; i < a.data.length; i++) {
+                // 展示时不显示"ARM架构"分类
+                if (a.data[i].exts.categories.length > 1) {
+                    for (var j = 0; j < a.data[i].exts.categories.length; j++) {
+                        if (a.data[i].exts.categories[j].cat_id == 441) {
+                            a.data[i].exts.categories.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+            }
+        },
         clickCat: async function(e) {
             this.CURRENTID = e.currentTarget.id;
             const a = await axios({
@@ -51,6 +64,7 @@ var category = new Vue({
                     "categories": this.CURRENTID
                 },
             });
+            this.removeARMCategory(a);
             this.CURRENTPAGE = 1;
             this.POSTDATA = a.data;
             this.TOTAL = Number(a["headers"]["x-wp-total"]);
@@ -75,6 +89,7 @@ var category = new Vue({
                 url: this.SITEURL + '/wp-json/wp/v2/posts',
                 params: handleCurrentChange_param,
             });
+            this.removeARMCategory(a);
             this.POSTDATA = a.data;
             console.log(this.POSTDATA);
             window.history.pushState(null, null, this.SITEURL + "/gamelist?cat=" + this.CURRENTID + "&page=" + this.CURRENTPAGE);
@@ -121,9 +136,9 @@ var category = new Vue({
                 url: this.SITEURL + '/wp-json/wp/v2/posts',
                 params: getPostJson_param,
             });
+            this.removeARMCategory(a);
             let b = a;
             return b;
-
         },
     },
     mounted: async function() {
